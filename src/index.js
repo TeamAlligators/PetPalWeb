@@ -1,7 +1,20 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import App from "./App";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import Home from "./routes/Home";
+import PetSearch from "./routes/PetSearch";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Home />,
+  },
+  {
+    path: "/search",
+    element: <PetSearch />,
+  },
+]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -22,6 +35,6 @@ root.render(
       />
       <link rel="stylesheet" href="index-style.css" />
     </head>
-    <App />
+    <RouterProvider router={router} />
   </React.StrictMode>
 );
