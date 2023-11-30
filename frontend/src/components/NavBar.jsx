@@ -1,7 +1,10 @@
 import { Link, NavLink } from "react-router-dom"
 import "./NavBar.css"
+import useUser from "../context/UserContext"
 
 function NavBar() {
+	const user = useUser()
+
 	return (
 		<nav id="navigation-bar">
 			<span id="nav-item-left">
@@ -83,15 +86,20 @@ function NavBar() {
 						<a href="#">Notification 3</a>
 					</div>
 				</div>
-				{/* <a class="nav-name" href="seeker-profile.html">
-          First Last
-        </a> */}
-				<NavLink className="sign-up-button" to={`/signup`}>
-					Signup
-				</NavLink>
-				<NavLink className="sign-up-button" to={`/login`}>
-					Login
-				</NavLink>
+				{user.userId ? (
+					<a class="nav-name" href="seeker-profile.html">
+						First Last
+					</a>
+				) : (
+					<>
+						<NavLink className="sign-up-button" to={`/signup`}>
+							Signup
+						</NavLink>
+						<NavLink className="sign-up-button" to={`/login`}>
+							Login
+						</NavLink>
+					</>
+				)}
 			</span>
 		</nav>
 	)

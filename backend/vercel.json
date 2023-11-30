@@ -1,0 +1,14 @@
+{
+	"builds": [
+		{
+			"src": "petpal/petpal/wsgi.py",
+			"use": "@vercel/python"
+		}
+	],
+	"routes": [
+		{
+			"src": "/(.*)",
+			"dest": "petpal/petpal/wsgi.py"
+		}
+	]
+}
