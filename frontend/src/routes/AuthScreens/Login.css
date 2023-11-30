@@ -1,0 +1,303 @@
+/* .logo {
+  width: 150px;
+  margin-left: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+} */
+
+.logo {
+	width: 175px;
+	padding: 10px;
+}
+
+.something {
+	display: flex;
+	justify-content: center;
+}
+
+main {
+	background-color: #ffdfd3;
+}
+
+.signup {
+	background-color: #fff;
+	width: 500px;
+	border-radius: 25px;
+	margin-bottom: 5rem;
+	box-shadow: -1px -1px 20px rgba(0, 0, 0, 0.25);
+	padding: 1rem;
+	justify-content: center;
+	align-items: center;
+	align-self: center;
+	text-align: center;
+}
+
+.dogscats {
+	width: 50%;
+}
+
+.welcome {
+	color: #0c0c0c;
+	font-size: 45px;
+	font-family: Playfair Display, "serif";
+	font-weight: 900;
+}
+
+form {
+	margin-top: 30px;
+	margin-bottom: 1rem;
+}
+
+.grid-container {
+	font-family: Nunito, sans-serif;
+	/* display: grid; */
+	/* grid-template-columns: 1fr; */
+	margin-left: 8px;
+	margin-right: 8px;
+	row-gap: 16px;
+}
+
+.grid-item {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 10px;
+	font-family: Nunito, sans-serif;
+	font-size: 18px;
+	font-weight: 500;
+}
+
+input {
+	border: 1px #c8c8c8 solid;
+	padding: 10px;
+	width: 100%;
+	height: 50px;
+	box-shadow: -1px -1px 20px rgba(153.21, 153.21, 153.21, 0.13);
+	border-radius: 15px;
+}
+
+.login {
+	border: 0px;
+	background-color: black;
+	width: 100%;
+	height: 50px;
+	border-radius: 15px;
+	box-shadow: -1px -1px 20px rgba(0, 0, 0, 0.25);
+	padding: 10px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: white;
+	font-weight: 700;
+	margin-top: 15px;
+}
+
+input[type="radio"] {
+	height: 20px;
+	width: 20px;
+	border: 0px;
+}
+
+.grid-item2 {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly;
+	align-items: center;
+	margin-bottom: 10px;
+	font-family: Nunito, sans-serif;
+	font-size: 20px;
+	font-weight: 500;
+	flex-wrap: wrap;
+	align-content: stretch;
+}
+
+@media only screen and (max-width: 480px) {
+	.header {
+		font-weight: 600;
+		font-size: 48px;
+	}
+
+	.paragraph {
+		font-size: 14px;
+	}
+
+	.index-picture {
+		display: none;
+	}
+
+	.sign-up-button {
+		font-size: 12px;
+		padding: 6px;
+	}
+
+	.logo {
+		width: 100px;
+		padding: 5px;
+		padding-top: 0;
+	}
+}
+
+@media only screen and (max-width: 700px) {
+	.index-picture {
+		display: none;
+	}
+	.body-text {
+		width: 90vw;
+	}
+
+	.body-item {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		text-align: left;
+		width: 90vw;
+	}
+
+	.nav-link {
+		display: none;
+	}
+
+	.nav-icon {
+		margin-left: 8px;
+		margin-right: 8px;
+		position: relative;
+	}
+
+	.notification-container {
+		margin-left: 0px;
+		margin-right: 0px;
+		position: relative;
+	}
+
+	.logo {
+		width: 150px;
+		padding: 10px;
+		padding-top: 0;
+	}
+
+	.sign-up-button {
+		font-size: 16px;
+	}
+}
+
+@media only screen and (max-width: 480px) {
+	.header {
+		font-weight: 600;
+		font-size: 48px;
+	}
+
+	.paragraph {
+		font-size: 14px;
+	}
+
+	.index-picture {
+		display: none;
+	}
+
+	.sign-up-button {
+		font-size: 12px;
+		padding: 6px;
+	}
+
+	.logo {
+		width: 100px;
+		padding: 5px;
+		padding-top: 0;
+	}
+
+	.nav-name {
+		font-size: 12px;
+	}
+}
+
+@media only screen and (max-width: 700px) {
+	.index-picture {
+		display: none;
+	}
+	.body-text {
+		width: 90vw;
+	}
+
+	.body-item {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		text-align: left;
+		width: 90vw;
+	}
+
+	.nav-link {
+		display: none;
+	}
+
+	.nav-icon {
+		margin-left: 8px;
+		margin-right: 8px;
+		position: relative;
+	}
+
+	.notification-container {
+		margin-left: 0px;
+		margin-right: 0px;
+		position: relative;
+	}
+
+	.logo {
+		width: 150px;
+		padding: 10px;
+		padding-top: 0;
+	}
+
+	.sign-up-button {
+		font-size: 16px;
+	}
+}
+
+@media only screen and (max-width: 730px) {
+	.sign-up-button {
+		font-size: 16px;
+	}
+}
+
+@media only screen and (max-width: 1200px) {
+	.index-picture {
+		width: 500px;
+	}
+
+	.logo {
+		width: 150px;
+	}
+
+	.sign-up-button {
+		font-size: 16px;
+	}
+
+	.nav-name {
+		font-size: 16px;
+	}
+}
+
+.nav-icon {
+	color: black;
+}
+
+.nav-icon:hover {
+	color: #d0a1a1;
+}
+
+.nav-name {
+	color: black;
+	font-weight: 600;
+	font-size: 24px;
+	padding: 16px;
+	text-decoration: none;
+}
+
+.nav-name:hover {
+	color: #d0a1a1;
+}
+
+main {
+	height: 100vh;
+}
