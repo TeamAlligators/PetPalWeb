@@ -6,6 +6,7 @@ const UserContext = createContext({
 	last_name: "",
 	account_type: "",
 	setUserInfo: () => {},
+	token: "",
 })
 
 export const UserProvider = ({ children }) => {
@@ -14,6 +15,7 @@ export const UserProvider = ({ children }) => {
 		first_name: "",
 		last_name: "",
 		account_type: "",
+		token: "",
 	})
 
 	return (
@@ -23,6 +25,8 @@ export const UserProvider = ({ children }) => {
 	)
 }
 
-export const useUser = () => {
+const useUser = () => {
 	return useContext(UserContext)
 }
+
+export default useUser
