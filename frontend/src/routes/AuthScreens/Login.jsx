@@ -1,7 +1,10 @@
 import { NavLink } from "react-router-dom/dist"
 import "./Login.css"
+import useUser from "../../context/UserContext"
 
 function Login() {
+	const user = useUser()
+
 	return (
 		<main>
 			<NavLink to={`/`}>
