@@ -1,3 +1,4 @@
+import { NavLink } from "react-router-dom"
 import NavBar from "../components/NavBar"
 import classes from "./PetSearch.module.css"
 
@@ -57,9 +58,12 @@ function PetSearch() {
 							</p>
 							<p>Some breed</p>
 						</div>
-						<a class={classes["details-button"]} href="pet-details.html">
+						{/* <a class={classes["details-button"]} href="pet-details.html">
 							See Details
-						</a>
+						</a> */}
+            <NavLink className={classes["details-button"]} to={`/petdetails`}>
+              See Details
+            </NavLink>
 					</div>
 				</div>
 			</div>
