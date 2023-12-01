@@ -73,13 +73,19 @@
     margin-top: 5vh;
     margin-bottom: 5vh;
   }
-  .derpycat {
+  /* .derpycat {
     margin-left: 25%;
     margin-right: 25%;
-  }
+    width: 50%;
+    height: 50%;
+  } */
   
   img {
     border-radius: 30px;
+    width: 50%;
+    height: 50%;
+    margin-left: 25%;
+    margin-right: 25%;
   }
   
   .grid-container {
