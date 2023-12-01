@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom/dist"
-import "./Login.css"
+import styles from "./Login.module.css"
 import useUser from "../../context/UserContext"
 
 function Login() {
@@ -8,19 +8,19 @@ function Login() {
 	return (
 		<main>
 			<NavLink to={`/`}>
-				<img src={require("../../images/logo.png")} class="logo" alt="logo" />
+				<img src={require("../../images/logo.png")} className={styles.logo} alt="logo" />
 			</NavLink>
-			<div class="something">
-				<div class="signup">
-					<h1 class="welcome">Welcome back!</h1>
+			<div className={styles.container}>
+				<div className={styles.login}>
+					<h1 className={styles.welcome}>Welcome back!</h1>
 					<img
-						class="dogscats"
+						className={styles.dogscats}
 						src={require("../../images/signup1.png")}
 						alt="Dog and cat"
 					/>
-					<div class="grid-container">
-						<form action="index.html">
-							<div class="grid-item">
+					<div className={styles.gridContainer}>
+						<form className={styles.form} action="index.html">
+							<div className={styles.gridItem}>
 								<input
 									id="email"
 									type="email"
@@ -29,7 +29,7 @@ function Login() {
 									required
 								/>
 							</div>
-							<div class="grid-item">
+							<div className={styles.gridItem}>
 								<input
 									id="password"
 									type="password"
@@ -38,8 +38,8 @@ function Login() {
 									required
 								/>
 							</div>
-							<div class="grid-item">
-								<button class="login" type="submit">
+							<div className={styles.gridItem}>
+								<button className={styles.loginButton} type="submit">
 									Log In
 								</button>
 							</div>

@@ -1,0 +1,55 @@
+@font-face {
+    font-family: PlayFairDisplay;
+    src: url(../../fonts/PlayfairDisplay-VariableFont_wght.ttf);
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: Nunito;
+    src: url(../../fonts/Nunito-VariableFont_wght.ttf);
+}
+
+.shelterManagementBar {
+    width: 100vw;
+    text-align: center;
+    align-items: center;
+}
+
+.header {
+    margin-top: 16px;
+    font-weight: 600;
+    font-size: 62px;
+    font-family: PlayFairDisplay;
+}
+ 
+.shelterContainer {
+    margin-top: 28px;
+    margin-bottom: 32px;
+}
+ 
+.optionsButton {
+    font-family: Nunito;
+    color: white;
+    background-color: #bbb;
+    border-radius: 25px;
+    font-weight: 600;
+    font-size: 18px;
+    text-decoration: none;
+    padding: 10px;
+    padding-left: 28px;
+    padding-right: 28px;
+    text-align: center;
+    margin: 5px;
+    transition: all 0.2s;
+    border: 0px;
+	box-shadow: -1px -1px 20px rgba(0, 0, 0, 0.25);	
+}
+ 
+.optionsButton:hover {
+    color: white;
+    background-color: #d0a1a1;
+}
+ 
+.active-button {
+    background-color: #d0a1a1;
+}

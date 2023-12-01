@@ -7,6 +7,13 @@ import PetSearch from "./routes/PetSearch"
 import { UserProvider } from "./context/UserContext"
 import Login from "./routes/AuthScreens/Login"
 import Signup from "./routes/AuthScreens/Signup"
+import PetCreation from "./routes/ShelterManagementScreens/PetCreation"
+import ShelterUpdate from "./routes/ShelterManagementScreens/UpdateShelterAccount"
+import SeekerUpdate from "./routes/SeekerManagementScreens/UpdateSeekerAccount"
+import ViewMyApplications from "./routes/ShelterManagementScreens/MyApplications"
+import ViewMyListings from "./routes/ShelterManagementScreens/MyListings"
+import PetUpdate from "./routes/ShelterManagementScreens/PetUpdate"
+import ShelterReview from "./routes/ShelterReview"
 
 const router = createBrowserRouter([
 	{
@@ -25,6 +32,34 @@ const router = createBrowserRouter([
 		path: "/signup",
 		element: <Signup />,
 	},
+	{
+		path: "/seekermanagement",
+		element: <SeekerUpdate />,
+	},
+	{
+		path: "/sheltermanagement",
+		element: <ShelterUpdate />,
+	},
+	{
+		path: "/sheltermanagement/petcreation",
+		element: <PetCreation />,
+	},
+	{
+		path: "/sheltermanagement/petupdate",
+		element: <PetUpdate />,
+	},
+	{
+		path: "sheltermanagement/applications",
+		element: <ViewMyApplications />,
+	},
+	{
+		path: "sheltermanagement/listings",
+		element: <ViewMyListings />,
+	},
+	{
+		path: "shelters/review",
+		element: <ShelterReview />,
+	}
 ])
 
 const root = ReactDOM.createRoot(document.getElementById("root"))

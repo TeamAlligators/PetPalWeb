@@ -1,22 +1,22 @@
 import { Link, NavLink } from "react-router-dom"
-import "./NavBar.css"
+import styles from "./NavBar.module.css"
 import useUser from "../context/UserContext"
 
 function NavBar() {
 	const user = useUser()
 
 	return (
-		<nav id="navigation-bar">
-			<span id="nav-item-left">
-				<a href="index.html">
+		<nav id={styles.navigationBar}>
+			<span id={styles.navItemLeft}>
+				<NavLink className={styles.navLink} to={`/`}>
 					<img src={require("../images/logo.png")} class="logo" alt="logo" />
-				</a>
+				</NavLink>
 			</span>
-			<span id="nav-item">
-				<NavLink className="nav-link" to={`/search`}>
+			<span id={styles.navItem}>
+				<NavLink className={styles.navLink} to={`/search`}>
 					Search
 				</NavLink>
-				<NavLink to={`/search`}>
+				<NavLink className={styles.navIcon} to={`/search`}>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						width="24"
@@ -29,10 +29,10 @@ function NavBar() {
 					</svg>
 				</NavLink>
 
-				<a class="nav-link" href="available-shelters.html">
+				<a className={styles.navLink} href="available-shelters.html">
 					Shelters
 				</a>
-				<a class="nav-icon" href="available-shelters.html">
+				<a className={styles.navIcon} href="available-shelters.html">
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						width="24"
@@ -46,10 +46,10 @@ function NavBar() {
 					</svg>
 				</a>
 
-				<a class="nav-link" href="faq-page.html">
+				<a className={styles.navLink} href="faq-page.html">
 					FAQ
 				</a>
-				<a class="nav-icon" href="faq-page.html">
+				<a className={styles.navIcon} href="faq-page.html">
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						width="24"
@@ -92,10 +92,10 @@ function NavBar() {
 					</a>
 				) : (
 					<>
-						<NavLink className="sign-up-button" to={`/signup`}>
-							Signup
+						<NavLink className={styles.signUpButton} to={`/signup`}>
+							Sign up
 						</NavLink>
-						<NavLink className="sign-up-button" to={`/login`}>
+						<NavLink className={styles.signUpButton} to={`/login`}>
 							Login
 						</NavLink>
 					</>
