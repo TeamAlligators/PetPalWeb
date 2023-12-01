@@ -7,6 +7,7 @@ import PetSearch from "./routes/PetSearch"
 import { UserProvider } from "./context/UserContext"
 import Login from "./routes/AuthScreens/Login"
 import Signup from "./routes/AuthScreens/Signup"
+import PetCreation from "./routes/ShelterManagementScreens/PetCreation"
 
 const router = createBrowserRouter([
 	{
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
 	{
 		path: "/signup",
 		element: <Signup />,
+	},
+	{
+		path: "/petcreation",
+		element: <PetCreation />,
 	},
 ])
 

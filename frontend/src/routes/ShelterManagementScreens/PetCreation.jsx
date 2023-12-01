@@ -1,12 +1,13 @@
 import "./PetCreation.css";
 import ShelterManagementBar from "../../components/ShelterManagementBar";
+import NavBar from "../../components/NavBar";
 
 function PetCreation() {
 	return (
         <body class="page-container">
             <NavBar />
+            <ShelterManagementBar />
             <div class="shelter-management">
-                <ShelterManagementBar />
                 <form action="">
                     <div class = "imagefile">
                         <input type="file" id="img" name="img" accept="image/*" />
@@ -43,7 +44,7 @@ function PetCreation() {
                             <textarea rows="4" id="others" type="text" name="others" placeholder="Other description" required></textarea>
                         </div>
                     </div>
-                    <button class="login" type="submit">Save</button>
+                    <button class="save" type="submit">Save</button>
                 </form>
             </div>
         </body>
