@@ -90,9 +90,9 @@ function NavBar() {
 						<a href="#">Notification 3</a>
 					</div>
 				</div>
-				{user.userId ? (
+				{user.token ? (
 					<a class={styles["nav-name"]} href="seeker-profile.html">
-						First Last
+						{user.first_name} {user.last_name}
 					</a>
 				) : (
 					<>
