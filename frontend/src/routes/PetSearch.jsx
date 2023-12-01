@@ -1,72 +1,117 @@
+import { useState, useEffect, useCallback } from "react"
 import NavBar from "../components/NavBar"
 import classes from "./PetSearch.module.css"
+import axios from "axios"
+import Endpoints from "../constants/Endpoints"
 
 function PetSearch() {
+	const [filter, setFilter] = useState("")
+	const [filterKeywords, setFilterKeywords] = useState("")
+	const [sort, setSort] = useState("")
+	const [searchResults, setSearchResults] = useState([])
+
+	const handleSearch = async () => {
+		try {
+			const response = await axios.get(Endpoints.search, {
+				params: {
+					[filter]: filterKeywords,
+					sort,
+				},
+			})
+
+			console.log("search results", response.data)
+			setSearchResults(response.data.results)
+		} catch (error) {
+			console.error("Error during search:", error)
+		}
+	}
+
+	// useEffect(() => {
+	// 	handleSearch()
+	// }, [filter, filterKeywords, sort, handleSearch])
+
 	return (
-		<body class={classes["page-container"]}>
+		<body className={classes["page-container"]}>
 			<NavBar />
-			<div class={classes["body"]}>
-				<h1 class={classes["header"]}>Find your PetPal</h1>
-				<div class={classes["search-container"]}>
-					<input class={classes["search"]} placeholder="Search your PetPal" />
-					<select name="filter" class={classes["select"]}>
-						<option value="" disabled selected>
+			<div className={classes["body"]}>
+				<h1 className={classes["header"]}>Find your PetPal</h1>
+				<div className={classes["search-container"]}>
+					<input className={classes["search"]} placeholder="Search your PetPal" />
+					<select
+						name="filter"
+						className={classes["select"]}
+						value={filter}
+						onChange={(e) => setFilter(e.target.value)}
+					>
+						<option value="" disabled>
 							Filters
 						</option>
-						<option value="location">Location</option>
+						<option value="status">Status</option>
+						<option value="shelterId">ShelterId</option>
 						<option value="breed">Breed</option>
-						<option value="age">Age</option>
-						<option value="size">Size</option>
-						<option value="color">Color</option>
 						<option value="gender">Gender</option>
 					</select>
-					<input class={classes["search"]} placeholder="Filter Keywords" />
-					<select name="sort" class={classes["select"]}>
-						<option value="" disabled selected>
+					<input
+						className={classes["search"]}
+						placeholder="Filter Keywords"
+						value={filterKeywords}
+						onChange={(e) => setFilterKeywords(e.target.value)}
+					/>
+					<select
+						name="sort"
+						className={classes["select"]}
+						value={sort}
+						onChange={(e) => setSort(e.target.value)}
+					>
+						<option value="" disabled>
 							Sort
 						</option>
 						<option value="name">Name</option>
 						<option value="age">Age</option>
-						<option value="size">Size</option>
 					</select>
-					<a class={classes["search-icon"]} href="./pet-search-2.html">
+					<button className={classes["search-icon"]} onClick={() => handleSearch()}>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							width="48"
 							height="48"
-							fill="#ddd"
-							class="bi bi-search-heart search-icon"
+							fill="#957dad"
+							className="bi bi-search-heart search-icon"
 							viewBox="0 0 16 16"
 						>
 							<path d="M6.5 4.482c1.664-1.673 5.825 1.254 0 5.018-5.825-3.764-1.664-6.69 0-5.018Z" />
 							<path d="M13 6.5a6.471 6.471 0 0 1-1.258 3.844c.04.03.078.062.115.098l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1.007 1.007 0 0 1-.1-.115h.002A6.5 6.5 0 1 1 13 6.5ZM6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11Z" />
 						</svg>
-					</a>
+					</button>
 				</div>
-				<div class={classes["search-results"]}>
-					<div class={classes["search-item"]}>
-						<img
-							class={classes["search-img"]}
-							src={require("../images/derpycat.png")}
-							alt="cat"
-						/>
-						<div class={classes["search-text-container"]}>
-							<p>
-								Potato <br />
-								5months
-							</p>
-							<p>Some breed</p>
+				<div className={classes["search-results"]}>
+					{searchResults?.map((result) => (
+						<div className={classes["search-item"]} key={result.id}>
+							<img
+								className={classes["search-img"]}
+								src={result.image}
+								alt={result.name}
+							/>
+							<div className={classes["search-text-container"]}>
+								<p>
+									{result.name} <br />
+									{result.age}
+								</p>
+								<p>{result.breed}</p>
+							</div>
+							<a
+								className={classes["details-button"]}
+								href={`pet-details.html?id=${result.id}`}
+							>
+								See Details
+							</a>
 						</div>
-						<a class={classes["details-button"]} href="pet-details.html">
-							See Details
-						</a>
-					</div>
+					))}
 				</div>
 			</div>
 			<script
 				src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
 				integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-				crossorigin="anonymous"
+				crossOrigin="anonymous"
 			></script>
 		</body>
 	)
