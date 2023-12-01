@@ -9,7 +9,11 @@ function NavBar() {
 		<nav id={styles.navigationBar}>
 			<span id={styles.navItemLeft}>
 				<NavLink className={styles.navLink} to={`/`}>
-					<img src={require("../images/logo.png")} class="logo" alt="logo" />
+					<img
+						src={require("../images/logo.png")}
+						class={styles["logo"]}
+						alt="logo"
+					/>
 				</NavLink>
 			</span>
 			<span id={styles.navItem}>
@@ -68,8 +72,8 @@ function NavBar() {
 						/>
 					</svg>
 				</a>
-				<div class="notification-container">
-					<div class="red-dot"></div>
+				<div class={styles["notification-container"]}>
+					<div class={styles["red-dot"]}></div>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						width="24"
@@ -80,14 +84,14 @@ function NavBar() {
 					>
 						<path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z" />
 					</svg>
-					<div class="notification-list">
+					<div class={styles["notification-list"]}>
 						<a href="#">Notification 1</a>
 						<a href="#">Notification 2</a>
 						<a href="#">Notification 3</a>
 					</div>
 				</div>
 				{user.userId ? (
-					<a class="nav-name" href="seeker-profile.html">
+					<a class={styles["nav-name"]} href="seeker-profile.html">
 						First Last
 					</a>
 				) : (
