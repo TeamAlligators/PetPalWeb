@@ -8,6 +8,7 @@ import { UserProvider } from "./context/UserContext"
 import Login from "./routes/AuthScreens/Login"
 import Signup from "./routes/AuthScreens/Signup"
 import PetCreation from "./routes/ShelterManagementScreens/PetCreation"
+import ShelterUpdate from "./routes/ShelterManagementScreens/UpdateShelterAccount"
 
 const router = createBrowserRouter([
 	{
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
 		path: "/petcreation",
 		element: <PetCreation />,
 	},
+	{
+		path: "/sheltermanagement",
+		element: <ShelterUpdate />,
+	}
 ])
 
 const root = ReactDOM.createRoot(document.getElementById("root"))

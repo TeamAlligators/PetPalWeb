@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom/dist"
-import "./Login.css"
+import "./Login.module.css"
 import useUser from "../../context/UserContext"
 
 function Login() {

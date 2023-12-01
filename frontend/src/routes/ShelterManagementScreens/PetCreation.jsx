@@ -1,4 +1,4 @@
-import "./PetCreation.css";
+import "./PetCreation.module.css";
 import ShelterManagementBar from "../../components/ShelterManagementBar";
 import NavBar from "../../components/NavBar";
 
