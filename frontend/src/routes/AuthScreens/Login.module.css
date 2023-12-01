@@ -5,21 +5,23 @@
   margin-bottom: 1rem;
 } */
 
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
 .logo {
 	width: 175px;
 	padding: 10px;
 }
 
-.something {
+.container {
 	display: flex;
 	justify-content: center;
 }
 
-main {
-	background-color: #ffdfd3;
-}
-
-.signup {
+.login {
 	background-color: #fff;
 	width: 500px;
 	border-radius: 25px;
@@ -43,12 +45,13 @@ main {
 	font-weight: 900;
 }
 
-form {
+.form {
 	margin-top: 30px;
 	margin-bottom: 1rem;
+	width: 100%;
 }
 
-.grid-container {
+.gridContainer {
 	font-family: Nunito, sans-serif;
 	/* display: grid; */
 	/* grid-template-columns: 1fr; */
@@ -57,7 +60,7 @@ form {
 	row-gap: 16px;
 }
 
-.grid-item {
+.gridItem {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -77,7 +80,7 @@ input {
 	border-radius: 15px;
 }
 
-.login {
+.loginButton {
 	border: 0px;
 	background-color: black;
 	width: 100%;

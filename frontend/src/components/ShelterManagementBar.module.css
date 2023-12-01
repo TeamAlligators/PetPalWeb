@@ -9,9 +9,10 @@
     src: url(../../fonts/Nunito-VariableFont_wght.ttf);
 }
 
-#shelter-management-bar {
+.shelterManagementBar {
     width: 100vw;
     text-align: center;
+    align-items: center;
 }
 
 .header {
@@ -21,12 +22,12 @@
     font-family: PlayFairDisplay;
 }
  
-.shelter-container {
+.shelterContainer {
     margin-top: 28px;
     margin-bottom: 32px;
 }
  
-.options-button {
+.optionsButton {
     font-family: Nunito;
     color: white;
     background-color: #bbb;
@@ -44,7 +45,7 @@
 	box-shadow: -1px -1px 20px rgba(0, 0, 0, 0.25);	
 }
  
-.options-button:hover {
+.optionsButton:hover {
     color: white;
     background-color: #d0a1a1;
 }

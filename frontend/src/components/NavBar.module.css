@@ -8,46 +8,47 @@
   min-height: 100vh;
 }
 
-#navigation-bar {
+#navigationBar {
   width: 100vw;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  height: 10vh;
+  /* height: 10vh; */
+  padding: 16px;
 }
-
-/* .logo {
-      width: 250px;
-      padding: 10px;
-  } */
 
 .logo {
   width: 175px;
   padding: 10px;
 }
 
-#nav-item {
+#navItem {
+  font-family: Nunito;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  margin-right: 10px;
+  margin-right: 20px;
 }
 
-.nav-link {
+.navLink {
   color: black;
-  font-weight: 600;
+  font-weight: 700;
   font-size: 24px;
+  text-decoration: none;
+  padding-left: 24px;
+  padding-right: 10px;
 }
 
-.nav-link:hover {
+.navLink:hover {
   color: #d0a1a1;
 }
 
-.sign-up-button {
+.signUpButton{
+  font-family: Nunito;
   color: white;
-  background-color: #d0a1a1;
+  background-color: black;
   border-radius: 25px;
   font-weight: 600;
   font-size: 24px;
@@ -58,12 +59,12 @@
   text-align: center;
   margin: 5px;
   transition: all 0.2s;
+  box-shadow: -1px -1px 20px rgba(0, 0, 0, 0.25);	
 }
 
-.sign-up-button:hover {
-  color: black;
+.signUpButton:hover {
+  color: white;
   background-color: #d0a1a1;
-  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
 }
 
 .search-icon {
@@ -227,11 +228,11 @@
   height: 8px;
 }
 
-.nav-icon {
+.navIcon {
   color: black;
 }
 
-.nav-icon:hover {
+.navIcon:hover {
   color: #d0a1a1;
 }
 
@@ -272,7 +273,7 @@
     display: none;
   }
 
-  .sign-up-button {
+  .signUpButton {
     font-size: 12px;
     padding: 6px;
   }
@@ -304,11 +305,11 @@
     width: 90vw;
   }
 
-  .nav-link {
+  .navLink {
     display: none;
   }
 
-  .nav-icon {
+  .navIcon {
     margin-left: 8px;
     margin-right: 8px;
     position: relative;
@@ -326,13 +327,13 @@
     padding-top: 0;
   }
 
-  .sign-up-button {
+  .signUpButton {
     font-size: 16px;
   }
 }
 
 @media only screen and (max-width: 730px) {
-  .sign-up-button {
+  .signUpButton {
     font-size: 16px;
   }
 }
@@ -346,20 +347,20 @@
     width: 150px;
   }
 
-  .sign-up-button {
+  .signUpButton {
     font-size: 16px;
   }
 
-  .nav-name {
+  .navName {
     font-size: 16px;
   }
 }
 
-.nav-icon {
+.navIcon {
   color: black;
 }
 
-.nav-icon:hover {
+.navIcon:hover {
   color: #d0a1a1;
 }
 

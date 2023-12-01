@@ -1,23 +1,23 @@
-import { Link, NavLink } from "react-router-dom"
-import "./ShelterManagementBar.css"
+import { NavLink } from "react-router-dom"
+import styles from "./ShelterManagementBar.module.css"
 
 function ShelterManagementBar() {
 	return (
-        <div id="shelter-management-bar">
-            <h1 class="header">
+        <div className={styles.shelterManagementBar}>
+            <h1 className={styles.header}>
                 Shelter Name
             </h1>
-            <div class="shelter-container">
-                <NavLink className="options-button" to={`/shelterprofile`}>
+            <div className={styles.shelterContainer}>
+                <NavLink className={styles.optionsButton} to={`/sheltermanagement`}>
                     Profile
                 </NavLink>
-                <NavLink className="options-button" to={`/shelterpetlistings`}>
+                <NavLink className={styles.optionsButton} to={`/shelterpetlistings`}>
                     Your listings
                 </NavLink>
-                <NavLink className="options-button" to={`/petcreation`}>
+                <NavLink className={styles.optionsButton} to={`/petcreation`}>
                     Create new Listing
                 </NavLink>
-                <NavLink className="options-button" to={`/shelterapplications`}>
+                <NavLink className={styles.optionsButton} to={`/shelterapplications`}>
                     Applications
                 </NavLink>
             </div>
