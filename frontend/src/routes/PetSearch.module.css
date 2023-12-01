@@ -67,10 +67,12 @@
 }
 
 .search-icon {
-	color: #d0a1a1;
-	fill: #d0a1a1;
+	color: black;
+	fill: black;
 	margin-left: 6px;
 	text-decoration: none;
+	border: none;
+	background-color: transparent;
 }
 
 .search-icon:hover {
