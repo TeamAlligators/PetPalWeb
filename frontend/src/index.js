@@ -9,6 +9,9 @@ import Login from "./routes/AuthScreens/Login"
 import Signup from "./routes/AuthScreens/Signup"
 import PetCreation from "./routes/ShelterManagementScreens/PetCreation"
 import ShelterUpdate from "./routes/ShelterManagementScreens/UpdateShelterAccount"
+import SeekerUpdate from "./routes/SeekerManagementScreens/UpdateSeekerAccount"
+import ViewMyApplications from "./routes/ShelterManagementScreens/MyApplications"
+import ViewMyListings from "./routes/ShelterManagementScreens/MyListings"
 
 const router = createBrowserRouter([
 	{
@@ -28,12 +31,24 @@ const router = createBrowserRouter([
 		element: <Signup />,
 	},
 	{
-		path: "/petcreation",
+		path: "/sheltermanagement/petcreation",
 		element: <PetCreation />,
 	},
 	{
 		path: "/sheltermanagement",
 		element: <ShelterUpdate />,
+	},
+	{
+		path: "/seekermanagement",
+		element: <SeekerUpdate />,
+	},
+	{
+		path: "sheltermanagement/applications",
+		element: <ViewMyApplications />,
+	},
+	{
+		path: "sheltermanagement/listings",
+		element: <ViewMyListings />,
 	}
 ])
 

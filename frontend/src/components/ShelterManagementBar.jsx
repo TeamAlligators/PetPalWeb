@@ -11,13 +11,13 @@ function ShelterManagementBar() {
                 <NavLink className={styles.optionsButton} to={`/sheltermanagement`}>
                     Profile
                 </NavLink>
-                <NavLink className={styles.optionsButton} to={`/shelterpetlistings`}>
+                <NavLink className={styles.optionsButton} to={`/sheltermanagement/listings`}>
                     Your listings
                 </NavLink>
-                <NavLink className={styles.optionsButton} to={`/petcreation`}>
+                <NavLink className={styles.optionsButton} to={`/sheltermanagement/petcreation`}>
                     Create new Listing
                 </NavLink>
-                <NavLink className={styles.optionsButton} to={`/shelterapplications`}>
+                <NavLink className={styles.optionsButton} to={`/sheltermanagement/applications`}>
                     Applications
                 </NavLink>
             </div>
