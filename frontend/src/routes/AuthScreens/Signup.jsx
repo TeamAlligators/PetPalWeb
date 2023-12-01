@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom/dist"
-import "./Signup.module.css"
+import classes from "./Signup.module.css"
 import useUser from "../../context/UserContext"
 
 function Signup() {
@@ -8,19 +8,23 @@ function Signup() {
 	return (
 		<main>
 			<NavLink to={`/`}>
-				<img src={require("../../images/logo.png")} class="logo" alt="logo" />
+				<img
+					src={require("../../images/logo.png")}
+					class={classes["logo"]}
+					alt="logo"
+				/>
 			</NavLink>
-			<div class="something">
-				<div class="signup">
-					<h1 class="welcome">Sign up</h1>
+			<div class={classes["something"]}>
+				<div class={classes["signup"]}>
+					<h1 class={classes["welcome"]}>Sign up</h1>
 					<img
-						class="dogscats"
+						class={classes["dogscats"]}
 						src={require("../../images/signup2.png")}
 						alt="Dog and cat"
 					/>
-					<div class="grid-container">
+					<div class={classes["grid-container"]}>
 						<form action="signup-shelter.html">
-							<div class="grid-item">
+							<div class={classes["grid-item"]}>
 								<input
 									id="firstname"
 									type="text"
@@ -29,7 +33,7 @@ function Signup() {
 									required
 								/>
 							</div>
-							<div class="grid-item">
+							<div class={classes["grid-item"]}>
 								<input
 									id="lastname"
 									type="text"
@@ -38,7 +42,7 @@ function Signup() {
 									required
 								/>
 							</div>
-							<div class="grid-item">
+							<div class={classes["grid-item"]}>
 								<input
 									id="email"
 									type="email"
@@ -47,7 +51,7 @@ function Signup() {
 									required
 								/>
 							</div>
-							<div class="grid-item">
+							<div class={classes["grid-item"]}>
 								<input
 									id="password"
 									type="password"
@@ -56,7 +60,7 @@ function Signup() {
 									required
 								/>
 							</div>
-							<div class="grid-item2">
+							<div class={classes["grid-item2"]}>
 								<input type="radio" id="seeker" name="seekerorshelter" value="seeker" />
 								I am a pet seeker
 								<input
@@ -67,8 +71,8 @@ function Signup() {
 								/>
 								I am a pet shelter
 							</div>
-							<div class="grid-item">
-								<button class="login" type="submit">
+							<div class={classes["grid-item"]}>
+								<button class={classes["login"]} type="submit">
 									Continue
 								</button>
 							</div>

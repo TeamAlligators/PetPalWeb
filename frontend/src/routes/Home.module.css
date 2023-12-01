@@ -111,15 +111,19 @@
 }
 
 .body-text {
-	width: 30vw;
+	font-size: 24px;
+	font-weight: 600;
+	color: #d0a1a1;
 }
 
 .header {
+	width: 30vw;
 	font-weight: 600;
 	font-size: 62px;
 }
 
 .paragraph {
+	width: 30vw;
 	font-size: 18px;
 }
 
