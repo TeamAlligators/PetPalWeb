@@ -1,3 +1,4 @@
+import { NavLink } from "react-router-dom"
 import NavBar from "../components/NavBar";
 import classes from "./PetDetails.module.css";
 
@@ -10,7 +11,6 @@ function PetDetails() {
 
                 <div class={classes["derpycat"]}>
                     <img
-                        // class={classes["search-img"]}
                         src={require("../images/derpycat.png")}
                         alt="cat"
                     />
