@@ -71,7 +71,9 @@ function Login() {
 					/>
 					<div className={styles.gridContainer}>
 						<form className={styles.form} onSubmit={handleLogin}>
-							<GoogleLogin onSuccess={google} onError={() => setError(true)} />
+							<div className={styles.gridItem}>
+								<GoogleLogin onSuccess={google} onError={() => setError(true)} />
+							</div>
 							<div className={styles.gridItem}>
 								<input
 									id="email"
