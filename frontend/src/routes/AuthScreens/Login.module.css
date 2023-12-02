@@ -6,9 +6,9 @@
 } */
 
 * {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
 }
 
 .logo {
@@ -36,6 +36,7 @@
 
 .dogscats {
 	width: 50%;
+	margin-bottom: 16px;
 }
 
 .welcome {
@@ -49,15 +50,17 @@
 	margin-top: 30px;
 	margin-bottom: 1rem;
 	width: 100%;
+	margin: auto;
 }
 
 .gridContainer {
 	font-family: Nunito, sans-serif;
-	/* display: grid; */
-	/* grid-template-columns: 1fr; */
-	margin-left: 8px;
-	margin-right: 8px;
+	display: grid;
+	grid-template-columns: 1fr;
 	row-gap: 16px;
+	margin: auto;
+	justify-items: center;
+	align-items: center;
 }
 
 .gridItem {
