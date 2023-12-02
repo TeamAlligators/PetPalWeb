@@ -36,21 +36,6 @@ function PetSearch() {
 			<div className={classes["body"]}>
 				<h1 className={classes["header"]}>Find your PetPal</h1>
 				<div className={classes["search-container"]}>
-					<input className={classes["search"]} placeholder="Search your PetPal" />
-					<select
-						name="filter"
-						className={classes["select"]}
-						value={filter}
-						onChange={(e) => setFilter(e.target.value)}
-					>
-						<option value="" disabled>
-							Filters
-						</option>
-						<option value="status">Status</option>
-						<option value="shelterId">ShelterId</option>
-						<option value="breed">Breed</option>
-						<option value="gender">Gender</option>
-					</select>
 					<input
 						className={classes["search"]}
 						placeholder="Filter Keywords"
@@ -58,14 +43,24 @@ function PetSearch() {
 						onChange={(e) => setFilterKeywords(e.target.value)}
 					/>
 					<select
+						name="filter"
+						className={classes["select"]}
+						value={filter}
+						onChange={(e) => setFilter(e.target.value)}
+					>
+						<option value="">None</option>
+						<option value="status">Status</option>
+						<option value="shelterId">ShelterId</option>
+						<option value="breed">Breed</option>
+						<option value="gender">Gender</option>
+					</select>
+					<select
 						name="sort"
 						className={classes["select"]}
 						value={sort}
 						onChange={(e) => setSort(e.target.value)}
 					>
-						<option value="" disabled>
-							Sort
-						</option>
+						<option value="">None</option>
 						<option value="name">Name</option>
 						<option value="age">Age</option>
 					</select>
@@ -74,7 +69,7 @@ function PetSearch() {
 							xmlns="http://www.w3.org/2000/svg"
 							width="48"
 							height="48"
-							fill="#957dad"
+							fill="#d0a1a1"
 							className="bi bi-search-heart search-icon"
 							viewBox="0 0 16 16"
 						>

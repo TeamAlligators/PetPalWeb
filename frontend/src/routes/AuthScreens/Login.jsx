@@ -4,12 +4,34 @@ import styles from "./Login.module.css"
 import useUser from "../../context/UserContext"
 import axios from "axios"
 import Endpoints from "../../constants/Endpoints"
+import { GoogleLogin } from "@react-oauth/google"
+import { jwtDecode } from "jwt-decode"
 
 function Login() {
 	const user = useUser()
 	const navigate = useNavigate()
 	const [email, setEmail] = useState("")
 	const [password, setPassword] = useState("")
+	const [error, setError] = useState(false)
+
+	const google = async (userResponse) => {
+		console.log(userResponse)
+
+		let decoded = jwtDecode(userResponse?.credential)
+		const email = decoded?.email
+		const name = decoded?.name
+
+		user.setUserInfo({
+			...user,
+			email: email,
+			first_name: name,
+			last_name: "",
+			token: userResponse.credential,
+		})
+
+		navigate("/")
+		setError(false)
+	}
 
 	const handleLogin = async (event) => {
 		event.preventDefault()
@@ -21,9 +43,11 @@ function Login() {
 			})
 
 			user.setUserInfo({ ...user, token: tokenResponse.data.access })
+			setError(false)
 			navigate("/")
 			console.log("Login token response:", tokenResponse.data)
 		} catch (error) {
+			setError(true)
 			console.error("Error during login:", error)
 		}
 	}
@@ -47,6 +71,7 @@ function Login() {
 					/>
 					<div className={styles.gridContainer}>
 						<form className={styles.form} onSubmit={handleLogin}>
+							<GoogleLogin onSuccess={google} onError={() => setError(true)} />
 							<div className={styles.gridItem}>
 								<input
 									id="email"
@@ -69,6 +94,7 @@ function Login() {
 									required
 								/>
 							</div>
+							{error && <p>Error during Login</p>}
 							<div className={styles.gridItem}>
 								<button className={styles.loginButton} type="submit">
 									Log In
