@@ -67,8 +67,8 @@ function PetDetails() {
         gender: "",
         birthday: "",
         status: "",
-        medicalHistory: "",
-        specialNeeds: "",
+        medical_history: "",
+        special_needs: "",
         personality: "",
     });
 
@@ -112,11 +112,11 @@ function PetDetails() {
 
           <p>
             <b>Medical History: </b>
-            {petDetails.medicalHistory}
+            {petDetails.medical_history}
           </p>
           <p>
             <b>Special Needs/Requirements: </b>
-            {petDetails.specialNeeds}
+            {petDetails.special_needs}
           </p>
           <p>
             <b>Personality: </b>
