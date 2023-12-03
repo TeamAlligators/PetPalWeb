@@ -10,6 +10,8 @@ const Endpoints = {
 	applicationfilled: "http://localhost:80/applications/:pk/",
 	updateshelter: "http://localhost:80/shelter/:pk/",
 	updateseeker: "http://localhost:80/seeker/:pk/",
+	createpet: "http://localhost:80/pets/",
+	specificshelter: "http://localhost:80/shelter/:pk/",
 }
 
 

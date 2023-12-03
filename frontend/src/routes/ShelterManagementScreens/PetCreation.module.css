@@ -8,17 +8,18 @@
     min-height: 100vh;
 }
 
-.profileImg {
-    border-radius: 100%;
-    width: 300px;
-    height: 300px;
+.petImg {
+    border-radius: 30px;
+    width: 40vw;
+    height: 30vh;
     object-fit: cover;
 }
  
-.profileContainer {
-    border-radius: 100%;
-    width: 300px;
-    height: 300px;
+.petImgContainer {
+    position: relative;
+    border-radius: 30px;
+    width: 40vw;
+    height: 30vh;
     overflow: hidden;
     object-fit: cover;
     justify-content: center;
@@ -28,8 +29,37 @@
     margin-bottom: 24px;
 }
  
-.profileContainer:hover {
+.petImgContainer:hover {
     box-shadow: 2px 2px 10px 2px rgba(0, 0, 0, 0.2);
+}
+
+.petImgLabel {
+    position: absolute;
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%); 
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.petImgInput {
+    opacity: 0;
+    z-index: 2;
+    position: absolute;
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%); 
+    cursor: pointer;
+    background-color: white;
+    width: 80%;
+}
+
+.petImgContainer:hover .petImgInput {
+    opacity: 80%;
 }
  
 .body {
@@ -110,6 +140,15 @@ input {
     box-shadow: -1px -1px 20px rgba(153.21, 153.21, 153.21, 0.13);
     border-radius: 15px;
 }
+
+.selectField {
+    border: 1px #c8c8c8 solid;
+    padding: 10px;
+    width: 100%;
+    height: 60px;
+    box-shadow: -1px -1px 20px rgba(153.21, 153.21, 153.21, 0.13);
+    border-radius: 15px;
+}
  
 textarea {
     border: 1px #c8c8c8 solid;
@@ -150,211 +189,25 @@ textarea {
     color: white;
 }
  
-@media only screen and (max-width: 480px) {
-    .header {
-        font-weight: 600;
-        font-size: 48px;
-    }
- 
-    .paragraph {
-        font-size: 14px;
-    }
- 
-    .index-picture {
-        display: none;
-    }
- 
-    .sign-up-button {
-        font-size: 12px;
-        padding: 6px;
-    }
- 
-    .logo {
-        width: 100px;
-        padding: 5px;
-        padding-top: 0;
-    }
- 
-    .nav-name {
-        font-size: 12px;
-    }
-}
- 
-@media only screen and (max-width: 700px) {
-    .index-picture {
-        display: none;
-    }
-    .body-text {
-        width: 90vw;
-    }
- 
-    .body-item {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-align: left;
-        width: 90vw;
-    }
- 
-    .nav-link {
-        display: none;
-    }
- 
-    .nav-icon {
-        margin-left: 8px;
-        margin-right: 8px;
-        position: relative;
-    }
- 
-    .notification-container {
-        margin-left: 0px;
-        margin-right: 0px;
-        position: relative;
-    }
- 
-    .logo {
-        width: 150px;
-        padding: 10px;
-        padding-top: 0;
-    }
- 
-    .sign-up-button {
-        font-size: 16px;
-    }
-}
- 
-@media only screen and (max-width: 730px) {
-    .sign-up-button {
-        font-size: 16px;
-    }
-}
- 
-@media only screen and (max-width: 1200px) {
-    .index-picture {
-        width: 500px;
-    }
- 
-    .logo {
-        width: 150px;
-    }
- 
-    .sign-up-button {
-        font-size: 16px;
-    }
- 
-    .nav-name {
-        font-size: 16px;
-    }
-}
- 
-.nav-icon {
-    color: black;
-}
- 
-.nav-icon:hover {
-    color: #d0a1a1;
-}
- 
-.nav-name {
-    color: black;
-    font-weight: 600;
-    font-size: 24px;
-    padding: 16px;
-    text-decoration: none;
-}
- 
-.nav-name:hover {
-    color: #d0a1a1;
-}
- 
-@media only screen and (max-width: 730px) {
-    .sign-up-button {
-        font-size: 16px;
-    }
- 
-    .options-button {
-        font-size: 16px;
-    }
- 
-    .grid-container {
+@media only screen and (max-width: 1000px) {
+    .gridContainer {
         grid-template-columns: 1fr;
+        row-gap: 0px;
+        column-gap: 0px;
+        margin: 0px;
     }
-}
- 
-@media only screen and (max-width: 1200px) {
-    .index-picture {
-        width: 500px;
+
+    .form {
+        width: 80%;
     }
- 
-    .logo {
-        width: 150px;
+
+    .petImg {
+        width: 80vw;
+        height: 30vh;
     }
- 
-    .sign-up-button {
-        font-size: 16px;
-    }
- 
-    .nav-name {
-        font-size: 16px;
-    }
-}
- 
-.nav-icon {
-    color: black;
-}
- 
-.nav-icon:hover {
-    color: #d0a1a1;
-}
- 
-.nav-name {
-    color: black;
-    font-weight: 600;
-    font-size: 24px;
-    padding: 16px;
-    text-decoration: none;
-}
- 
-.nav-name:hover {
-    color: #d0a1a1;
-}
- 
-@media only screen and (max-width: 800px) {
-    .search-container {
-        flex-direction: column;
-    }
- 
-    .search-results {
-        grid-template-columns: 60vw;
-    }
- 
-    .search-item {
-        width: 60vw;
-    }
- 
-    .search-img {
-        width: 60vw;
-    }
- 
-    .search-text-container {
-        grid-template-columns: 20vw 20vw;
-    }
- 
-    .shelter-container {
-        display: grid;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-        grid-template-columns: 50vw 50vw;
-    }
- 
-    .profile-img {
-        width: 150px;
-        height: 150px;
-    }
- 
-    .profile-container {
-        width: 150px;
-        height: 150px;
+
+    .petImgContainer {
+        width: 80vw;
+        height: 30vh;
     }
 }
