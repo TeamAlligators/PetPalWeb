@@ -140,6 +140,15 @@ input {
     box-shadow: -1px -1px 20px rgba(153.21, 153.21, 153.21, 0.13);
     border-radius: 15px;
 }
+
+.selectField {
+    border: 1px #c8c8c8 solid;
+    padding: 10px;
+    width: 100%;
+    height: 60px;
+    box-shadow: -1px -1px 20px rgba(153.21, 153.21, 153.21, 0.13);
+    border-radius: 15px;
+}
  
 textarea {
     border: 1px #c8c8c8 solid;
