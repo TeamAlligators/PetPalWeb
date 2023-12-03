@@ -36,7 +36,7 @@ const router = createBrowserRouter([
 		element: <Signup />,
 	},
 	{
-		path: "/petdetails",
+		path: "/pets/:pk",
 		element: <PetDetails />,
 	},
 	{

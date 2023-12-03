@@ -3,7 +3,7 @@ import axios from "axios";
 import NavBar from "../components/NavBar";
 import classes from "./PetDetails.module.css";
 import Endpoints from "../constants/Endpoints"
-import PetApplication from "./PetApplication";
+// import PetApplication from "./PetApplication";
 
 function PetApplicationFilled() { 
     return (

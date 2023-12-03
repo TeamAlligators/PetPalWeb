@@ -4,7 +4,9 @@ const Endpoints = {
 	shelter: "http://localhost:80/shelter/",
 	token: "http://localhost:80/api/token/",
 	search: "http://localhost:80/pets/results/",
-	application: "http://localhost:80/application/",
+	pet: "http://localhost:80/pets/:pk/",
+	application: "http://localhost:80/applications/",
+	applicationfilled: "http://localhost:80/applications/:pk/",
 	updateshelter: "http://localhost:80/shelter/:pk/",
 	updateseeker: "http://localhost:80/seeker/:pk/",
 }
