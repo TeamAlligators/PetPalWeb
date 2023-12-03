@@ -21,15 +21,15 @@ function Login() {
 		const email = decoded?.email
 		const name = decoded?.name
 
-		user.setUserInfo({
-			...user,
-			email: email,
-			first_name: name,
-			last_name: "",
-			token: userResponse.credential,
-		})
+		// user.setUserInfo({
+		// 	...user,
+		// 	email: email,
+		// 	first_name: name,
+		// 	last_name: "",
+		// 	token: userResponse.credential,
+		// })
 
-		navigate("/")
+		getUser(email, userResponse.credential)
 		setError(false)
 	}
 
@@ -42,10 +42,43 @@ function Login() {
 				password,
 			})
 
-			user.setUserInfo({ ...user, token: tokenResponse.data.access })
+			// user.setUserInfo({ ...user, token: tokenResponse.data.access })
+
+			setError(false)
+			getUser(null, tokenResponse.data.access)
+			console.log("Login token response:", tokenResponse.data)
+		} catch (error) {
+			setError(true)
+			console.error("Error during login:", error)
+		}
+	}
+
+	const getUser = async (googleEmail, token) => {
+		try {
+			const seekersResponse = await axios.get(Endpoints.seekers)
+
+			let newUser = null
+
+			seekersResponse.data.forEach((currUser) => {
+				if (currUser.email === email || currUser.email === googleEmail) {
+					newUser = currUser
+				}
+			})
+
+			console.log("loggedin user", newUser)
+			user.setUserInfo({
+				...user,
+				userId: newUser.id,
+				first_name: newUser.first_name,
+				last_name: newUser.last_name,
+				account_type: newUser.account_type,
+				seeker: newUser.seeker,
+				shelter: newUser.shelter,
+				token: token,
+			})
+
 			setError(false)
 			navigate("/")
-			console.log("Login token response:", tokenResponse.data)
 		} catch (error) {
 			setError(true)
 			console.error("Error during login:", error)
@@ -96,7 +129,7 @@ function Login() {
 									required
 								/>
 							</div>
-							{error && <p>Error during Login</p>}
+							{error && <p>Invalid account, have you signed up yet?</p>}
 							<div className={styles.gridItem}>
 								<button className={styles.loginButton} type="submit">
 									Log In

@@ -1,5 +1,6 @@
 const Endpoints = {
 	seeker: "http://localhost:80/seeker/",
+	seekers: "http://localhost:80/seekers/",
 	shelter: "http://localhost:80/shelter/",
 	token: "http://localhost:80/api/token/",
 	search: "http://localhost:80/pets/results/",

@@ -84,7 +84,7 @@ root.render(
 					/>
 					<link rel="stylesheet" href="index-style.css" />
 				</head>
-				<RouterProvider router={router} />
+				<RouterProvider router={router} forceRefresh={false} />
 			</UserProvider>
 		</GoogleOAuthProvider>
 	</React.StrictMode>
