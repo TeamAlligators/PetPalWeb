@@ -4,12 +4,10 @@ import useUser from "../context/UserContext"
 
 function ShelterManagementBar() {
     const user = useUser()
-    console.log(user)
-
     return (
         <div className={styles.shelterManagementBar}>
             <h1 className={styles.header}>
-                Welcome, {user.first_name} {user.last_name}
+                {user.shelter.name}
             </h1>
             <div className={styles.shelterContainer}>
                 <NavLink className={styles.optionsButton} to={`/sheltermanagement`}>

@@ -7,6 +7,7 @@ from ..serializers import UserShelterSerializer, UserSeekerSerializer
 from ..models import Shelter, Seeker, CustomUser, Application, Pet, Notification
 from django.contrib.auth.hashers import make_password
 from rest_framework.exceptions import PermissionDenied
+from rest_framework import status
 
 # Create your views here.
 class UserShelterCreate(CreateAPIView):
@@ -29,7 +30,16 @@ class UserShelterCreate(CreateAPIView):
             is_active=is_active
         )
         shelter = serializer.validated_data.get('shelter', tuple())
-        Shelter.objects.create(**shelter, user=new_user)
+        new_shelter = Shelter.objects.create(**shelter, user=new_user)
+
+        response_data = {
+                "user_id": new_user.id,
+                "shelter_id": new_shelter.id,
+                "serializer_data": serializer.data,
+            }
+
+        print(response_data, help)
+        return Response(response_data, status=status.HTTP_201_CREATED)
 
 class UserSeekerCreate(CreateAPIView):
     serializer_class = UserSeekerSerializer
@@ -51,7 +61,16 @@ class UserSeekerCreate(CreateAPIView):
             is_active=is_active
         )
         seeker = serializer.validated_data.get('seeker', tuple())
-        Seeker.objects.create(**seeker, user=new_user)
+        new_seeker = Seeker.objects.create(**seeker, user=new_user)
+
+        response_data = {
+            "user_id": new_user.id,
+            "seeker_id": new_seeker.id,
+            "serializer_data": serializer.data,
+        }
+
+        print(response_data, help)
+        return Response(response_data, status=status.HTTP_201_CREATED)
 
 class UserShelterList(ListAPIView):
     permission_classes = [IsAuthenticated] 

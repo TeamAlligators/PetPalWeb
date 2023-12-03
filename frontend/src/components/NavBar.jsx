@@ -91,9 +91,9 @@ function NavBar() {
 					</div>
 				</div>
 				{user.token ? (
-					<a className={styles["nav-name"]} href={user.account_type === "seeker" ? "/seekermanagement" : "/sheltermanagement"}>
+					<NavLink className={styles["nav-name"]} to={user.account_type === "seeker" ? "/seekermanagement" : "/sheltermanagement"}>
 						{user.first_name} {user.last_name}
-					</a>
+					</NavLink>
 				) : (
 					<>
 						<NavLink className={styles.signUpButton} to={`/signup`}>

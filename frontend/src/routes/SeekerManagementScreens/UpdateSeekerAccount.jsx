@@ -1,14 +1,17 @@
 import styles from "./UpdateSeekerAccount.module.css";
 import NavBar from "../../components/NavBar";
+import useUser from "../../context/UserContext"
 
 function UpdateSeeker() {
-	return (
-		<body className={styles.pageContainer}>
+    const user = useUser()
+    console.log(user)
+    return (
+        <body className={styles.pageContainer}>
             <NavBar />
             <div className={styles.seekerManagement}>
                 <form className={styles.form} action="">
                     <div className={styles.profileContainer}>
-                        <img className={styles.profileImg} src={require("../../images/profile1.png")}/>
+                        <img className={styles.profileImg} src={require("../../images/profile1.png")} />
                     </div>
                     <div className={styles.gridContainer}>
                         <div className={styles.gridItem}>
@@ -43,7 +46,7 @@ function UpdateSeeker() {
                 </form>
             </div>
         </body>
-	)
+    )
 }
 
 export default UpdateSeeker

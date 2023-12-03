@@ -72,23 +72,25 @@ function Signup() {
 				userData
 			)
 
-			console.log("user response:", userResponse.data)
+			console.log("user response:", userResponse.data, userResponse)
 
 			const tokenResponse = await axios.post(Endpoints.token, {
 				email,
 				password,
 			})
 
-			user.setUserInfo({
-				first_name: firstName,
-				last_name: lastName,
-				email,
-				password,
-				token: tokenResponse.data.access,
-				account_type: accountType,
-				seeker,
-				shelter,
-			})
+			user.setUserInfo(
+				{
+					user_id: userResponse.user_id,
+					first_name: firstName,
+					last_name: lastName,
+					email,
+					password,
+					token: tokenResponse.data.access,
+					account_type: accountType,
+					seeker,
+					shelter,
+				})
 
 			console.log("token response:", tokenResponse.data.access)
 
