@@ -7,6 +7,7 @@ urlpatterns = [
     path('shelter/<int:pk>/', views.UserShelterRetrieveUpdateDestroy.as_view()),
     path('seeker/<int:pk>/', views.UserSeekerRetrieveUpdateDestroy.as_view()),
     path('shelters/', views.UserShelterList.as_view()),
+    path('seekers/', views.UserSeekerList.as_view()),
 
     path('shelter/<int:pk>/comment/', views.ShelterCommentCreateView.as_view()),
     path('applications/<int:pk>/comment/', views.ApplicationCommentCreateView.as_view()),

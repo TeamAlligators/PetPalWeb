@@ -79,16 +79,18 @@ function Signup() {
 				password,
 			})
 
-			user.setUserInfo({
-				first_name: firstName,
-				last_name: lastName,
-				email,
-				password,
-				token: tokenResponse.data.access,
-				account_type: accountType,
-				seeker,
-				shelter,
-			})
+			user.setUserInfo(
+				{
+					user_id: userResponse.data.id,
+					first_name: firstName,
+					last_name: lastName,
+					email,
+					password,
+					token: tokenResponse.data.access,
+					account_type: accountType,
+					seeker,
+					shelter,
+				})
 
 			console.log("token response:", tokenResponse.data.access)
 
