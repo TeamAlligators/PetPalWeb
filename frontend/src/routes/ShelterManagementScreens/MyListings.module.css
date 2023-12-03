@@ -8,43 +8,6 @@
     min-height: 100vh;
 }
  
-#navigation-bar {
-    width: 100vw;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    height: 10vh;
-}
- 
-/* .logo {
-    width: 250px;
-    padding: 10px;
-} */
- 
-.logo {
-    width: 175px;
-    padding: 10px;
-}
- 
-#nav-item {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-    margin-right: 10px;
-}
- 
-.nav-link {
-    color: black;
-    font-weight: 600;
-    font-size: 24px;
-}
- 
-.nav-link:hover {
-    color: #d0a1a1;
-}
- 
 .options-button {
     color: white;
     background-color: #bbb;
@@ -135,7 +98,7 @@
     position: relative;
     width: 20vw;
     height: 40vh;
-    border-radius: 12px;
+    border-radius: 25px;
     box-shadow: 2px 2px 10px 2px rgba(0, 0, 0, 0.2);
     overflow: hidden;
     transition: 0.2s all;
@@ -153,6 +116,7 @@
 }
  
 .petTextContainer {
+    font-family: Nunito;
     display: grid;
     grid-template-columns: 10vw 10vw;
     justify-content: center;
@@ -168,6 +132,7 @@
 }
  
 .detailsButton {
+    font-family: Nunito;
     color: #ffdfd3;
     background-color: #ffdfd3;
     border-radius: 25px;
@@ -192,202 +157,21 @@
     background-color: #ffdfd3;
     opacity: 1;
 }
- 
-.notification-container {
-    margin-left: 16px;
-    margin-right: 16px;
-    position: relative;
-}
- 
-.notification-list a:hover {
-    background-color: #d0a1a1;
-}
- 
-.notification-container:hover .notification-list {
-    display: block;
-}
- 
-.notification-list {
-    display: none;
-    position: absolute;
-    background-color: #fff;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-    z-index: 1;
-}
- 
-.notification-list a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-}
- 
-.red-dot {
-    position: absolute;
-    top: 0;
-    right: 0;
-    border-radius: 100%;
-    background-color: red;
-    width: 8px;
-    height: 8px;
-}
- 
-.nav-icon {
-    color: black;
-}
- 
-.nav-icon:hover {
-    color: #d0a1a1;
-}
- 
-@media only screen and (max-width: 480px) {
-    .header {
-        font-weight: 600;
-        font-size: 32px;
-    }
- 
-    .paragraph {
-        font-size: 14px;
-    }
- 
-    .index-picture {
-        display: none;
-    }
- 
-    .sign-up-button {
-        font-size: 12px;
-        padding: 6px;
-    }
- 
-    .logo {
-        width: 100px;
-        padding: 5px;
-        padding-top: 0;
-    }
- 
-    .nav-name {
-        font-size: 12px;
-    }
-}
- 
-@media only screen and (max-width: 700px) {
-    .index-picture {
-        display: none;
-    }
-    .body-text {
-        width: 90vw;
-    }
- 
-    .body-item {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-align: left;
-        width: 90vw;
-    }
- 
-    .nav-link {
-        display: none;
-    }
- 
-    .nav-icon {
-        margin-left: 8px;
-        margin-right: 8px;
-        position: relative;
-    }
- 
-    .notification-container {
-        margin-left: 0px;
-        margin-right: 0px;
-        position: relative;
-    }
- 
-    .logo {
-        width: 150px;
-        padding: 10px;
-        padding-top: 0;
-    }
- 
-    .sign-up-button {
-        font-size: 16px;
-    }
-}
- 
-@media only screen and (max-width: 730px) {
-    .sign-up-button {
-        font-size: 16px;
-    }
- 
-    .options-button {
-        font-size: 16px;
-    }
-}
- 
-@media only screen and (max-width: 1200px) {
-    .index-picture {
-        width: 500px;
-    }
- 
-    .logo {
-        width: 150px;
-    }
- 
-    .sign-up-button {
-        font-size: 16px;
-    }
- 
-    .nav-name {
-        font-size: 16px;
-    }
-}
- 
-.nav-icon {
-    color: black;
-}
- 
-.nav-icon:hover {
-    color: #d0a1a1;
-}
- 
-.nav-name {
-    color: black;
-    font-weight: 600;
-    font-size: 24px;
-    padding: 16px;
-    text-decoration: none;
-}
- 
-.nav-name:hover {
-    color: #d0a1a1;
-}
- 
-@media only screen and (max-width: 800px) {
+
+@media screen and (max-width: 1000px) {
     .listingsContainer {
-        flex-direction: column;
+        grid-template-columns: 80vw; /* Switch to a single column layout */
     }
- 
-    .search-results {
-        grid-template-columns: 60vw;
-    }
- 
     .petItem {
-        width: 60vw;
+        width: 100%;
     }
- 
     .petImg {
-        width: 60vw;
+        width: 100%;
     }
- 
+
     .petTextContainer {
-        grid-template-columns: 20vw 20vw;
-    }
- 
-    .shelter-container {
         display: grid;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-        grid-template-columns: 50vw 50vw;
+        grid-template-columns: 60vw;
+
     }
 }

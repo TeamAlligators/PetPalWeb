@@ -1,11 +1,10 @@
-from rest_framework.serializers import ModelSerializer, PrimaryKeyRelatedField, ReadOnlyField
+from rest_framework.serializers import ModelSerializer, PrimaryKeyRelatedField
 from ..models import Shelter, Seeker, CustomUser
 
 class UserSerializer(ModelSerializer):
     class Meta:
         model = CustomUser
-        fields = '__all__'
-        read_only_fields = ['id']
+        exclude = [ 'groups', 'user_permissions', 'last_login', 'is_superuser', 'is_staff', 'is_active', 'date_joined', ]
 
 class ShelterSerializer(ModelSerializer):
     user = PrimaryKeyRelatedField(read_only=True)
