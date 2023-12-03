@@ -7,6 +7,8 @@ const Endpoints = {
 	search: "http://localhost:80/pets/results/",
 	updateshelter: "http://localhost:80/shelter/:pk/",
 	updateseeker: "http://localhost:80/seeker/:pk/",
+	createpet: "http://localhost:80/pets/",
+	specificshelter: "http://localhost:80/shelter/:pk/",
 }
 
 

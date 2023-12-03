@@ -14,6 +14,8 @@
 	display: flex;
 	justify-content: center;
 	background-color: #ffdfd3;
+	align-items: center;
+	padding: 1rem;
 }
 
 main {
@@ -136,6 +138,11 @@ input[type="radio"] {
 		width: 100px;
 		padding: 5px;
 		padding-top: 0;
+	}
+
+	.grid-item2 {
+		display: flex;
+		flex-direction: column;
 	}
 }
 
