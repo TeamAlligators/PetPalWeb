@@ -40,11 +40,11 @@ function Signup() {
 			}
 
 			if (accountType === AccountType.SEEKER) {
-				userData.seeker = {
+				seeker = {
 					photo: null,
 				}
 			} else if (accountType === AccountType.SHELTER) {
-				userData.shelter = {
+				shelter = {
 					// for now
 					photo: null,
 					name: shelterName,
@@ -54,39 +54,41 @@ function Signup() {
 					address,
 					postal_code: postalCode,
 					mission,
-				},
-			};
+				}
+			}
 
 			const userResponse = await axios.post(
-				accountType === AccountType.SEEKER
-					? Endpoints.seeker
-					: Endpoints.shelter,
+				accountType === AccountType.SEEKER ? Endpoints.seeker : Endpoints.shelter,
 				userData
-			);
+			)
 
-			console.log("user response:", userResponse.data);
+			console.log("user response:", userResponse.data)
 
 			const tokenResponse = await axios.post(Endpoints.token, {
 				email,
 				password,
-			});
-
-			// Update the user context using setUserInfo
-			user.setUserInfo({
-				...userData,
-				token: tokenResponse.data.access,
-				account_type: accountType,
 			})
 
-			console.log("token response:", tokenResponse.data.access);
+			user.setUserInfo({
+				first_name: firstName,
+				last_name: lastName,
+				email,
+				password,
+				token: tokenResponse.data.access,
+				account_type: accountType,
+				seeker,
+				shelter,
+			})
 
-			navigate("/");
-			setError(false);
+			console.log("token response:", tokenResponse.data.access)
+
+			navigate("/")
+			setError(false)
 		} catch (error) {
-			console.error("Error during signup:", error);
-			setError(true);
+			console.error("Error during signup:", error)
+			setError(true)
 		}
-	};
+	}
 
 	return (
 		<main>
