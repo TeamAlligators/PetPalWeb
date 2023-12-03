@@ -57,6 +57,16 @@ function Signup() {
 				}
 			}
 
+			userData = {
+				first_name: firstName,
+				last_name: lastName,
+				email,
+				password,
+				account_type: accountType,
+				seeker,
+				shelter,
+			}
+
 			const userResponse = await axios.post(
 				accountType === AccountType.SEEKER ? Endpoints.seeker : Endpoints.shelter,
 				userData
