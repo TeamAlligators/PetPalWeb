@@ -29,17 +29,13 @@ class UserShelterCreate(CreateAPIView):
             account_type=account_type,
             is_active=is_active
         )
-        shelter = serializer.validated_data.get('shelter', tuple())
-        new_shelter = Shelter.objects.create(**shelter, user=new_user)
+        shelter_data = serializer.validated_data.get('shelter', {})
+        photo = self.request.FILES.get('photo')
 
-        response_data = {
-                "user_id": new_user.id,
-                "shelter_id": new_shelter.id,
-                "serializer_data": serializer.data,
-            }
+        if photo:
+            shelter_data['photo'] = photo
 
-        print(response_data, help)
-        return Response(response_data, status=status.HTTP_201_CREATED)
+        Shelter.objects.create(user=new_user, **shelter_data)
 
 class UserSeekerCreate(CreateAPIView):
     serializer_class = UserSeekerSerializer
@@ -60,17 +56,14 @@ class UserSeekerCreate(CreateAPIView):
             account_type=account_type,
             is_active=is_active
         )
-        seeker = serializer.validated_data.get('seeker', tuple())
-        new_seeker = Seeker.objects.create(**seeker, user=new_user)
+        seeker_data = serializer.validated_data.get('seeker', tuple())
+        photo = self.request.FILES.get('photo')
+        print(photo)
 
-        response_data = {
-            "user_id": new_user.id,
-            "seeker_id": new_seeker.id,
-            "serializer_data": serializer.data,
-        }
+        if photo:
+            seeker_data['photo'] = photo
 
-        print(response_data, help)
-        return Response(response_data, status=status.HTTP_201_CREATED)
+        Seeker.objects.create(**seeker_data, user=new_user)
 
 class UserShelterList(ListAPIView):
     permission_classes = [IsAuthenticated] 
@@ -83,7 +76,7 @@ class UserShelterList(ListAPIView):
 #     queryset = CustomUser.objects.filter(account_type="seeker")
 
 class UserShelterRetrieveUpdateDestroy(RetrieveUpdateDestroyAPIView):
-    permission_classes = [IsAuthenticated] 
+    # permission_classes = [IsAuthenticated] 
     serializer_class = UserShelterSerializer
     
     def get_object(self):
@@ -93,18 +86,40 @@ class UserShelterRetrieveUpdateDestroy(RetrieveUpdateDestroyAPIView):
     def perform_update(self, serializer):
         if self.request.user.id != self.get_object().id:
             raise PermissionDenied()
-        shelter = serializer.validated_data.get('shelter', {})
-        shelter = Shelter.objects.filter(user=self.request.user).update(**shelter)
-        first_name = serializer.validated_data.get('first_name', None)
-        last_name = serializer.validated_data.get('last_name', None)
-        email = serializer.validated_data.get('email', None)
-        hashed_password = make_password(serializer.validated_data.get('password', None))
-        CustomUser.objects.filter(id=self.request.user.id).update(
-            first_name=first_name,
-            last_name=last_name,
-            email=email,
-            password=hashed_password
-        )
+        # shelter = serializer.validated_data.get('shelter', {})
+        # shelter = Shelter.objects.filter(user=self.request.user).update(**shelter)
+        # first_name = serializer.validated_data.get('first_name', None)
+        # last_name = serializer.validated_data.get('last_name', None)
+        # email = serializer.validated_data.get('email', None)
+        # hashed_password = make_password(serializer.validated_data.get('password', None))
+        # CustomUser.objects.filter(id=self.request.user.id).update(
+        #     first_name=first_name,
+        #     last_name=last_name,
+        #     email=email,
+        #     password=hashed_password
+        # )
+        shelter_data = serializer.validated_data.get('shelter', {})
+        shelter_instance = Shelter.objects.get(user=self.request.user)
+
+        # Update Shelter fields other than the photo
+        for key, value in shelter_data.items():
+            setattr(shelter_instance, key, value)
+        shelter_instance.save()
+
+        # Handle photo upload separately
+        photo = self.request.FILES.get('photo')
+        if photo:
+            shelter_instance.photo = photo
+            shelter_instance.save()
+
+        # Update CustomUser fields
+        user_data = {
+            'first_name': serializer.validated_data.get('first_name', None),
+            'last_name': serializer.validated_data.get('last_name', None),
+            'email': serializer.validated_data.get('email', None),
+            'password': make_password(serializer.validated_data.get('password', None)),
+        }
+        CustomUser.objects.filter(id=self.request.user.id).update(**user_data)
     
     def perform_destroy(self, instance):
         if self.request.user.id != self.get_object().id:
@@ -120,36 +135,58 @@ class UserShelterRetrieveUpdateDestroy(RetrieveUpdateDestroyAPIView):
         instance.delete()
 
 class UserSeekerRetrieveUpdateDestroy(RetrieveUpdateDestroyAPIView):
-    permission_classes = [IsAuthenticated] 
+    # permission_classes = [IsAuthenticated] 
     serializer_class = UserSeekerSerializer
     
     def get_object(self):
         pk = self.kwargs.get('pk')
         # check that if the user is a shelter, the seeker has an active application with the shelter
-        if self.request.user.account_type == "shelter":
-            seeker = CustomUser.objects.get(pk=pk).seeker
-            if not Application.objects.filter(shelter=self.request.user.shelter.id, seeker=seeker.id).exists():
-                raise PermissionDenied()
-        elif self.request.user.account_type == "seeker":
-            if self.request.user.id != pk:
-                raise PermissionDenied()
+        # if self.request.user.account_type == "shelter":
+        #     seeker = CustomUser.objects.get(pk=pk).seeker
+        #     if not Application.objects.filter(shelter=self.request.user.shelter.id, seeker=seeker.id).exists():
+        #         raise PermissionDenied()
+        # elif self.request.user.account_type == "seeker":
+        #     if self.request.user.id != pk:
+        #         raise PermissionDenied()
         return CustomUser.objects.get(pk=pk)
 
     def perform_update(self, serializer):
         if self.request.user.id != self.get_object().id:
             raise PermissionDenied()
-        seeker = serializer.validated_data.get('seeker', {})
-        seeker = Seeker.objects.filter(user=self.request.user).update(**seeker)
-        first_name = serializer.validated_data.get('first_name', None)
-        last_name = serializer.validated_data.get('last_name', None)
-        email = serializer.validated_data.get('email', None)
-        hashed_password = make_password(serializer.validated_data.get('password', None))
-        CustomUser.objects.filter(id=self.request.user.id).update(
-            first_name=first_name,
-            last_name=last_name,
-            email=email,
-            password=hashed_password
-        )
+        # seeker = serializer.validated_data.get('seeker', {})
+        # seeker = Seeker.objects.filter(user=self.request.user).update(**seeker)
+        # first_name = serializer.validated_data.get('first_name', None)
+        # last_name = serializer.validated_data.get('last_name', None)
+        # email = serializer.validated_data.get('email', None)
+        # hashed_password = make_password(serializer.validated_data.get('password', None))
+        # CustomUser.objects.filter(id=self.request.user.id).update(
+        #     first_name=first_name,
+        #     last_name=last_name,
+        #     email=email,
+        #     password=hashed_password
+        # )
+        seeker_data = serializer.validated_data.get('seeker', {})
+        seeker_instance = Seeker.objects.get(user=self.request.user)
+
+        # Update Seeker fields other than the photo
+        for key, value in seeker_data.items():
+            setattr(seeker_instance, key, value)
+        seeker_instance.save()
+
+        # Handle photo upload separately
+        photo = self.request.FILES.get('photo')
+        if photo:
+            seeker_instance.photo = photo
+            seeker_instance.save()
+
+        # Update CustomUser fields
+        user_data = {
+            'first_name': serializer.validated_data.get('first_name', None),
+            'last_name': serializer.validated_data.get('last_name', None),
+            'email': serializer.validated_data.get('email', None),
+            'password': make_password(serializer.validated_data.get('password', None)),
+        }
+        CustomUser.objects.filter(id=self.request.user.id).update(**user_data)
 
     def perform_destroy(self, instance):
         if self.request.user.id != self.get_object().id:

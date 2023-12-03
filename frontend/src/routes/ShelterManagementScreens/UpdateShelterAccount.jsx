@@ -8,7 +8,7 @@ import Endpoints from "../../constants/Endpoints";
 
 function UpdateShelter() {
     const user = useUser()
-
+    const [file, setFile] = useState(null);
     const [formData, setFormData] = useState({
         mission: "",
         firstname: "",
@@ -21,6 +21,11 @@ function UpdateShelter() {
         address: "",
         postalcode: "",
     });
+
+    const handleFileChange = (e) => {
+        const selectedFile = e.target.files[0];
+        setFile(selectedFile);
+    };
 
     useEffect(() => {
         // Set the initial form data when the component mounts
@@ -46,17 +51,38 @@ function UpdateShelter() {
         }));
     };
 
+    // const handleSubmit = async (e) => {
+    //     e.preventDefault();
+
+    //     try {
+    //         const endpoint = Endpoints.updateshelter.replace(":pk", user.id);
+    //         const response = await axios.put(endpoint, formData);
+    //         console.log("User updated successfully:", response.data);
+    //     } catch (error) {
+    //         console.error("Error updating user:", error);
+    //     }
+    // };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
-
         try {
-            const endpoint = Endpoints.updateshelter.replace(":pk", user.id);
-            const response = await axios.put(endpoint, formData);
+            // Include image data in the user update request
+            const formDataWithImage = new FormData();
+            formDataWithImage.append("profileImg", file);
+            Object.entries(formData).forEach(([key, value]) => {
+                formDataWithImage.append(key, value);
+            });
+            // Update user data and upload profile image
+            const endpoint = Endpoints.updateshelter.replace(":pk", 1);
+            const response = await axios.put(endpoint, formDataWithImage, {
+                headers: { Authorization: `Bearer ${user.token}` }
+            });
             console.log("User updated successfully:", response.data);
         } catch (error) {
             console.error("Error updating user:", error);
         }
     };
+
 
     return (
         <body className={styles.pageContainer}>
@@ -65,7 +91,21 @@ function UpdateShelter() {
             <div className={styles.shelterManagement}>
                 <form className={styles.form} onSubmit={handleSubmit}>
                     <div className={styles.profileContainer}>
-                        <img className={styles.profileImg} src={require("../../images/profile1.png")} />
+                        {/* <img className={styles.profileImg} src={require("../../images/profile1.png")} /> */}
+                        <label htmlFor="profileImg" className={styles.profileImgLabel}>
+                            <img
+                                className={styles.profileImg}
+                                src={file ? URL.createObjectURL(file) : require("../../images/profile1.png")}
+                                alt="Profile"
+                            />
+                        </label>
+                        <input
+                            id="profileImg"
+                            className={styles.profileImgInput}
+                            type="file"
+                            accept="image/*"
+                            onChange={handleFileChange}
+                        />
                     </div>
                     <div className={styles.gridItem2}>
                         <textarea

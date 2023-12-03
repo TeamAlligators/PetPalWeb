@@ -72,7 +72,7 @@ function Signup() {
 				userData
 			)
 
-			console.log("user response:", userResponse.data, userResponse)
+			console.log("user response:", userResponse.data)
 
 			const tokenResponse = await axios.post(Endpoints.token, {
 				email,
@@ -81,7 +81,7 @@ function Signup() {
 
 			user.setUserInfo(
 				{
-					user_id: userResponse.user_id,
+					user_id: userResponse.data.id,
 					first_name: firstName,
 					last_name: lastName,
 					email,
