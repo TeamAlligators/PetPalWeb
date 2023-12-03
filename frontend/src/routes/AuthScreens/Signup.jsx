@@ -26,7 +26,9 @@ function Signup() {
 	const [mission, setMission] = useState("")
 
 	const handleSignup = async (event) => {
-		event.preventDefault();
+		event.preventDefault()
+		let shelter = {}
+		let seeker = {}
 
 		try {
 			let userData = {
@@ -35,7 +37,15 @@ function Signup() {
 				email,
 				password,
 				account_type: accountType,
-				[accountType]: { // Dynamically set the nested property based on accountType
+			}
+
+			if (accountType === AccountType.SEEKER) {
+				userData.seeker = {
+					photo: null,
+				}
+			} else if (accountType === AccountType.SHELTER) {
+				userData.shelter = {
+					// for now
 					photo: null,
 					name: shelterName,
 					phone: phoneNum,
@@ -65,7 +75,8 @@ function Signup() {
 			user.setUserInfo({
 				...userData,
 				token: tokenResponse.data.access,
-			});
+				account_type: accountType,
+			})
 
 			console.log("token response:", tokenResponse.data.access);
 
