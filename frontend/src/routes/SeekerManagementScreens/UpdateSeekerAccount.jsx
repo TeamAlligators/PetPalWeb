@@ -11,11 +11,9 @@ function UpdateSeeker() {
 
     const [file, setFile] = useState(null);
     const [formData, setFormData] = useState({
-        mission: "",
         firstname: "",
         lastname: "",
         email: "",
-        sheltername: "",
         phonenum: "",
         country: "",
         province: "",
@@ -31,11 +29,9 @@ function UpdateSeeker() {
     useEffect(() => {
         // Set the initial form data when the component mounts
         setFormData({
-            mission: user.shelter.mission || "",
             firstname: user.first_name || "",
             lastname: user.last_name || "",
             email: user.email || "",
-            sheltername: user.shelter.name || "",
             phonenum: user.shelter.phone || "",
             country: user.shelter.country || "",
             province: user.shelter.province || "",
@@ -74,7 +70,7 @@ function UpdateSeeker() {
                 formDataWithImage.append(key, value);
             });
             // Update user data and upload profile image
-            const endpoint = Endpoints.updateshelter.replace(":pk", 1);
+            const endpoint = Endpoints.updateshelter.replace(":pk", user.id);
             const response = await axios.put(endpoint, formDataWithImage, {
                 headers: { Authorization: `Bearer ${user.token}` }
             });

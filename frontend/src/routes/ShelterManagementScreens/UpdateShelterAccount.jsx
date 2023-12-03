@@ -73,7 +73,7 @@ function UpdateShelter() {
                 formDataWithImage.append(key, value);
             });
             // Update user data and upload profile image
-            const endpoint = Endpoints.updateshelter.replace(":pk", 1);
+            const endpoint = Endpoints.updateshelter.replace(":pk", user.id);
             const response = await axios.put(endpoint, formDataWithImage, {
                 headers: { Authorization: `Bearer ${user.token}` }
             });
