@@ -4,6 +4,7 @@ import NavBar from "../components/NavBar";
 import classes from "./PetDetails.module.css";
 import Endpoints from "../constants/Endpoints"
 import { useParams } from 'react-router-dom';
+import { NavLink } from "react-router-dom";
 
 function PetDetails() {
     const [petDetails, setPetDetails] = useState({
@@ -72,9 +73,10 @@ function PetDetails() {
             <b>Personality: </b>
             {petDetails.personality}
           </p>
-          <a href="pet-applications.html">
+          <NavLink className={classes["adopt-button"]} to={`/petapplication`}>ADOPT NOW</NavLink>
+          {/* <a href="pet-applications.html">
             <button className={classes["adopt-button"]}>ADOPT NOW</button>
-          </a>
+          </a> */}
         </div>
       </content>
     </body>
