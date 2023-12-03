@@ -7,14 +7,31 @@ import Endpoints from "../constants/Endpoints";
 
 function PetApplication() {
     const [formData, setFormData] = useState({
-        first_name: "",
-        last_name: "",
-        email: "",
-        phone: "",
-        country: "",
-        province: "",
-        address: "",
-        postal_code: "",
+        // pet: "",
+        // seeker: "",
+        // shelter: "",
+        // first_name: "",
+        // last_name: "",
+        // email: "",
+        // phone: "",
+        // country: "",
+        // province: "",
+        // address: "",
+        // postal_code: "",
+
+
+        // pet: /* ID of the selected pet */,
+        // seeker: /* ID of the current user or seeker */,
+        // Shelter: /* ID of the shelter if applicable */,
+        // first_name: formData.firstname,
+        // last_name: formData.lastname,
+        // phone: formData.phonenum,
+        // email: formData.email,
+        // address: formData.address,
+        // country: formData.country,
+        // province: formData.province,
+        // postal_code: formData.postalcode,
+        // You can set other fields as needed
     });
 
     const handleInputChange = (e) => {
@@ -27,13 +44,14 @@ function PetApplication() {
 
     try {
         // Make a POST request to create a new application
-        const response = await axios.post(Endpoints.applications, formData);
+        console.log("Form data:", formData);
+        const response = await axios.post(Endpoints.application, formData);
         console.log("Application submitted successfully:", response.data);
 
         // Assuming you want to navigate to a new page after successful submission
         // You can use react-router-dom or any other navigation method here
         // For example, redirecting to a success page
-        window.location.href = "pet-applications-filled.html";
+        // window.location.href = "pet-applications-filled.html";
     } catch (error) {
         console.error("Error submitting application:", error);
     }
@@ -53,22 +71,22 @@ function PetApplication() {
               <div className={classes["grid-container"]}>
                 <div className={classes["grid-item"]}>
                   <input
-                    id="firstname"
+                    id="first_name"
                     type="text"
-                    name="firstname"
+                    name="first_name"
                     placeholder="First name"
-                    value={formData.first_name}
+                    // value={formData.first_name}
                     onChange={handleInputChange}
                     required
                   />
                 </div>
                 <div class={classes["grid-item"]}>
                     <input
-                        id="lastname"
+                        id="last_name"
                         type="text"
-                        name="lastname"
+                        name="last_name"
                         placeholder="Last name"
-                        value={formData.last_name}
+                        // value={formData.last_name}
                         onChange={handleInputChange}
                         required
                     />
@@ -79,18 +97,18 @@ function PetApplication() {
                         type="email"
                         name="email"
                         placeholder="Email"
-                        value={formData.email}
+                        // value={formData.email}
                         onChange={handleInputChange}
                         required
                     />
                 </div>
                 <div class={classes["grid-item"]}>
                     <input
-                        id="phonenum"
+                        id="phone"
                         type="text"
-                        name="phonenum"
+                        name="phone"
                         placeholder="Phone #"
-                        value={formData.phone}
+                        // value={formData.phone}
                         onChange={handleInputChange}
                         required
                     />
@@ -101,7 +119,7 @@ function PetApplication() {
                         type="text"
                         name="country"
                         placeholder="Country"
-                        value={formData.country}
+                        // value={formData.country}
                         onChange={handleInputChange}
                         required
                     />
@@ -112,7 +130,7 @@ function PetApplication() {
                         type="text"
                         name="province"
                         placeholder="Province"
-                        value={formData.province}
+                        // value={formData.province}
                         onChange={handleInputChange}
                         required
                     />
@@ -123,18 +141,18 @@ function PetApplication() {
                         type="text"
                         name="address"
                         placeholder="Address"
-                        value={formData.address}
+                        // value={formData.address}
                         onChange={handleInputChange}
                         required
                     />
                 </div>
                 <div class={classes["grid-item"]}>
                     <input
-                        id="postalcode"
+                        id="postal_code"
                         type="text"
-                        name="postalcode"
+                        name="postal_code"
                         placeholder="Postal Code"
-                        value={formData.postal_code}
+                        // value={formData.postal_code}
                         onChange={handleInputChange}
                         required
                     />
