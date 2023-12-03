@@ -127,7 +127,7 @@ function UpdateSeeker() {
                                 type="text"
                                 name="firstname"
                                 placeholder="First name"
-                                value={formData.firstname}
+                                value={formData.first_name}
                                 onChange={handleChange}
                                 required />
                         </div>
@@ -137,7 +137,7 @@ function UpdateSeeker() {
                                 type="text"
                                 name="lastname"
                                 placeholder="Last name"
-                                value={formData.lastname}
+                                value={formData.last_name}
                                 onChange={handleChange}
                                 required />
                         </div>

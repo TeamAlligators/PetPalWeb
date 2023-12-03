@@ -79,9 +79,31 @@ function Signup() {
 				password,
 			})
 
+			console.log("token response:", tokenResponse.data.access)
+
+			// temp since we cant return id from backend
+
+			let userId = null;
+
+			if (accountType === AccountType.SEEKER) {
+				const seekersResponse = await axios.get(Endpoints.seekers)
+				seekersResponse.data.forEach((currUser) => {
+					if (currUser.email === email) {
+						userId = currUser.id
+					}
+				})
+			} else if (accountType === AccountType.SHELTER) {
+				const sheltersResponse = await axios.get(Endpoints.shelters)
+				sheltersResponse.data.forEach((currUser) => {
+					if (currUser.email === email) {
+						userId = currUser.id
+					}
+				})
+			}
+
 			user.setUserInfo(
 				{
-					user_id: userResponse.data.id,
+					userId: userId,
 					first_name: firstName,
 					last_name: lastName,
 					email,
@@ -90,9 +112,10 @@ function Signup() {
 					account_type: accountType,
 					seeker,
 					shelter,
-				})
+				}
+			)
 
-			console.log("token response:", tokenResponse.data.access)
+			console.log("user info:", user)
 
 			navigate("/")
 			setError(false)
