@@ -10,15 +10,24 @@ function UpdateSeeker() {
     console.log(user)
 
     const [file, setFile] = useState(null);
+    // const [formData, setFormData] = useState({
+    //     firstname: "",
+    //     lastname: "",
+    //     email: "",
+    //     phonenum: "",
+    //     country: "",
+    //     province: "",
+    //     address: "",
+    //     postalcode: "",
+    // });
     const [formData, setFormData] = useState({
-        firstname: "",
-        lastname: "",
+        seeker: {
+            photo: null,
+        },
+        first_name: "",
+        last_name: "",
         email: "",
-        phonenum: "",
-        country: "",
-        province: "",
-        address: "",
-        postalcode: "",
+        account_type: "shelter",
     });
 
     const handleFileChange = (e) => {
@@ -29,14 +38,14 @@ function UpdateSeeker() {
     useEffect(() => {
         // Set the initial form data when the component mounts
         setFormData({
-            firstname: user.first_name || "",
-            lastname: user.last_name || "",
+            seeker: {
+                photo: null,
+            },
+            first_name: user.first_name || "",
+            last_name: user.last_name || "",
             email: user.email || "",
-            phonenum: user.shelter.phone || "",
-            country: user.shelter.country || "",
-            province: user.shelter.province || "",
-            address: user.shelter.address || "",
-            postalcode: user.postal_code || "",
+            password: "",
+            account_type: "seeker",
         });
     }, [user]);
 
@@ -48,33 +57,42 @@ function UpdateSeeker() {
         }));
     };
 
-    // const handleSubmit = async (e) => {
-    //     e.preventDefault();
-
-    //     try {
-    //         const endpoint = Endpoints.updateshelter.replace(":pk", user.id);
-    //         const response = await axios.put(endpoint, formData);
-    //         console.log("User updated successfully:", response.data);
-    //     } catch (error) {
-    //         console.error("Error updating user:", error);
-    //     }
-    // };
-
     const handleSubmit = async (e) => {
         e.preventDefault();
+
         try {
-            // Include image data in the user update request
-            const formDataWithImage = new FormData();
-            formDataWithImage.append("profileImg", file);
-            Object.entries(formData).forEach(([key, value]) => {
-                formDataWithImage.append(key, value);
-            });
-            // Update user data and upload profile image
-            const endpoint = Endpoints.updateshelter.replace(":pk", user.id);
-            const response = await axios.put(endpoint, formDataWithImage, {
-                headers: { Authorization: `Bearer ${user.token}` }
+            console.log(user)
+            const endpoint = Endpoints.updateseeker.replace(":pk", user.userId);
+            const newUserData = {
+                first_name: formData.first_name,
+                last_name: formData.last_name,
+                email: formData.email,
+                password: formData.password,
+                account_type: formData.account_type,
+                seeker: {}
+            }
+            const response = await axios.put(endpoint, newUserData, {
+                headers: {
+                    Authorization: `Bearer ${user.token}`,
+                },
             });
             console.log("User updated successfully:", response.data);
+            // add in file for photo
+            if (file) {
+                const form = new FormData();
+                form.append("photo", file);
+                const photoResponse = await axios.put(
+                    Endpoints.updateseeker.replace(":pk", user.userId),
+                    form,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${user.token}`,
+                            "Content-Type": "multipart/form-data",
+                        },
+                    }
+                );
+                console.log("Photo updated successfully:", photoResponse.data);
+            }
         } catch (error) {
             console.error("Error updating user:", error);
         }
@@ -109,7 +127,7 @@ function UpdateSeeker() {
                                 type="text"
                                 name="firstname"
                                 placeholder="First name"
-                                value={formData.firstname}
+                                value={formData.first_name}
                                 onChange={handleChange}
                                 required />
                         </div>
@@ -119,7 +137,7 @@ function UpdateSeeker() {
                                 type="text"
                                 name="lastname"
                                 placeholder="Last name"
-                                value={formData.lastname}
+                                value={formData.last_name}
                                 onChange={handleChange}
                                 required />
                         </div>
@@ -135,53 +153,13 @@ function UpdateSeeker() {
                         </div>
                         <div className={styles.gridItem}>
                             <input
-                                id="phonenum"
-                                type="text"
-                                name="phonenum"
-                                placeholder="Phone #"
-                                value={formData.phonenum}
+                                id="password"
+                                type="password"
+                                name="password"
+                                placeholder="Password"
+                                value={formData.password}
                                 onChange={handleChange}
-                            />
-                        </div>
-                        <div className={styles.gridItem}>
-                            <input
-                                id="country"
-                                type="text"
-                                name="country"
-                                placeholder="Country"
-                                value={formData.country}
-                                onChange={handleChange}
-                            />
-                        </div>
-                        <div className={styles.gridItem}>
-                            <input
-                                id="province"
-                                type="text"
-                                name="province"
-                                placeholder="Province"
-                                value={formData.province}
-                                onChange={handleChange}
-                            />
-                        </div>
-                        <div className={styles.gridItem}>
-                            <input
-                                id="address"
-                                type="text"
-                                name="address"
-                                placeholder="Address"
-                                value={formData.address}
-                                onChange={handleChange}
-                            />
-                        </div>
-                        <div className={styles.gridItem}>
-                            <input
-                                id="postalcode"
-                                type="text"
-                                name="postalcode"
-                                placeholder="Postal Code"
-                                value={formData.postalcode}
-                                onChange={handleChange}
-                            />
+                                required />
                         </div>
                     </div>
                     <button className={styles.save} type="submit">Save</button>

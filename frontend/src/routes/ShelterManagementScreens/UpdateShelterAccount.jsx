@@ -23,6 +23,7 @@ function UpdateShelter() {
         first_name: "",
         last_name: "",
         email: "",
+        password: "",
         account_type: "shelter",
     });
 
