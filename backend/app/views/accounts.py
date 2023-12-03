@@ -70,10 +70,10 @@ class UserShelterList(ListAPIView):
     serializer_class = UserShelterSerializer
     queryset = CustomUser.objects.filter(account_type="shelter")
 
-# class UserSeekerList(ListAPIView):
-#     permission_classes = [IsAuthenticated] 
-#     serializer_class = UserSeekerSerializer
-#     queryset = CustomUser.objects.filter(account_type="seeker")
+class UserSeekerList(ListAPIView):
+    permission_classes = [IsAuthenticated] 
+    serializer_class = UserSeekerSerializer
+    queryset = CustomUser.objects.filter(account_type="seeker")
 
 class UserShelterRetrieveUpdateDestroy(RetrieveUpdateDestroyAPIView):
     # permission_classes = [IsAuthenticated] 
@@ -141,13 +141,13 @@ class UserSeekerRetrieveUpdateDestroy(RetrieveUpdateDestroyAPIView):
     def get_object(self):
         pk = self.kwargs.get('pk')
         # check that if the user is a shelter, the seeker has an active application with the shelter
-        # if self.request.user.account_type == "shelter":
-        #     seeker = CustomUser.objects.get(pk=pk).seeker
-        #     if not Application.objects.filter(shelter=self.request.user.shelter.id, seeker=seeker.id).exists():
-        #         raise PermissionDenied()
-        # elif self.request.user.account_type == "seeker":
-        #     if self.request.user.id != pk:
-        #         raise PermissionDenied()
+        if self.request.user.account_type == "shelter":
+            seeker = CustomUser.objects.get(pk=pk).seeker
+            if not Application.objects.filter(shelter=self.request.user.shelter.id, seeker=seeker.id).exists():
+                raise PermissionDenied()
+        elif self.request.user.account_type == "seeker":
+            if self.request.user.id != pk:
+                raise PermissionDenied()
         return CustomUser.objects.get(pk=pk)
 
     def perform_update(self, serializer):
