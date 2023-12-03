@@ -21,12 +21,12 @@
     font-size: 62px;
     font-family: PlayFairDisplay;
 }
- 
+
 .shelterContainer {
     margin-top: 28px;
     margin-bottom: 32px;
 }
- 
+
 .optionsButton {
     font-family: Nunito;
     color: white;
@@ -42,14 +42,29 @@
     margin: 5px;
     transition: all 0.2s;
     border: 0px;
-	box-shadow: -1px -1px 20px rgba(0, 0, 0, 0.25);	
+    box-shadow: -1px -1px 20px rgba(0, 0, 0, 0.25);
 }
- 
+
 .optionsButton:hover {
     color: white;
     background-color: #d0a1a1;
 }
- 
+
 .active-button {
     background-color: #d0a1a1;
+}
+
+@media screen and (max-width: 700px) {
+    .shelterManagementBar {
+        width: 100vw;
+        text-align: center;
+        align-items: center;
+        padding: 0 50px;
+    }
+    .optionsButton {
+        display: block;
+        width: 100%;
+        margin-bottom: 10px;
+        margin-left: 0px;
+    }
 }

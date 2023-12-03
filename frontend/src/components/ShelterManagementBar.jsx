@@ -1,11 +1,13 @@
 import { NavLink } from "react-router-dom"
 import styles from "./ShelterManagementBar.module.css"
+import useUser from "../context/UserContext"
 
 function ShelterManagementBar() {
-	return (
+    const user = useUser()
+    return (
         <div className={styles.shelterManagementBar}>
             <h1 className={styles.header}>
-                Shelter Name
+                {user.shelter.name}
             </h1>
             <div className={styles.shelterContainer}>
                 <NavLink className={styles.optionsButton} to={`/sheltermanagement`}>
@@ -22,7 +24,7 @@ function ShelterManagementBar() {
                 </NavLink>
             </div>
         </div>
-	)
+    )
 }
 
 export default ShelterManagementBar
