@@ -17,6 +17,7 @@ function PetDetails() {
     });
 
     const { pk } = useParams();
+    const endpoint = Endpoints.pet.replace(":pk", pk);
 
     useEffect(() => {
         // Fetch pet details from the server
@@ -24,7 +25,7 @@ function PetDetails() {
         const fetchPetDetails = async () => {
             try {
 
-                const response = await axios.get(Endpoints.pet); 
+                const response = await axios.get(endpoint); 
                 console.log("Pet details", response.data);
 
                 // Assuming API response has a structure like { name, gender, birthday, status, medicalHistory, specialNeeds, personality }
@@ -35,7 +36,7 @@ function PetDetails() {
         };
 
         fetchPetDetails();
-    }, [pk]); // Empty dependency array ensures this effect runs once when the component mounts
+    }); // Empty dependency array ensures this effect runs once when the component mounts
 
 
   return (
