@@ -7,6 +7,8 @@ const UserContext = createContext({
 	account_type: "",
 	setUserInfo: () => {},
 	token: "",
+	seeker: {},
+	shelter: {},
 })
 
 export const UserProvider = ({ children }) => {
@@ -16,6 +18,8 @@ export const UserProvider = ({ children }) => {
 		last_name: "",
 		account_type: "",
 		token: "",
+		seeker: {},
+		shelter: {},
 	})
 
 	return (

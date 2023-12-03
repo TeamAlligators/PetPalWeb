@@ -27,6 +27,8 @@ function Signup() {
 
 	const handleSignup = async (event) => {
 		event.preventDefault()
+		let shelter = {}
+		let seeker = {}
 
 		try {
 			let userData = {
@@ -38,11 +40,11 @@ function Signup() {
 			}
 
 			if (accountType === AccountType.SEEKER) {
-				userData.seeker = {
+				seeker = {
 					photo: null,
 				}
 			} else if (accountType === AccountType.SHELTER) {
-				userData.shelter = {
+				shelter = {
 					// for now
 					photo: null,
 					name: shelterName,
@@ -53,6 +55,16 @@ function Signup() {
 					postal_code: postalCode,
 					mission,
 				}
+			}
+
+			userData = {
+				first_name: firstName,
+				last_name: lastName,
+				email,
+				password,
+				account_type: accountType,
+				seeker,
+				shelter,
 			}
 
 			const userResponse = await axios.post(
@@ -74,6 +86,8 @@ function Signup() {
 				password,
 				token: tokenResponse.data.access,
 				account_type: accountType,
+				seeker,
+				shelter,
 			})
 
 			console.log("token response:", tokenResponse.data.access)
