@@ -3,7 +3,6 @@ from django.contrib.auth.models import AbstractUser
 from .managers import CustomUserManager
 
 class CustomUser(AbstractUser):
-    id = models.AutoField(primary_key=True)
     username = None
     first_name = models.CharField(max_length=200, blank=False)
     last_name = models.CharField(max_length=200, blank=False)
@@ -16,7 +15,6 @@ class CustomUser(AbstractUser):
     REQUIRED_FIELDS = []
 
 class Shelter(models.Model):
-    id = models.AutoField(primary_key=True)
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
     name = models.CharField(max_length=200, blank=False)
     phone = models.CharField(max_length=200, blank=False)
@@ -28,6 +26,5 @@ class Shelter(models.Model):
     photo = models.ImageField(upload_to='profile/', null=True, blank=True)
 
 class Seeker(models.Model):
-    id = models.AutoField(primary_key=True)
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
     photo = models.ImageField(upload_to='profile/', null=True, blank=True)
