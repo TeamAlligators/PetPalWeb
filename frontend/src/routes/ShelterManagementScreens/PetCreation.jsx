@@ -174,7 +174,7 @@ function PetCreation() {
                                 id="age"
                                 type="number"
                                 name="age"
-                                placeholder="Age"
+                                placeholder="Age (in months)"
                                 value={formData.age}
                                 onChange={handleChange}
                                 required

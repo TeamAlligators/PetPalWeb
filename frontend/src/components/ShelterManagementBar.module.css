@@ -54,6 +54,10 @@
     background-color: #d0a1a1;
 }
 
+.activeButton {
+    background-color: #d0a1a1;
+}
+
 @media screen and (max-width: 700px) {
     .shelterManagementBar {
         width: 100vw;
