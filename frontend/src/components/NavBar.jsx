@@ -91,7 +91,7 @@ function NavBar() {
 					</div>
 				</div>
 				{user.token ? (
-					<a class={styles["nav-name"]} href="seeker-profile.html">
+					<a className={styles["nav-name"]} href={user.account_type === "seeker" ? "/seekermanagement" : "/sheltermanagement"}>
 						{user.first_name} {user.last_name}
 					</a>
 				) : (

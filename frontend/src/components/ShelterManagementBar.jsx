@@ -9,7 +9,7 @@ function ShelterManagementBar() {
     return (
         <div className={styles.shelterManagementBar}>
             <h1 className={styles.header}>
-                {user.shelter.name}
+                Welcome, {user.first_name} {user.last_name}
             </h1>
             <div className={styles.shelterContainer}>
                 <NavLink className={styles.optionsButton} to={`/sheltermanagement`}>
