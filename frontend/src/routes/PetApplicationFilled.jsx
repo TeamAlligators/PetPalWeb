@@ -1,11 +1,52 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
-import NavBar from "../components/NavBar";
-import classes from "./PetDetails.module.css";
-import Endpoints from "../constants/Endpoints"
-// import PetApplication from "./PetApplication";
+import { useState, useEffect} from "react"
+import NavBar from "../components/NavBar"
+import classes from "./PetApplication.module.css"
+import axios from "axios"
+import useUser from "../context/UserContext";
+import Endpoints from "../constants/Endpoints";
+import { useNavigate, useParams } from "react-router-dom";
 
 function PetApplicationFilled() { 
+
+    const { pk } = useParams();
+    // const endpoint = Endpoints.application.replace(":pk", pk);
+  
+    // const navigate = useNavigate();
+    const user = useUser()
+    // const [formDataUpdated, setFormDataUpdated] = useState(false);
+
+    const [formData, setFormData] = useState({
+        pet: pk,
+        seeker: user.userId,
+        shelter: "",
+        first_name: "",
+        last_name: "",
+        email: "",
+        phone: "",
+        country: "",
+        province: "",
+        address: "",
+        postal_code: "",
+
+    });
+
+    useEffect(() => {
+      // Fetch application from the server
+  
+      const fetchApplication = async () => {
+        try {
+          const response = await axios.get(Endpoints.application, {params: {pk: pk}});
+          console.log("Application details", response.data);
+  
+          setFormData(response.data);
+        } catch (error) {
+          console.error("Error fetching application details:", error);
+        }
+      };
+  
+      fetchApplication();
+    }); // Empty dependency array ensures this effect runs once when the component mounts
+  
     return (
         <body className={classes["page-container"]}>
             <NavBar />
@@ -26,7 +67,7 @@ function PetApplicationFilled() {
                                 placeholder="First name"
                                 required
                                 disabled
-                                value="Derpy"
+                                value={formData.first_name}
                             />
                         </div>
                         <div class={ classes["grid-item"]}>
@@ -37,7 +78,7 @@ function PetApplicationFilled() {
                                 placeholder="Last name"
                                 required
                                 disabled
-                                value="Cat"
+                                value={formData.last_name}
                             />
                         </div>
                         <div class={ classes["grid-item"]}>
@@ -48,7 +89,7 @@ function PetApplicationFilled() {
                                 placeholder="Email"
                                 required
                                 disabled
-                                value="cat@gmail.com"
+                                value={formData.email}
                             />
                         </div>
                         <div class={ classes["grid-item"]}>
@@ -59,7 +100,7 @@ function PetApplicationFilled() {
                                 placeholder="Phone #"
                                 required
                                 disabled
-                                value="416-132-1521"
+                                value={formData.phone}
                             />
                         </div>
                         <div class={ classes["grid-item"]}>
@@ -70,7 +111,7 @@ function PetApplicationFilled() {
                                 placeholder="Country"
                                 required
                                 disabled
-                                value="Canada"
+                                value={formData.country}
                             />
                         </div>
                         <div class={ classes["grid-item"]}>
@@ -81,7 +122,7 @@ function PetApplicationFilled() {
                                 placeholder="Province"
                                 required
                                 disabled
-                                value="Ontario"
+                                value={formData.province}
                             />
                         </div>
                         <div class={ classes["grid-item"]}>
@@ -92,7 +133,7 @@ function PetApplicationFilled() {
                                 placeholder="Address"
                                 required
                                 disabled
-                                value="123 Main Street"
+                                value={formData.address}
                             />
                         </div>
                         <div class={ classes["grid-item"]}>
@@ -103,7 +144,7 @@ function PetApplicationFilled() {
                                 placeholder="Postal Code"
                                 required
                                 disabled
-                                value="M41 K2L"
+                                value={formData.postal_code}
                             />
                         </div>
                     </div>
