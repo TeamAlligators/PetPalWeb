@@ -17,6 +17,7 @@ import ShelterReview from "./routes/ShelterReview"
 import { GoogleOAuthProvider } from "@react-oauth/google"
 import PetDetails from "./routes/PetDetails"
 import PetApplication from "./routes/PetApplication"
+import PetApplicationFilled from "./routes/PetApplicationFilled"
 
 const router = createBrowserRouter([
 	{
@@ -42,6 +43,10 @@ const router = createBrowserRouter([
 	{
 		path: "/petapplication",
 		element: <PetApplication />,
+	},
+	{
+		path: "/petapplication/:pk",
+		element: <PetApplicationFilled />,
 	},
 	{
 		path: "/seekermanagement",

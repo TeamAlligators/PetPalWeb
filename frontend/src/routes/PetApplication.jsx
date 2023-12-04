@@ -1,61 +1,93 @@
 // import { NavLink } from "react-router-dom"
-import { useState } from "react"
+import { useState, useEffect} from "react"
 import NavBar from "../components/NavBar"
 import classes from "./PetApplication.module.css"
 import axios from "axios"
+import useUser from "../../context/UserContext";
 import Endpoints from "../constants/Endpoints";
+import { useNavigate } from "react-router-dom";
 
 function PetApplication() {
+    const navigate = useNavigate();
+    const user = useUser()
+    const [formDataUpdated, setFormDataUpdated] = useState(false);
     const [formData, setFormData] = useState({
-        // pet: "",
-        // seeker: "",
-        // shelter: "",
-        // first_name: "",
-        // last_name: "",
-        // email: "",
-        // phone: "",
-        // country: "",
-        // province: "",
-        // address: "",
-        // postal_code: "",
+        pet: "",
+        seeker: user.userId,
+        shelter: "",
+        first_name: "",
+        last_name: "",
+        email: "",
+        phone: "",
+        country: "",
+        province: "",
+        address: "",
+        postal_code: "",
 
-
-        // pet: /* ID of the selected pet */,
-        // seeker: /* ID of the current user or seeker */,
-        // Shelter: /* ID of the shelter if applicable */,
-        // first_name: formData.firstname,
-        // last_name: formData.lastname,
-        // phone: formData.phonenum,
-        // email: formData.email,
-        // address: formData.address,
-        // country: formData.country,
-        // province: formData.province,
-        // postal_code: formData.postalcode,
-        // You can set other fields as needed
     });
 
     const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value });
     };
+
+    useEffect(() => {
+        if (formDataUpdated) {
+            console.log("Form data:", formData);
+            setFormDataUpdated(false);
+        }
+    }, [formData, formDataUpdated]);
 
     const handleSubmit = async (e) => {
-    e.preventDefault();
+        e.preventDefault();
 
-    try {
-        // Make a POST request to create a new application
-        console.log("Form data:", formData);
-        const response = await axios.post(Endpoints.application, formData);
-        console.log("Application submitted successfully:", response.data);
+        try {
+            // get the shelter id by getting specific shelter
+            const shelterResponse = await axios.get(Endpoints.specificshelter.replace(":pk", user.userId), {
+                headers: {
+                    "Authorization": "Bearer " + user.token,
+                },
+            });
+            const shelterId = shelterResponse.data.id;
+            setFormData((prevData) => ({
+                ...prevData,
+                shelter: shelterId,
+            }));
+            setFormDataUpdated(true);
 
-        // Assuming you want to navigate to a new page after successful submission
-        // You can use react-router-dom or any other navigation method here
-        // For example, redirecting to a success page
-        // window.location.href = "pet-applications-filled.html";
-    } catch (error) {
-        console.error("Error submitting application:", error);
-    }
+        } catch (error) {
+            console.error("Error submitting application:", error);
+        }
     };
+    
+    useEffect(() => {
+        if (formDataUpdated) {
+            const createApp = async () => {
+                try {
+                    const endpoint = Endpoints.application;
+                    // }
+                    const response = await axios.post(endpoint, formData, {
+                        headers: {
+                            "Authorization": "Bearer " + user.token,
+                        },
+                    });
+                    console.log("Pet created successfully:", response.data);
+
+                    // redirect to the filled application page
+
+                    const applicationId = response.data.id;
+                    navigate(`/petapplication/${applicationId}`);
+
+                } catch (error) {
+                    console.error("Error creating appplication:", error);
+                }
+            };
+            createApp();
+            setFormDataUpdated(false);
+        }
+    }, [formDataUpdated, formData, user.token, navigate]);
+
+
 
     return (
         <body className={classes["page-container"]}>
@@ -75,7 +107,7 @@ function PetApplication() {
                     type="text"
                     name="first_name"
                     placeholder="First name"
-                    // value={formData.first_name}
+                    value={formData.first_name}
                     onChange={handleInputChange}
                     required
                   />
@@ -86,7 +118,7 @@ function PetApplication() {
                         type="text"
                         name="last_name"
                         placeholder="Last name"
-                        // value={formData.last_name}
+                        value={formData.last_name}
                         onChange={handleInputChange}
                         required
                     />
@@ -97,7 +129,7 @@ function PetApplication() {
                         type="email"
                         name="email"
                         placeholder="Email"
-                        // value={formData.email}
+                        value={formData.email}
                         onChange={handleInputChange}
                         required
                     />
@@ -108,7 +140,7 @@ function PetApplication() {
                         type="text"
                         name="phone"
                         placeholder="Phone #"
-                        // value={formData.phone}
+                        value={formData.phone}
                         onChange={handleInputChange}
                         required
                     />
@@ -119,7 +151,7 @@ function PetApplication() {
                         type="text"
                         name="country"
                         placeholder="Country"
-                        // value={formData.country}
+                        value={formData.country}
                         onChange={handleInputChange}
                         required
                     />
@@ -130,7 +162,7 @@ function PetApplication() {
                         type="text"
                         name="province"
                         placeholder="Province"
-                        // value={formData.province}
+                        value={formData.province}
                         onChange={handleInputChange}
                         required
                     />
@@ -141,7 +173,7 @@ function PetApplication() {
                         type="text"
                         name="address"
                         placeholder="Address"
-                        // value={formData.address}
+                        value={formData.address}
                         onChange={handleInputChange}
                         required
                     />
@@ -152,7 +184,7 @@ function PetApplication() {
                         type="text"
                         name="postal_code"
                         placeholder="Postal Code"
-                        // value={formData.postal_code}
+                        value={formData.postal_code}
                         onChange={handleInputChange}
                         required
                     />
