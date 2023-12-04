@@ -66,7 +66,7 @@ class UserSeekerCreate(CreateAPIView):
         Seeker.objects.create(**seeker_data, user=new_user)
 
 class UserShelterList(ListAPIView):
-    permission_classes = [IsAuthenticated] 
+    # permission_classes = [IsAuthenticated] 
     serializer_class = UserShelterSerializer
     queryset = CustomUser.objects.filter(account_type="shelter")
 
@@ -76,7 +76,7 @@ class UserSeekerList(ListAPIView):
     queryset = CustomUser.objects.filter(account_type="seeker")
 
 class UserShelterRetrieveUpdateDestroy(RetrieveUpdateDestroyAPIView):
-    # permission_classes = [IsAuthenticated] 
+    permission_classes = [IsAuthenticated] 
     serializer_class = UserShelterSerializer
     
     def get_object(self):
@@ -86,6 +86,7 @@ class UserShelterRetrieveUpdateDestroy(RetrieveUpdateDestroyAPIView):
     def perform_update(self, serializer):
         if self.request.user.id != self.get_object().id:
             raise PermissionDenied()
+
         # shelter = serializer.validated_data.get('shelter', {})
         # shelter = Shelter.objects.filter(user=self.request.user).update(**shelter)
         # first_name = serializer.validated_data.get('first_name', None)
@@ -98,6 +99,7 @@ class UserShelterRetrieveUpdateDestroy(RetrieveUpdateDestroyAPIView):
         #     email=email,
         #     password=hashed_password
         # )
+
         shelter_data = serializer.validated_data.get('shelter', {})
         shelter_instance = Shelter.objects.get(user=self.request.user)
 

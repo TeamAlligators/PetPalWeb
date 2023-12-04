@@ -64,6 +64,16 @@ function Login() {
 				}
 			})
 
+			if (!newUser) {
+				const sheltersResponse = await axios.get(Endpoints.shelters)
+
+				sheltersResponse.data.forEach((currUser) => {
+					if (currUser.email === email || currUser.email === googleEmail) {
+						newUser = currUser
+					}
+				})
+			}
+
 			console.log("loggedin user", newUser)
 			user.setUserInfo({
 				...user,

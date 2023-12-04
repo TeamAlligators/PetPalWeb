@@ -182,211 +182,30 @@ textarea {
     color: white;
 }
  
-@media only screen and (max-width: 480px) {
-    .header {
-        font-weight: 600;
-        font-size: 48px;
-    }
- 
-    .paragraph {
-        font-size: 14px;
-    }
- 
-    .index-picture {
-        display: none;
-    }
- 
-    .sign-up-button {
-        font-size: 12px;
-        padding: 6px;
-    }
- 
-    .logo {
-        width: 100px;
-        padding: 5px;
-        padding-top: 0;
-    }
- 
-    .nav-name {
-        font-size: 12px;
-    }
-}
- 
-@media only screen and (max-width: 700px) {
-    .index-picture {
-        display: none;
-    }
-    .body-text {
-        width: 90vw;
-    }
- 
-    .body-item {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-align: left;
-        width: 90vw;
-    }
- 
-    .nav-link {
-        display: none;
-    }
- 
-    .nav-icon {
-        margin-left: 8px;
-        margin-right: 8px;
-        position: relative;
-    }
- 
-    .notification-container {
-        margin-left: 0px;
-        margin-right: 0px;
-        position: relative;
-    }
- 
-    .logo {
-        width: 150px;
-        padding: 10px;
-        padding-top: 0;
-    }
- 
-    .sign-up-button {
-        font-size: 16px;
-    }
-}
- 
-@media only screen and (max-width: 730px) {
-    .sign-up-button {
-        font-size: 16px;
-    }
-}
- 
-@media only screen and (max-width: 1200px) {
-    .index-picture {
-        width: 500px;
-    }
- 
-    .logo {
-        width: 150px;
-    }
- 
-    .sign-up-button {
-        font-size: 16px;
-    }
- 
-    .nav-name {
-        font-size: 16px;
-    }
-}
- 
-.nav-icon {
-    color: black;
-}
- 
-.nav-icon:hover {
-    color: #d0a1a1;
-}
- 
-.nav-name {
-    color: black;
-    font-weight: 600;
-    font-size: 24px;
-    padding: 16px;
-    text-decoration: none;
-}
- 
-.nav-name:hover {
-    color: #d0a1a1;
-}
- 
-@media only screen and (max-width: 730px) {
-    .sign-up-button {
-        font-size: 16px;
-    }
- 
-    .options-button {
-        font-size: 16px;
-    }
- 
-    .grid-container {
+@media only screen and (max-width: 1000px) {
+    .gridContainer {
         grid-template-columns: 1fr;
+        row-gap: 0px;
+        column-gap: 0px;
+        margin: 0px;
     }
-}
- 
-@media only screen and (max-width: 1200px) {
-    .index-picture {
-        width: 500px;
+
+    .gridItem2 {
+        margin-bottom: 0px;
+        padding: 0px 0px 10px 0px;
     }
- 
-    .logo {
-        width: 150px;
+
+    .form {
+        width: 80%;
     }
- 
-    .sign-up-button {
-        font-size: 16px;
+
+    .profileImg {
+        width: 70vw;
+        height: 70vw;
     }
- 
-    .nav-name {
-        font-size: 16px;
-    }
-}
- 
-.nav-icon {
-    color: black;
-}
- 
-.nav-icon:hover {
-    color: #d0a1a1;
-}
- 
-.nav-name {
-    color: black;
-    font-weight: 600;
-    font-size: 24px;
-    padding: 16px;
-    text-decoration: none;
-}
- 
-.nav-name:hover {
-    color: #d0a1a1;
-}
- 
-@media only screen and (max-width: 800px) {
-    .search-container {
-        flex-direction: column;
-    }
- 
-    .search-results {
-        grid-template-columns: 60vw;
-    }
- 
-    .search-item {
-        width: 60vw;
-    }
- 
-    .search-img {
-        width: 60vw;
-    }
- 
-    .search-text-container {
-        grid-template-columns: 20vw 20vw;
-    }
- 
-    .shelter-container {
-        display: grid;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-        grid-template-columns: 50vw 50vw;
-    }
- 
-    .profile-img {
-        width: 150px;
-        height: 150px;
-    }
- 
-    .profile-container {
-        width: 150px;
-        height: 150px;
+
+    .profileContainer {
+        width: 70vw;
+        height: 70vw;
     }
 }
