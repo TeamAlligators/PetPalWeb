@@ -63,13 +63,12 @@ function ViewMyListings() {
                                 {pet.breed}
                             </p>
                         </div>
-                        <NavLink to={`/petdetails/${pet.id}`}> See Details </NavLink>
+                        <NavLink className={styles.detailsButton} to={`/petdetails/${pet.id}`}> See Details </NavLink>
                     </div>
                 ))}
             </div>
         </body>
     )
-
 }
 
 export default ViewMyListings

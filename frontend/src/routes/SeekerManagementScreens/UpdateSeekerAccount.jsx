@@ -10,16 +10,6 @@ function UpdateSeeker() {
     console.log(user)
 
     const [file, setFile] = useState(null);
-    // const [formData, setFormData] = useState({
-    //     firstname: "",
-    //     lastname: "",
-    //     email: "",
-    //     phonenum: "",
-    //     country: "",
-    //     province: "",
-    //     address: "",
-    //     postalcode: "",
-    // });
     const [formData, setFormData] = useState({
         seeker: {
             photo: null,
