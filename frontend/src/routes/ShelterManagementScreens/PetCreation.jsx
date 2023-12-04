@@ -74,7 +74,7 @@ function PetCreation() {
         if (formDataUpdated) {
             const createPet = async () => {
                 try {
-                    const endpoint = Endpoints.createpet;
+                    const endpoint = Endpoints.pet;
                     // const formDataWithImage = new FormData();
 
                     // for (const key in formData) {

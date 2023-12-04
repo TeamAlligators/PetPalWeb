@@ -5,6 +5,7 @@ import NavBar from "../../components/NavBar";
 import axios from 'axios';
 import useUser from "../../context/UserContext";
 import Endpoints from '../../constants/Endpoints';
+import { NavLink } from "react-router-dom";
 
 function ViewMyListings() {
     const user = useUser();
@@ -62,7 +63,7 @@ function ViewMyListings() {
                                 {pet.breed}
                             </p>
                         </div>
-                        <a className={styles.detailsButton} href={`shelter-pet-details.html?id=${pet.id}`}>See Details</a>
+                        <NavLink to={`/petdetails/${pet.id}`}> See Details </NavLink>
                     </div>
                 ))}
             </div>
