@@ -76,7 +76,7 @@ class UserSeekerList(ListAPIView):
     queryset = CustomUser.objects.filter(account_type="seeker")
 
 class UserShelterRetrieveUpdateDestroy(RetrieveUpdateDestroyAPIView):
-    permission_classes = [IsAuthenticated] 
+    # permission_classes = [IsAuthenticated] 
     serializer_class = UserShelterSerializer
     
     def get_object(self):

@@ -11,7 +11,7 @@ class CommentListPagination(PageNumberPagination):
 
 class ShelterCommentCreateView(ListCreateAPIView):
     serializer_class = ShelterCommentSerializer
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
     pagination_class = CommentListPagination
 
     def get_queryset(self):

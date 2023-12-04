@@ -7,10 +7,13 @@ const Endpoints = {
 	search: "http://localhost:80/pets/results/",
 	updateshelter: "http://localhost:80/shelter/:pk/",
 	updateseeker: "http://localhost:80/seeker/:pk/",
-	pet: "http://localhost:80/pets/",
+	pets: "http://localhost:80/pets/",
 	specificshelter: "http://localhost:80/shelter/:pk/",
+	specificseeker: "http://localhost:80/seeker/:pk/",
 	petresults: "http://localhost:80/pets/results/",
 	applications: "http://localhost:80/applications/",
+	sheltercomments: "http://localhost:80/shelter/:pk/comment/",
+	specificpet: "http://localhost:80/pets/:pk/",
 }
 
 

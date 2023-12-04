@@ -32,7 +32,6 @@ function ViewMyListings() {
         try {
             const response = await axios.get(Endpoints.petresults, { params: { shelterId } });
             setPetListings(response.data.results);
-            console.log(petListings, "hello?");
         } catch (error) {
             console.error('Error fetching pet listings:', error);
         }
