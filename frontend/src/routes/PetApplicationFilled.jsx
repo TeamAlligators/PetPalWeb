@@ -13,7 +13,7 @@ function PetApplicationFilled() {
                 <h1>Adoption Application</h1>
 
                 <div className={classes["profile-container"]}>
-                    <img src={require("../images/derpycat.png")} alt="cat" />
+                    <img src={require("../images/temppet.png")} alt="cat" />
                 </div>
 
                 <form action="">

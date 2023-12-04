@@ -3,16 +3,17 @@ import { useState, useEffect} from "react"
 import NavBar from "../components/NavBar"
 import classes from "./PetApplication.module.css"
 import axios from "axios"
-import useUser from "../../context/UserContext";
+import useUser from "../context/UserContext";
 import Endpoints from "../constants/Endpoints";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 function PetApplication() {
     const navigate = useNavigate();
     const user = useUser()
+    const { pk } = useParams();
     const [formDataUpdated, setFormDataUpdated] = useState(false);
     const [formData, setFormData] = useState({
-        pet: "",
+        pet: pk,
         seeker: user.userId,
         shelter: "",
         first_name: "",
@@ -43,12 +44,12 @@ function PetApplication() {
 
         try {
             // get the shelter id by getting specific shelter
-            const shelterResponse = await axios.get(Endpoints.specificshelter.replace(":pk", user.userId), {
+            const petResponse = await axios.get(Endpoints.pet.replace(":pk", pk), {
                 headers: {
                     "Authorization": "Bearer " + user.token,
                 },
             });
-            const shelterId = shelterResponse.data.id;
+            const shelterId = petResponse.data.shelter;
             setFormData((prevData) => ({
                 ...prevData,
                 shelter: shelterId,
@@ -71,7 +72,7 @@ function PetApplication() {
                             "Authorization": "Bearer " + user.token,
                         },
                     });
-                    console.log("Pet created successfully:", response.data);
+                    console.log("Application created successfully:", response.data);
 
                     // redirect to the filled application page
 
@@ -96,7 +97,7 @@ function PetApplication() {
             <h1>Adoption Application</h1>
     
             <div className={classes["profile-container"]}>
-              <img src={require("../images/derpycat.png")} alt="cat" />
+              <img src={require("../images/temppet.png")} alt="cat" />
             </div>
     
             <form onSubmit={handleSubmit}>

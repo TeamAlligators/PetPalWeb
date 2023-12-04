@@ -41,11 +41,11 @@ const router = createBrowserRouter([
 		element: <PetDetails />,
 	},
 	{
-		path: "/petapplication",
+		path: "/petapplication/:pk",
 		element: <PetApplication />,
 	},
 	{
-		path: "/petapplication/:pk",
+		path: "/petapplicationfilled/:pk",
 		element: <PetApplicationFilled />,
 	},
 	{

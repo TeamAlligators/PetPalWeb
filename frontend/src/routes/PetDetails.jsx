@@ -46,7 +46,7 @@ function PetDetails() {
         <h1>{petDetails.name} </h1>
 
         <div className={classes["derpycat"]}>
-          <img src={require("../images/derpycat.png")} alt="cat" />
+          <img src={require("../images/temppet.png")} alt="cat" />
         </div>
 
         <div className={classes["grid-container"]}>
@@ -102,12 +102,9 @@ function PetDetails() {
             <b>Other description: </b>
             {petDetails.others}
           </p>
-          <NavLink className={classes["adopt-button"]} to={`/petapplication`}>
+          <NavLink className={classes["adopt-button"]} to={`/petapplication/` + pk}>
             ADOPT NOW
           </NavLink>
-          {/* <a href="pet-applications.html">
-            <button className={classes["adopt-button"]}>ADOPT NOW</button>
-          </a> */}
         </div>
       </content>
     </body>
