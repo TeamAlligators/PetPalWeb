@@ -164,6 +164,7 @@
     }
     .petItem {
         width: 100%;
+        height: 42vh;
     }
     .petImg {
         width: 100%;
@@ -172,6 +173,6 @@
     .petTextContainer {
         display: grid;
         grid-template-columns: 60vw;
-
+        margin-top: 5px;
     }
 }

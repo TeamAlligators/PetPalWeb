@@ -74,7 +74,7 @@ function PetCreation() {
         if (formDataUpdated) {
             const createPet = async () => {
                 try {
-                    const endpoint = Endpoints.createpet;
+                    const endpoint = Endpoints.pet;
                     // const formDataWithImage = new FormData();
 
                     // for (const key in formData) {
@@ -174,7 +174,7 @@ function PetCreation() {
                                 id="age"
                                 type="number"
                                 name="age"
-                                placeholder="Age"
+                                placeholder="Age (in months)"
                                 value={formData.age}
                                 onChange={handleChange}
                                 required

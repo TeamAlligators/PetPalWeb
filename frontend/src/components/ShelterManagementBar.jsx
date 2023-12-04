@@ -10,16 +10,16 @@ function ShelterManagementBar() {
                 {user.shelter.name}
             </h1>
             <div className={styles.shelterContainer}>
-                <NavLink className={styles.optionsButton} to={`/sheltermanagement`}>
+                <NavLink className={styles.optionsButton} activeClassName={styles.activeButton} to={`/sheltermanagement`}>
                     Profile
                 </NavLink>
-                <NavLink className={styles.optionsButton} to={`/sheltermanagement/listings`}>
+                <NavLink className={styles.optionsButton} activeClassName={styles.activeButton} to={`/sheltermanagement/listings`}>
                     Your listings
                 </NavLink>
-                <NavLink className={styles.optionsButton} to={`/sheltermanagement/petcreation`}>
+                <NavLink className={styles.optionsButton} activeClassName={styles.activeButton} to={`/sheltermanagement/petcreation`}>
                     Create new Listing
                 </NavLink>
-                <NavLink className={styles.optionsButton} to={`/sheltermanagement/applications`}>
+                <NavLink className={styles.optionsButton} activeClassName={styles.activeButton} to={`/sheltermanagement/applications`}>
                     Applications
                 </NavLink>
             </div>
