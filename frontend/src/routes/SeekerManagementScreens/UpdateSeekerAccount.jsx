@@ -1,23 +1,30 @@
 import styles from "./UpdateSeekerAccount.module.css";
 import NavBar from "../../components/NavBar";
-import useUser from "../../context/UserContext"
+import useUser from "../../context/UserContext";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Endpoints from "../../constants/Endpoints";
 
 function UpdateSeeker() {
-    const user = useUser()
-
+    const user = useUser();
+    const [formDataUpdated, setFormDataUpdated] = useState(false);
     const [file, setFile] = useState(null);
     const [formData, setFormData] = useState({
         seeker: {
-            photo: null,
         },
         first_name: "",
         last_name: "",
         email: "",
-        account_type: "shelter",
+        account_type: "seeker",
+        photo: null,
     });
+
+    useEffect(() => {
+        if (formDataUpdated) {
+            console.log("Form data:", formData);
+            setFormDataUpdated(false);
+        }
+    }, [formData, formDataUpdated]);
 
     const handleFileChange = (e) => {
         const selectedFile = e.target.files[0];
@@ -28,13 +35,13 @@ function UpdateSeeker() {
         // Set the initial form data when the component mounts
         setFormData({
             seeker: {
-                photo: null,
             },
             first_name: user.first_name || "",
             last_name: user.last_name || "",
             email: user.email || "",
             password: "",
             account_type: "seeker",
+            photo: user.photo || null,
         });
     }, [user]);
 
@@ -42,75 +49,61 @@ function UpdateSeeker() {
         const { name, value } = e.target;
         setFormData((prevData) => ({
             ...prevData,
+            seeker: {
+                ...prevData.seeker,
+            },
             [name]: value,
         }));
     };
+
+    useEffect(() => {
+        if (formDataUpdated) {
+            const updateUser = async () => {
+                try {
+                    const endpoint = Endpoints.updateseeker.replace(":pk", user.userId);
+
+                    const response = await axios.put(endpoint, formData, {
+                        headers: {
+                            "Authorization": "Bearer " + user.token,
+                            "Content-Type": "multipart/form-data",
+                        },
+                    });
+                    console.log("User updated successfully:", response.data);
+
+                    // Update user context
+                    user.setUserInfo({
+                        ...user,
+                        first_name: response.data.first_name,
+                        last_name: response.data.last_name,
+                        email: response.data.email,
+                        seeker: response.data.seeker,
+                        photo: response.data.photo,
+                    });
+
+                } catch (error) {
+                    console.error("Error updating user:", error);
+                }
+            };
+            updateUser();
+            setFormDataUpdated(false);
+        }
+    }, [formDataUpdated, formData, user.token]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
-            const endpoint = Endpoints.updateseeker.replace(":pk", user.userId);
-            let newUserData = {};
-            // if (file) {
-            //     newUserData = {
-            //         first_name: formData.first_name,
-            //         last_name: formData.last_name,
-            //         email: formData.email,
-            //         password: formData.password,
-            //         account_type: formData.account_type,
-            //         seeker: {
-            //             photo: file,
-            //         },
-            //     }
-            // } else {
-            //     newUserData = {
-            //         first_name: formData.first_name,
-            //         last_name: formData.last_name,
-            //         email: formData.email,
-            //         password: formData.password,
-            //         account_type: formData.account_type,
-            //         seeker: {},
-            //     };
-            // }
-
-            // console.log(newUserData, "newUserData")
-
-            // const response = await axios.put(endpoint, newUserData, {
-            //     headers: {
-            //         Authorization: `Bearer ${user.token}`,
-            //     },
-            // });
-
-            const formData = new FormData();
-            formData.append("first_name", formData.first_name);
-            formData.append("last_name", formData.last_name);
-            formData.append("email", formData.email);
-            formData.append("password", formData.password);
-            if (file) {
-                formData.append("seeker[photo]", file);
-            }
-
-            console.log(formData, "formData");
-
-
-            const response = await axios.put(endpoint, formData, {
-                headers: {
-                    Authorization: `Bearer ${user.token}`,
-                    "Content-Type": "multipart/form-data",
+            setFormData((prevData) => ({
+                ...prevData,
+                photo: file,
+                shelter: {
+                    ...prevData.shelter,
                 },
-            });
-
-            user.setUserInfo((prevUserInfo) => ({
-                ...prevUserInfo,
-                first_name: newUserData.first_name,
-                last_name: newUserData.last_name,
-                email: newUserData.email,
             }));
 
-            console.log("User updated successfully:", response.data);
+            setFormDataUpdated(true);
         } catch (error) {
-            console.error("Error updating user:", error);
+            console.error("Error updating asdfasdfuser:", error);
         }
     };
 

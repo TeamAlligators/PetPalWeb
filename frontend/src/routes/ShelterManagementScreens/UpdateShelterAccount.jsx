@@ -9,9 +9,9 @@ import Endpoints from "../../constants/Endpoints";
 function UpdateShelter() {
     const user = useUser()
     const [file, setFile] = useState(null);
+    const [formDataUpdated, setFormDataUpdated] = useState(false);
     const [formData, setFormData] = useState({
         shelter: {
-            photo: null,
             name: "",
             phone: "",
             country: "",
@@ -25,7 +25,15 @@ function UpdateShelter() {
         email: "",
         password: "",
         account_type: "shelter",
+        photo: null,
     });
+
+    useEffect(() => {
+        if (formDataUpdated) {
+            console.log("Form data:", formData);
+            setFormDataUpdated(false);
+        }
+    }, [formData, formDataUpdated]);
 
     const handleFileChange = (e) => {
         const selectedFile = e.target.files[0];
@@ -49,6 +57,7 @@ function UpdateShelter() {
             last_name: user.last_name || "",
             email: user.email || "",
             account_type: "shelter",
+            photo: user.photo || null,
         });
     }, [user]);
 
@@ -64,96 +73,53 @@ function UpdateShelter() {
         }));
     };
 
+    useEffect(() => {
+        if (formDataUpdated) {
+            const updateUser = async () => {
+                try {
+                    const endpoint = Endpoints.updateshelter.replace(":pk", user.userId);
+
+                    const response = await axios.put(endpoint, formData, {
+                        headers: {
+                            "Authorization": "Bearer " + user.token,
+                            "Content-Type": "multipart/form-data",
+                        },
+                    });
+                    console.log("User updated successfully:", response.data);
+
+                    // Update user info in context
+                    user.setUserInfo({
+                        ...user,
+                        first_name: response.data.first_name,
+                        last_name: response.data.last_name,
+                        email: response.data.email,
+                        shelter: response.data.shelter,
+                        photo: response.data.photo,
+                    });
+                } catch (error) {
+                    console.error("Error updating user:", error);
+                }
+            };
+            updateUser();
+            setFormDataUpdated(false);
+        }
+    }, [formDataUpdated, formData, user.token]);
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
-            const endpoint = Endpoints.updateshelter.replace(":pk", user.userId);
-            let newUserData = {};
-            if (file) {
-                newUserData = {
-                    first_name: formData.first_name,
-                    last_name: formData.last_name,
-                    email: formData.email,
-                    password: formData.password,
-                    account_type: formData.account_type,
-                    shelter: {
-                        name: formData.shelter.name,
-                        phone: formData.shelter.phone,
-                        country: formData.shelter.country,
-                        province: formData.shelter.province,
-                        address: formData.shelter.address,
-                        postal_code: formData.shelter.postal_code,
-                        mission: formData.shelter.mission,
-                        photo: file,
-                    }
-                }
-            } else {
-                newUserData = {
-                    first_name: formData.first_name,
-                    last_name: formData.last_name,
-                    email: formData.email,
-                    password: formData.password,
-                    account_type: formData.account_type,
-                    shelter: {
-                        name: formData.shelter.name,
-                        phone: formData.shelter.phone,
-                        country: formData.shelter.country,
-                        province: formData.shelter.province,
-                        address: formData.shelter.address,
-                        postal_code: formData.shelter.postal_code,
-                        mission: formData.shelter.mission,
-                    }
-                }
-            }
-
-            console.log(newUserData, "newUserData")
-
-            const response = await axios.put(endpoint, newUserData, {
-                headers: {
-                    Authorization: `Bearer ${user.token}`,
-                },
-            });
-
-            // const formData = new FormData();
-            // formData.append("first_name", formData.first_name);
-            // formData.append("last_name", formData.last_name);
-            // formData.append("email", formData.email);
-            // formData.append("password", formData.password);
-            // if (file) {
-            //     formData.append("seeker[photo]", file);
-            // }
-
-            // console.log(formData, "formData");
-
-
-            // const response = await axios.put(endpoint, formData, {
-            //     headers: {
-            //         Authorization: `Bearer ${user.token}`,
-            //         "Content-Type": "multipart/form-data",
-            //     },
-            // });
-
-            // Update user information
-            user.setUserInfo((prevUserInfo) => ({
-                ...prevUserInfo,
-                first_name: newUserData.first_name,
-                last_name: newUserData.last_name,
-                email: newUserData.email,
+            setFormData((prevData) => ({
+                ...prevData,
+                photo: file,
                 shelter: {
-                    name: newUserData.shelter.name,
-                    phone: newUserData.shelter.phone,
-                    country: newUserData.shelter.country,
-                    province: newUserData.shelter.province,
-                    address: newUserData.shelter.address,
-                    postal_code: newUserData.shelter.postal_code,
-                    mission: newUserData.shelter.mission,
+                    ...prevData.shelter,
                 },
             }));
 
-            console.log("User updated successfully:", response.data);
+            setFormDataUpdated(true);
         } catch (error) {
-            console.error("Error updating user:", error);
+            console.error("Error updating asdfasdfuser:", error);
         }
     };
 
@@ -162,7 +128,7 @@ function UpdateShelter() {
             <NavBar />
             <ShelterManagementBar />
             <div className={styles.shelterManagement}>
-                <form className={styles.form} onSubmit={handleSubmit}>
+                <form className={styles.form} enctype="multipart/form-data" onSubmit={handleSubmit}>
                     <div className={styles.profileContainer}>
                         {/* <img className={styles.profileImg} src={require("../../images/profile1.png")} /> */}
                         <label htmlFor="profileImg" className={styles.profileImgLabel}>
