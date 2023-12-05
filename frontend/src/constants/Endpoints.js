@@ -3,6 +3,7 @@ const Endpoints = {
 	seekers: "http://localhost:80/seekers/",
 	shelter: "http://localhost:80/shelter/",
 	shelters: "http://localhost:80/shelters/",
+	shelterlists: "http://localhost:80/shelterlists/",
 	token: "http://localhost:80/api/token/",
 	search: "http://localhost:80/pets/results/",
 	updateshelter: "http://localhost:80/shelter/:pk/",
@@ -12,7 +13,6 @@ const Endpoints = {
 	petresults: "http://localhost:80/pets/results/",
 	applications: "http://localhost:80/applications/",
 }
-
 
 // urlpatterns = [
 //     path('shelter/', views.UserShelterCreate.as_view()),

@@ -15,6 +15,7 @@ import ViewMyListings from "./routes/ShelterManagementScreens/MyListings"
 import PetUpdate from "./routes/ShelterManagementScreens/PetUpdate"
 import ShelterReview from "./routes/ShelterReview"
 import { GoogleOAuthProvider } from "@react-oauth/google"
+import ShelterListings from "./routes/ShelterManagementScreens/ShelterListings"
 
 const router = createBrowserRouter([
 	{
@@ -60,6 +61,10 @@ const router = createBrowserRouter([
 	{
 		path: "shelters/review",
 		element: <ShelterReview />,
+	},
+	{
+		path: "/shelterlistings",
+		element: <ShelterListings />,
 	},
 ])
 
