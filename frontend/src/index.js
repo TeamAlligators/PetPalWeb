@@ -15,6 +15,9 @@ import ViewMyListings from "./routes/ShelterManagementScreens/MyListings"
 import PetUpdate from "./routes/ShelterManagementScreens/PetUpdate"
 import ShelterReview from "./routes/ShelterReview"
 import { GoogleOAuthProvider } from "@react-oauth/google"
+import PetDetails from "./routes/PetDetails"
+import PetApplication from "./routes/PetApplication"
+import PetApplicationFilled from "./routes/PetApplicationFilled"
 import ShelterListings from "./routes/ShelterManagementScreens/ShelterListings"
 
 const router = createBrowserRouter([
@@ -33,6 +36,18 @@ const router = createBrowserRouter([
 	{
 		path: "/signup",
 		element: <Signup />,
+	},
+	{
+		path: "/pets/:pk",
+		element: <PetDetails />,
+	},
+	{
+		path: "/petapplication/:pk",
+		element: <PetApplication />,
+	},
+	{
+		path: "/petapplicationfilled/:pk",
+		element: <PetApplicationFilled />,
 	},
 	{
 		path: "/seekermanagement",
