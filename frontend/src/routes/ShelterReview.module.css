@@ -101,12 +101,6 @@
   
 }
 
-.reviewContainer h2 {
-    font-size: 30px;
-    font-family: PlayfairDisplay;
-    margin-top: 30px;
-}
-
 .shelterImg {
     border-radius: 30px;
     width: 40vw;
@@ -123,12 +117,14 @@
     margin-bottom: 30px;
 }
  
-.shelterManagement h1 {
+.shelterName {
     margin-bottom: 16px;
     margin-top: 0;
     font-family: PlayFairDisplay;
     font-weight: 600;
     font-size: 50px;
+    align-items: center;
+    text-align: center;
 }
  
 .info {
@@ -154,15 +150,15 @@
     grid-column: 1;
 }
  
-h2 {
+.reviews {
     color: #000;
-    font-family: Playfair Display;
-    font-size: 45px;
     font-style: normal;
     font-weight: 700;
     line-height: normal;
     text-align: center;
     margin-top: 30px;
+    font-size: 30px;
+    font-family: PlayfairDisplay;
 }
  
 .new-review {
@@ -218,9 +214,18 @@ h2 {
         width: 80%
     }
 
-    .shelterManagement h1 {
+    .shelterName {
         font-size: 40px;
         padding-left: 10px;
         padding-right: 10px;
+    }
+
+    .save {
+        width: 100%;
+        margin-right: 0;
+    }
+
+    .gridItem2 {
+        margin-right: 0;
     }
 }
