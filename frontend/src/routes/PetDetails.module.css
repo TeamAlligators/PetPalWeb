@@ -7,11 +7,6 @@
     height: 10vh;
   }
   
-  /* .logo {
-    width: 250px;
-    padding: 10px;
-  } */
-  
   .logo {
     width: 175px;
     padding: 10px;
@@ -62,7 +57,7 @@
     margin-left: 6px;
   }
   
-  h1 {
+  .name {
     color: #000;
     font-family: Playfair Display;
     font-size: 70px;
@@ -73,14 +68,8 @@
     margin-top: 5vh;
     margin-bottom: 5vh;
   }
-  /* .derpycat {
-    margin-left: 25%;
-    margin-right: 25%;
-    width: 50%;
-    height: 50%;
-  } */
-  
-  img {
+
+  .derpycat {
     border-radius: 30px;
     width: 50%;
     height: 50%;
@@ -90,7 +79,6 @@
   
   .grid-container {
     margin: 30px;
-    /* display: grid; */
     text-align: center;
   }
   
@@ -113,11 +101,6 @@
     text-decoration: none;
     color: black;
   }
-/*   
-  nav-link {
-    text-decoration: none;
-  } */
-  
   .adopt-button:hover {
     text-decoration: none;
     color: white;
@@ -181,12 +164,10 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    /* width: 10rem; */
   }
   
   .signup {
     background-color: #fff;
-    /* width: 30rem; */
     border-radius: 25px;
     margin-bottom: 20%;
     box-shadow: -1px -1px 20px rgba(0, 0, 0, 0.25);
@@ -205,19 +186,6 @@
     margin-top: 20px;
   }
   
-  /* .disabled {
-    border: 0px;
-    background-color: lightgray;
-    width: 50%;
-    height: 60px;
-    border-radius: 15px;
-    box-shadow: -1px -1px 20px rgba(0, 0, 0, 0.25);
-    padding: 10px;
-    color: black;
-    font-weight: 700;
-    margin-top: 15px;
-    font-size: 25px;
-  } */
   
   .login {
     border: 0px;

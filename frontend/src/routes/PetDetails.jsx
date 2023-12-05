@@ -43,12 +43,10 @@ function PetDetails() {
       <NavBar />
       <content className={classes["pet-details-content"]}>
         {/* <h1>{petDetails.name} ({petDetails.gender})</h1> */}
-        <h1>{petDetails.name} </h1>
+        <h1 className={classes["name"]}>{petDetails.name} </h1>
 
-        <div className={classes["derpycat"]}>
-                  {/* <img src={require("../images/temppet.png")} alt="cat" /> */}
-            <img src={petDetails.photo ? petDetails.photo : require("../images/temppet.png")} alt={petDetails.name} />
-        </div>
+        <img className={classes["derpycat"]} src={petDetails.photo ? petDetails.photo : require("../images/temppet.png")} alt={petDetails.name} />
+
 
         <div className={classes["grid-container"]}>
           <p>

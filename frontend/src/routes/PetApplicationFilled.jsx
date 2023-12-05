@@ -51,13 +51,13 @@ function PetApplicationFilled() {
         <body className={classes["page-container"]}>
             <NavBar />
             <content className={classes["pet-application-content"]}>
-                <h1>Adoption Application</h1>
+                <h1 className={ classes["title"]}>Adoption Application</h1>
 
                 <div className={classes["profile-container"]}>
-                    <img src={require("../images/temppet.png")} alt="cat" />
+                    <img className={ classes["app-img"]} src={require("../images/temppet.png")} alt="cat" />
                 </div>
 
-                <form action="">
+                <form className={ classes["form"]} action="">
                     <div class={classes["grid-container"] }>
                         <div class={ classes["grid-item"]}>
                             <input
@@ -71,7 +71,7 @@ function PetApplicationFilled() {
                             />
                         </div>
                         <div class={ classes["grid-item"]}>
-                            <input
+                            <input className="input"
                                 id="lastname"
                                 type="text"
                                 name="lastname"
@@ -82,7 +82,7 @@ function PetApplicationFilled() {
                             />
                         </div>
                         <div class={ classes["grid-item"]}>
-                            <input
+                            <input className="input"
                                 id="email"
                                 type="email"
                                 name="email"
@@ -93,7 +93,7 @@ function PetApplicationFilled() {
                             />
                         </div>
                         <div class={ classes["grid-item"]}>
-                            <input
+                            <input className="input"
                                 id="phonenum"
                                 type="text"
                                 name="phonenum"
@@ -104,7 +104,7 @@ function PetApplicationFilled() {
                             />
                         </div>
                         <div class={ classes["grid-item"]}>
-                            <input
+                            <input className="input"
                                 id="country"
                                 type="text"
                                 name="country"
@@ -115,7 +115,7 @@ function PetApplicationFilled() {
                             />
                         </div>
                         <div class={ classes["grid-item"]}>
-                            <input
+                            <input className="input"
                                 id="province"
                                 type="text"
                                 name="province"
@@ -137,7 +137,7 @@ function PetApplicationFilled() {
                             />
                         </div>
                         <div class={ classes["grid-item"]}>
-                            <input
+                            <input className="input"
                                 id="postalcode"
                                 type="text"
                                 name="postalcode"
@@ -161,8 +161,8 @@ function PetApplicationFilled() {
                             required
                         />
                     </div>
-                    <div class={ classes["grid-item"]}>
-                        <button type="submit">Submit</button>
+                    <div class={ classes["button-holder"]}>
+                        <button className={classes["login"]} type="submit">Submit</button>
                     </div>
                 </form>
 
