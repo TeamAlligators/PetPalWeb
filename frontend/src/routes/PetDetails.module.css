@@ -110,13 +110,15 @@
     background: var(--baby-pink, #ffdfd3);
     box-shadow: -1px -1px 20px 0px rgba(0, 0, 0, 0.25);
     font-weight: 600;
-  }
-  
-  .adopt-button a {
     text-decoration: none;
+    color: black;
   }
+/*   
+  nav-link {
+    text-decoration: none;
+  } */
   
-  .adopt-button a:hover {
+  .adopt-button:hover {
     text-decoration: none;
     color: white;
   }
