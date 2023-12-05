@@ -18,6 +18,7 @@ import { GoogleOAuthProvider } from "@react-oauth/google"
 import PetDetails from "./routes/PetDetails"
 import PetApplication from "./routes/PetApplication"
 import PetApplicationFilled from "./routes/PetApplicationFilled"
+import ShelterListings from "./routes/ShelterManagementScreens/ShelterListings"
 
 const router = createBrowserRouter([
 	{
@@ -75,6 +76,10 @@ const router = createBrowserRouter([
 	{
 		path: "shelters/review",
 		element: <ShelterReview />,
+	},
+	{
+		path: "/shelterlistings",
+		element: <ShelterListings />,
 	},
 ])
 
