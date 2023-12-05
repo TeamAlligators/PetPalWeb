@@ -16,6 +16,7 @@ const Endpoints = {
 	specificseeker: "http://localhost:80/seeker/:pk/",
 	petresults: "http://localhost:80/pets/results/",
 	applications: "http://localhost:80/applications/",
+	notifs: "http://localhost:80/notifications/",
 	sheltercomments: "http://localhost:80/shelter/:pk/comment/",
 	specificpet: "http://localhost:80/pets/:pk/",
 }

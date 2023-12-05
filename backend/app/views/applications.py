@@ -1,6 +1,6 @@
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
-from rest_framework.generics import ListCreateAPIView, UpdateAPIView
+from rest_framework.generics import ListCreateAPIView, UpdateAPIView, RetrieveUpdateAPIView
 from rest_framework.permissions import IsAuthenticated
 
 # from petpal.app import serializers
@@ -63,7 +63,7 @@ class ApplicationCreateView(ListCreateAPIView):
         else:
             raise serializers.ValidationError("Cannot create application for a non-available pet listing")
 
-class ApplicationRetrieveUpdate(UpdateAPIView):
+class ApplicationRetrieveUpdate(RetrieveUpdateAPIView):
     queryset = Application.objects.all()
     permission_classes = [IsAuthenticated] 
     serializer_class = ApplicationSerializer
