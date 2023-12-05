@@ -46,7 +46,8 @@ function PetDetails() {
         <h1>{petDetails.name} </h1>
 
         <div className={classes["derpycat"]}>
-          <img src={require("../images/temppet.png")} alt="cat" />
+                  {/* <img src={require("../images/temppet.png")} alt="cat" /> */}
+            <img src={petDetails.photo ? petDetails.photo : require("../images/temppet.png")} alt={petDetails.name} />
         </div>
 
         <div className={classes["grid-container"]}>
