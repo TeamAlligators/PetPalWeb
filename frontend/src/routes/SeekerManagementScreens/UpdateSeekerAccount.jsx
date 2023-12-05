@@ -7,7 +7,6 @@ import Endpoints from "../../constants/Endpoints";
 
 function UpdateSeeker() {
     const user = useUser()
-    console.log(user)
 
     const [file, setFile] = useState(null);
     const [formData, setFormData] = useState({
@@ -51,7 +50,6 @@ function UpdateSeeker() {
         e.preventDefault();
 
         try {
-            console.log(user)
             const endpoint = Endpoints.updateseeker.replace(":pk", user.userId);
             const newUserData = {
                 first_name: formData.first_name,
@@ -66,6 +64,14 @@ function UpdateSeeker() {
                     Authorization: `Bearer ${user.token}`,
                 },
             });
+
+            user.setUserInfo((prevUserInfo) => ({
+                ...prevUserInfo,
+                first_name: newUserData.first_name,
+                last_name: newUserData.last_name,
+                email: newUserData.email,
+            }));
+
             console.log("User updated successfully:", response.data);
             // add in file for photo
             if (file) {
@@ -115,7 +121,7 @@ function UpdateSeeker() {
                             <input
                                 id="firstname"
                                 type="text"
-                                name="firstname"
+                                name="first_name"
                                 placeholder="First name"
                                 value={formData.first_name}
                                 onChange={handleChange}
@@ -125,7 +131,7 @@ function UpdateSeeker() {
                             <input
                                 id="lastname"
                                 type="text"
-                                name="lastname"
+                                name="last_name"
                                 placeholder="Last name"
                                 value={formData.last_name}
                                 onChange={handleChange}
@@ -138,8 +144,7 @@ function UpdateSeeker() {
                                 name="email"
                                 placeholder="Email"
                                 value={formData.email}
-                                onChange={handleChange}
-                                required />
+                                disabled />
                         </div>
                         <div className={styles.gridItem}>
                             <input

@@ -56,6 +56,10 @@ function UpdateShelter() {
         const { name, value } = e.target;
         setFormData((prevData) => ({
             ...prevData,
+            shelter: {
+                ...prevData.shelter,
+                [name]: value,
+            },
             [name]: value,
         }));
     };
@@ -89,6 +93,25 @@ function UpdateShelter() {
                     Authorization: `Bearer ${user.token}`,
                 },
             });
+
+            // Update user information
+            user.setUserInfo((prevUserInfo) => ({
+                ...prevUserInfo,
+                first_name: newUserData.first_name,
+                last_name: newUserData.last_name,
+                email: newUserData.email,
+                shelter: {
+                    name: newUserData.shelter.name,
+                    phone: newUserData.shelter.phone,
+                    country: newUserData.shelter.country,
+                    province: newUserData.shelter.province,
+                    address: newUserData.shelter.address,
+                    postal_code: newUserData.shelter.postal_code,
+                    mission: newUserData.shelter.mission,
+                },
+            }));
+
+
             console.log("User updated successfully:", response.data);
             // add in file for photo
             if (file) {
@@ -150,7 +173,7 @@ function UpdateShelter() {
                             <input
                                 id="firstname"
                                 type="text"
-                                name="firstname"
+                                name="first_name"
                                 placeholder="First name"
                                 value={formData.first_name}
                                 onChange={handleChange}
@@ -160,7 +183,7 @@ function UpdateShelter() {
                             <input
                                 id="lastname"
                                 type="text"
-                                name="lastname"
+                                name="last_name"
                                 placeholder="Last name"
                                 value={formData.last_name}
                                 onChange={handleChange}
@@ -172,9 +195,8 @@ function UpdateShelter() {
                                 type="email"
                                 name="email"
                                 placeholder="Email"
-                                value={formData.email}
-                                onChange={handleChange}
-                                required />
+                                value={user.email}
+                                disabled />
                         </div>
                         <div className={styles.gridItem}>
                             <input
@@ -190,7 +212,7 @@ function UpdateShelter() {
                             <input
                                 id="sheltername"
                                 type="text"
-                                name="sheltername"
+                                name="name"
                                 placeholder="Shelter name"
                                 value={formData.shelter.name}
                                 onChange={handleChange}
@@ -200,7 +222,7 @@ function UpdateShelter() {
                             <input
                                 id="phonenum"
                                 type="text"
-                                name="phonenum"
+                                name="phone"
                                 placeholder="Phone #"
                                 value={formData.shelter.phone}
                                 onChange={handleChange}
@@ -240,7 +262,7 @@ function UpdateShelter() {
                             <input
                                 id="postalcode"
                                 type="text"
-                                name="postalcode"
+                                name="postal_code"
                                 placeholder="Postal Code"
                                 value={formData.shelter.postal_code}
                                 onChange={handleChange}
