@@ -3,6 +3,7 @@ import NavBar from "../components/NavBar"
 import classes from "./PetSearch.module.css"
 import axios from "axios"
 import Endpoints from "../constants/Endpoints"
+import { NavLink } from "react-router-dom"
 
 function PetSearch() {
 	const [filter, setFilter] = useState("")
@@ -108,12 +109,9 @@ function PetSearch() {
 								</p>
 								<p>{result.breed}</p>
 							</div>
-							<a
-								className={classes["details-button"]}
-								href={`pet-details.html?id=${result.id}`}
-							>
+							<NavLink className={classes["details-button"]} to={`/pets/${result.id}`}>
 								See Details
-							</a>
+							</NavLink>
 						</div>
 					))}
 				</div>
