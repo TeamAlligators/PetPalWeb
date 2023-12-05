@@ -164,11 +164,12 @@
 @media only screen and (max-width: 480px) {
 	.header {
 		font-weight: 600;
-		font-size: 48px;
+		font-size: 36px !important;
 	}
 
 	.paragraph {
 		font-size: 14px;
+		display: none;
 	}
 
 	.index-picture {
@@ -192,6 +193,16 @@
 }
 
 @media only screen and (max-width: 700px) {
+	.header {
+		font-weight: 600;
+		font-size: 50px !important;
+		text-align: center;
+	}
+
+	.body-item-2 {
+		justify-content: center;
+	}
+
 	.index-picture {
 		display: none;
 	}
