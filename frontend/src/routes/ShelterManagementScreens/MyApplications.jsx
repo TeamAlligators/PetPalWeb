@@ -36,7 +36,7 @@ function ViewMyApplications() {
     const fetchPetDetailsForMultiplePets = async (petIds) => {
         const petDetails = {};
         try {
-            const response = await axios.get(Endpoints.pet);
+            const response = await axios.get(Endpoints.pets);
             const petResults = response.data || [];
 
             petResults.forEach(pet => {

@@ -13,8 +13,11 @@ const Endpoints = {
 	updateseeker: "http://localhost:80/seeker/:pk/",
 	pets: "http://localhost:80/pets/",
 	specificshelter: "http://localhost:80/shelter/:pk/",
+	specificseeker: "http://localhost:80/seeker/:pk/",
 	petresults: "http://localhost:80/pets/results/",
 	applications: "http://localhost:80/applications/",
+	sheltercomments: "http://localhost:80/shelter/:pk/comment/",
+	specificpet: "http://localhost:80/pets/:pk/",
 }
 
 // urlpatterns = [

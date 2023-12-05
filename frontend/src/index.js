@@ -62,7 +62,7 @@ const router = createBrowserRouter([
 		element: <PetCreation />,
 	},
 	{
-		path: "/sheltermanagement/petupdate",
+		path: "/petupdate/:pk",
 		element: <PetUpdate />,
 	},
 	{
@@ -74,7 +74,7 @@ const router = createBrowserRouter([
 		element: <ViewMyListings />,
 	},
 	{
-		path: "shelters/review",
+		path: "/shelters/:pk",
 		element: <ShelterReview />,
 	},
 	{

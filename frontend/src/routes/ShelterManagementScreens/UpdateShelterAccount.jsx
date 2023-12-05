@@ -56,6 +56,10 @@ function UpdateShelter() {
         const { name, value } = e.target;
         setFormData((prevData) => ({
             ...prevData,
+            shelter: {
+                ...prevData.shelter,
+                [name]: value,
+            },
             [name]: value,
         }));
     };
@@ -64,48 +68,89 @@ function UpdateShelter() {
         e.preventDefault();
 
         try {
-            console.log(user)
             const endpoint = Endpoints.updateshelter.replace(":pk", user.userId);
-            console.log(formData, "withoutimg")
-            const newUserData = {
-                first_name: formData.first_name,
-                last_name: formData.last_name,
-                email: formData.email,
-                password: formData.password,
-                account_type: formData.account_type,
-                shelter: {
-                    name: formData.shelter.name,
-                    phone: formData.shelter.phone,
-                    country: formData.shelter.country,
-                    province: formData.shelter.province,
-                    address: formData.shelter.address,
-                    postal_code: formData.shelter.postal_code,
-                    mission: formData.shelter.mission,
+            let newUserData = {};
+            if (file) {
+                newUserData = {
+                    first_name: formData.first_name,
+                    last_name: formData.last_name,
+                    email: formData.email,
+                    password: formData.password,
+                    account_type: formData.account_type,
+                    shelter: {
+                        name: formData.shelter.name,
+                        phone: formData.shelter.phone,
+                        country: formData.shelter.country,
+                        province: formData.shelter.province,
+                        address: formData.shelter.address,
+                        postal_code: formData.shelter.postal_code,
+                        mission: formData.shelter.mission,
+                    }
+                }
+            } else {
+                newUserData = {
+                    first_name: formData.first_name,
+                    last_name: formData.last_name,
+                    email: formData.email,
+                    password: formData.password,
+                    account_type: formData.account_type,
+                    shelter: {
+                        name: formData.shelter.name,
+                        phone: formData.shelter.phone,
+                        country: formData.shelter.country,
+                        province: formData.shelter.province,
+                        address: formData.shelter.address,
+                        postal_code: formData.shelter.postal_code,
+                        mission: formData.shelter.mission,
+                    }
                 }
             }
-            console.log(newUserData, "withimg")
+
+            console.log(newUserData, "newUserData")
+
             const response = await axios.put(endpoint, newUserData, {
                 headers: {
                     Authorization: `Bearer ${user.token}`,
                 },
             });
+
+            // const formData = new FormData();
+            // formData.append("first_name", formData.first_name);
+            // formData.append("last_name", formData.last_name);
+            // formData.append("email", formData.email);
+            // formData.append("password", formData.password);
+            // if (file) {
+            //     formData.append("seeker[photo]", file);
+            // }
+
+            // console.log(formData, "formData");
+
+
+            // const response = await axios.put(endpoint, formData, {
+            //     headers: {
+            //         Authorization: `Bearer ${user.token}`,
+            //         "Content-Type": "multipart/form-data",
+            //     },
+            // });
+
+            // Update user information
+            user.setUserInfo((prevUserInfo) => ({
+                ...prevUserInfo,
+                first_name: newUserData.first_name,
+                last_name: newUserData.last_name,
+                email: newUserData.email,
+                shelter: {
+                    name: newUserData.shelter.name,
+                    phone: newUserData.shelter.phone,
+                    country: newUserData.shelter.country,
+                    province: newUserData.shelter.province,
+                    address: newUserData.shelter.address,
+                    postal_code: newUserData.shelter.postal_code,
+                    mission: newUserData.shelter.mission,
+                },
+            }));
+
             console.log("User updated successfully:", response.data);
-            // add in file for photo
-            if (file) {
-                const form = new FormData();
-                form.append("photo", file);
-                const photoResponse = await axios.put(
-                    Endpoints.updateshelter.replace(":pk", user.userId),
-                    form,
-                    {
-                        headers: {
-                            Authorization: `Bearer ${user.token}`,
-                            "Content-Type": "multipart/form-data",
-                        },
-                    }
-                );
-                console.log("Photo updated successfully:", photoResponse.data);
-            }
         } catch (error) {
             console.error("Error updating user:", error);
         }
@@ -150,7 +195,7 @@ function UpdateShelter() {
                             <input
                                 id="firstname"
                                 type="text"
-                                name="firstname"
+                                name="first_name"
                                 placeholder="First name"
                                 value={formData.first_name}
                                 onChange={handleChange}
@@ -160,7 +205,7 @@ function UpdateShelter() {
                             <input
                                 id="lastname"
                                 type="text"
-                                name="lastname"
+                                name="last_name"
                                 placeholder="Last name"
                                 value={formData.last_name}
                                 onChange={handleChange}
@@ -172,9 +217,8 @@ function UpdateShelter() {
                                 type="email"
                                 name="email"
                                 placeholder="Email"
-                                value={formData.email}
-                                onChange={handleChange}
-                                required />
+                                value={user.email}
+                                disabled />
                         </div>
                         <div className={styles.gridItem}>
                             <input
@@ -190,7 +234,7 @@ function UpdateShelter() {
                             <input
                                 id="sheltername"
                                 type="text"
-                                name="sheltername"
+                                name="name"
                                 placeholder="Shelter name"
                                 value={formData.shelter.name}
                                 onChange={handleChange}
@@ -200,7 +244,7 @@ function UpdateShelter() {
                             <input
                                 id="phonenum"
                                 type="text"
-                                name="phonenum"
+                                name="phone"
                                 placeholder="Phone #"
                                 value={formData.shelter.phone}
                                 onChange={handleChange}
@@ -240,7 +284,7 @@ function UpdateShelter() {
                             <input
                                 id="postalcode"
                                 type="text"
-                                name="postalcode"
+                                name="postal_code"
                                 placeholder="Postal Code"
                                 value={formData.shelter.postal_code}
                                 onChange={handleChange}
