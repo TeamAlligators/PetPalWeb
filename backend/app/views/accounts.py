@@ -96,19 +96,6 @@ class UserShelterRetrieveUpdateDestroy(RetrieveUpdateDestroyAPIView):
         if self.request.user.id != self.get_object().id:
             raise PermissionDenied()
 
-        # shelter = serializer.validated_data.get('shelter', {})
-        # shelter = Shelter.objects.filter(user=self.request.user).update(**shelter)
-        # first_name = serializer.validated_data.get('first_name', None)
-        # last_name = serializer.validated_data.get('last_name', None)
-        # email = serializer.validated_data.get('email', None)
-        # hashed_password = make_password(serializer.validated_data.get('password', None))
-        # CustomUser.objects.filter(id=self.request.user.id).update(
-        #     first_name=first_name,
-        #     last_name=last_name,
-        #     email=email,
-        #     password=hashed_password
-        # )
-
         shelter_data = serializer.validated_data.get('shelter', {})
         shelter_instance = Shelter.objects.get(user=self.request.user)
 
@@ -164,18 +151,6 @@ class UserSeekerRetrieveUpdateDestroy(RetrieveUpdateDestroyAPIView):
     def perform_update(self, serializer):
         if self.request.user.id != self.get_object().id:
             raise PermissionDenied()
-        # seeker = serializer.validated_data.get('seeker', {})
-        # seeker = Seeker.objects.filter(user=self.request.user).update(**seeker)
-        # first_name = serializer.validated_data.get('first_name', None)
-        # last_name = serializer.validated_data.get('last_name', None)
-        # email = serializer.validated_data.get('email', None)
-        # hashed_password = make_password(serializer.validated_data.get('password', None))
-        # CustomUser.objects.filter(id=self.request.user.id).update(
-        #     first_name=first_name,
-        #     last_name=last_name,
-        #     email=email,
-        #     password=hashed_password
-        # )
         seeker_data = serializer.validated_data.get('seeker', {})
         seeker_instance = Seeker.objects.get(user=self.request.user)
 
