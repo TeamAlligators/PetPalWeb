@@ -163,7 +163,7 @@ function ShelterReview() {
             <NavBar />
             {shelterData ? (
                 <div className={styles.shelterManagement}>
-                    <h1>{shelterData.shelter.name}</h1>
+                    <h1 className={styles.shelterName}>{shelterData.shelter.name}</h1>
                     <div className={styles.gridContainer}>
                         <div className={styles.shelterImgContainer}>
                             <img className={styles.shelterImg} src={shelterData.shelter.photo ? shelterData.shelter.photo : require("../images/saskatoon-spca.jpg")} alt={shelterData.shelter.name} />
@@ -183,7 +183,7 @@ function ShelterReview() {
                     </div>
                     <div className={styles.reviewContainer}>
                         <hr></hr>
-                        <h2>Reviews</h2>
+                        <h2 className={styles.reviews}>Reviews</h2>
                         <form className={styles.newReview} onSubmit={handleSubmit}>
                             <p id="review-name">{user.userId ? `${user.first_name} ${user.last_name}` : 'Please log in'}</p>
 
