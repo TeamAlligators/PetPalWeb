@@ -80,7 +80,7 @@ function ShelterListings() {
 								<h2>{shelter.shelter.name}</h2>
 								<p>{shelter.shelter.address}</p>
 							</div>
-							<NavLink className={classes["details-button"]} to={"/shelters/review"}>
+							<NavLink className={classes["details-button"]} to={`/shelters/${shelter.shelter.id}`}>
 								Details
 							</NavLink>
 						</div>
