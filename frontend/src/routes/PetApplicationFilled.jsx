@@ -45,7 +45,7 @@ function PetApplicationFilled() {
       };
   
       fetchApplication();
-    }); // Empty dependency array ensures this effect runs once when the component mounts
+    }, [pk]); // Empty dependency array ensures this effect runs once when the component mounts
   
     return (
         <body className={classes["page-container"]}>
