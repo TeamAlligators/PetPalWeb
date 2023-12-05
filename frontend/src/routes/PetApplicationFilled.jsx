@@ -12,7 +12,7 @@ function PetApplicationFilled() {
 
   // const navigate = useNavigate();
   const user = useUser();
-  // const [formDataUpdated, setFormDataUpdated] = useState(false);
+  const [petDetails, setPetDetails] = useState({});
 
   const [formData, setFormData] = useState({
     pet: pk,
@@ -63,6 +63,23 @@ function PetApplicationFilled() {
 
     fetchApplication();
   }, [pk, user.token]);
+    
+  useEffect(() => {
+    const fetchPetDetails = async () => {
+      try {
+        const response = await axios.get(Endpoints.pet.replace(":pk", pk), {
+          headers: {
+            Authorization: "Bearer " + user.token,
+          },
+        });
+        setPetDetails(response.data);
+      } catch (error) {
+        console.error("Error fetching pet details:", error);
+      }
+    };
+
+    fetchPetDetails();
+  }, [pk, user.token]);
 
   return (
     <body className={classes["page-container"]}>
@@ -73,8 +90,12 @@ function PetApplicationFilled() {
         <div className={classes["profile-container"]}>
           <img
             className={classes["app-img"]}
-            src={require("../images/temppet.png")}
-            alt="cat"
+            src={
+              petDetails.photo
+                ? petDetails.photo
+                : require("../images/temppet.png")
+            }
+            alt={petDetails.name}
           />
         </div>
 
