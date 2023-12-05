@@ -587,6 +587,7 @@
       "last_name": "Lu",
       "email": "amy@lu.com",
       "account_type": "shelter",
+      "photo": "",
       "groups": [],
       "user_permissions": []
     }
@@ -605,6 +606,7 @@
       "last_name": "Kim",
       "email": "lucy@kim.com",
       "account_type": "shelter",
+      "photo": "",
       "groups": [],
       "user_permissions": []
     }
@@ -623,6 +625,7 @@
       "last_name": "Vuong",
       "email": "herman@vuong.com",
       "account_type": "shelter",
+      "photo": "",
       "groups": [],
       "user_permissions": []
     }
@@ -638,8 +641,7 @@
       "province": "Ontario",
       "address": "123 Street Ave.",
       "postal_code": "123 ABC",
-      "mission": "to save lives",
-      "photo": ""
+      "mission": "to save lives"
     }
   },
   {
@@ -653,8 +655,7 @@
       "province": "Ontario",
       "address": "123 Street Ave.",
       "postal_code": "123 ABC",
-      "mission": "Spread love",
-      "photo": ""
+      "mission": "Spread love"
     }
   },
   {
@@ -668,8 +669,7 @@
       "province": "Ontario",
       "address": "123 Street Ave.",
       "postal_code": "123 ABC",
-      "mission": "Spread love",
-      "photo": ""
+      "mission": "Spread love"
     }
   },
   {
