@@ -56,7 +56,6 @@ function Login() {
 	const getUser = async (googleEmail, token) => {
 		try {
 			const seekersResponse = await axios.get(Endpoints.seekers)
-
 			let newUser = null
 
 			seekersResponse.data.forEach((currUser) => {
