@@ -234,7 +234,7 @@ function PetUpdate() {
                                 rows="4"
                                 id="medicalhistory"
                                 type="text"
-                                name="medicalhistory"
+                                name="medical_history"
                                 placeholder="Medical history"
                                 value={formData.medical_history}
                                 onChange={handleChange}
@@ -245,7 +245,7 @@ function PetUpdate() {
                                 rows="4"
                                 id="specialneeds"
                                 type="text"
-                                name="specialneeds"
+                                name="special_needs"
                                 placeholder="Special needs or requirements"
                                 value={formData.special_needs}
                                 onChange={handleChange}
@@ -256,7 +256,7 @@ function PetUpdate() {
                                 rows="4"
                                 id="behaviour"
                                 type="text"
-                                name="behaviour"
+                                name="personality"
                                 placeholder="Behaviour / Personality"
                                 value={formData.personality}
                                 onChange={handleChange}
