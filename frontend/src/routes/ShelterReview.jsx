@@ -13,23 +13,35 @@ function ShelterReview() {
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState("");
     const [newRating, setNewRating] = useState(null);
+    const [searchResults, setSearchResults] = useState([])
+    const [nextPageUrl, setNextPageUrl] = useState(null)
+    const [previousPageUrl, setPreviousPageUrl] = useState(null)
+
+    const fetchShelterData = async () => {
+        try {
+            const response = await axios.get(Endpoints.specificshelter.replace(":pk", pk));
+            setShelterData(response.data);
+            console.log("shelterResponse", response);
+        } catch (error) {
+            console.error('Error fetching shelter data:', error);
+        }
+    };
+
+    const fetchComments = async (url) => {
+        try {
+            const response = await axios.get(url || Endpoints.sheltercomments.replace(":pk", pk));
+            setSearchResults(response.data.results);
+            setNextPageUrl(response.data.next);
+            setPreviousPageUrl(response.data.previous);
+            console.log("commentsResponse", response);
+        } catch (error) {
+            console.error('Error fetching comments:', error);
+        }
+    };
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const shelterResponse = await axios.get(Endpoints.specificshelter.replace(":pk", pk));
-                const commentsResponse = await axios.get(Endpoints.sheltercomments.replace(":pk", pk));
-
-                setShelterData(shelterResponse.data);
-                setComments(commentsResponse.data.results);
-
-                console.log("shelterResponse", shelterResponse);
-                console.log("commentsResponse", commentsResponse);
-            } catch (error) {
-                console.error('Error fetching data:', error);
-            }
-        };
-        fetchData();
+        fetchShelterData();
+        fetchComments();
     }, [pk]);
 
     const handleSubmit = async (e) => {
@@ -44,9 +56,9 @@ function ShelterReview() {
                 },
             });
             console.log("Comment response:", response);
-            // fetch the comment data again
-            const commentsResponse = await axios.get(Endpoints.sheltercomments.replace(":pk", pk));
-            setComments(commentsResponse.data.results);
+
+            // Fetch comments again after submitting a new comment
+            fetchComments();
             setNewComment("");
             setNewRating(null);
         } catch (error) {
@@ -116,13 +128,27 @@ function ShelterReview() {
                             </div>
                         </form>
 
-                        {comments && comments.map(comment => (
+                        {searchResults && searchResults.map(comment => (
 
                             <div key={comment.id} className={`${user.userId === shelterData.shelter.id ? styles.shelterOwnerComment : styles.commentItem}`}>
                                 <p>{comment.user && `${comment.user_name} (${comment.user_type})`} - {comment.rating ? `Rating: ${comment.rating}/5` : 'No Rating'}</p>
                                 <p>{comment.content}</p>
                             </div>
                         ))}
+                    </div>
+                    <div className={styles.footerContainer}>
+                        <button
+                            className={styles.paginationButton}
+                            onClick={() => fetchComments(previousPageUrl)}
+                        >
+                            {"<"}
+                        </button>
+                        <button
+                            className={styles.paginationButton}
+                            onClick={() => fetchComments(nextPageUrl)}
+                        >
+                            {">"}
+                        </button>
                     </div>
                 </div>
             ) : (

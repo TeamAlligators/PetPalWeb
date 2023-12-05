@@ -1,9 +1,30 @@
-* {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
+.footerContainer {
+    margin-top: 16px;
 }
- 
+
+.paginationButton {
+    font-family: Nunito;
+    color: white;
+    background-color: #bbb;
+    border-radius: 25px;
+    font-weight: 600;
+    font-size: 18px;
+    text-decoration: none;
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    text-align: center;
+    margin: 5px;
+    transition: all 0.2s;
+    border: 0px;
+    box-shadow: -1px -1px 20px rgba(0, 0, 0, 0.25);
+}
+
+.paginationButton:hover {
+    color: white;
+    background-color: #d0a1a1;
+}
+
 .pageContainer {
     min-height: 100vh;
 }
