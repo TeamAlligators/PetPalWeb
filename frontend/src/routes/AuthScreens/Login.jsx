@@ -85,7 +85,6 @@ function Login() {
 				})
 			}
 
-			console.log("loggedin user", newUser)
 			user.setUserInfo({
 				...user,
 				userId: newUser.id,
@@ -96,6 +95,7 @@ function Login() {
 				shelter: newUser.shelter,
 				token: token,
 			})
+			console.log("loggedin user", newUser)
 
 			setError(false)
 			navigate("/")

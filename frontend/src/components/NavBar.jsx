@@ -1,9 +1,37 @@
 import { Link, NavLink } from "react-router-dom"
 import styles from "./NavBar.module.css"
 import useUser from "../context/UserContext"
+import axios from "axios"
+import { useEffect, useState } from "react"
+import Endpoints from "../constants/Endpoints"
+import AccountType from "../constants/AccountType"
 
+// /applications/{application.id}/comment/
 function NavBar() {
 	const user = useUser()
+	const [notifications, setNotifications] = useState([])
+	const [nextPageUrl, setNextPageUrl] = useState(null)
+	const [previousPageUrl, setPreviousPageUrl] = useState(null)
+
+	const fetchNotifications = async (url) => {
+		try {
+			const response = await axios.get(url, {
+				headers: {
+					Authorization: `Bearer ${user.token}`,
+				},
+			})
+
+			setNotifications(response.data.results)
+			setNextPageUrl(response.data.next)
+			setPreviousPageUrl(response.data.previous)
+			console.log("notifs response", response)
+		} catch (error) {
+			console.error("Error fetching notifications:", error)
+		}
+	}
+	useEffect(() => {
+		fetchNotifications(Endpoints.notifs)
+	}, [])
 
 	return (
 		<nav id={styles.navigationBar}>
@@ -17,6 +45,75 @@ function NavBar() {
 				</NavLink>
 			</span>
 			<span id={styles.navItem}>
+				<div className={styles["notification-container"]}>
+					{notifications.length > 0 && <div className={styles["red-dot"]}></div>}
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						width="24"
+						height="24"
+						fill="currentColor"
+						className="bi bi-bell-fill notification"
+						viewBox="0 0 16 16"
+					>
+						<path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z" />
+					</svg>
+					<div className={styles["notification-list"]}>
+						{notifications.map((notification, index) => {
+							// /applications/{application.id}/comment/
+							let appUrl = notification.url.replace(/applications/g, "petapplication")
+							appUrl = appUrl.replace(/\/coment\//g, "")
+							console.log("notif url", appUrl)
+
+							return (
+								<div key={notification.id}>
+									<p className={styles["lol"]} key={notification.id}>
+										{notification.content}
+									</p>
+									<div
+										key={notification.id}
+										className={styles["notification-list-coninater"]}
+									>
+										<NavLink
+											className={styles["sign-up-button"]}
+											to={appUrl}
+											key={notification.id}
+										>
+											To App
+										</NavLink>
+										<NavLink
+											className={styles["sign-up-button"]}
+											to={
+												user.account_type === AccountType.SHELTER
+													? "/sheltermanagement" // make this shetler detials when done
+													: "Listing"
+											}
+											key={notification.id}
+										>
+											To{" "}
+											{user.account_type === AccountType.SHELTER ? "Shelter" : "Listing"}
+										</NavLink>
+									</div>
+								</div>
+							)
+						})}
+						{notifications.length > 0 && (
+							<div className={styles["notification-list-coninater"]}>
+								<button
+									className={styles["sign-up-button"]}
+									onClick={() => fetchNotifications(previousPageUrl)}
+								>
+									{"<"}
+								</button>
+								<button
+									className={styles["sign-up-button"]}
+									onClick={() => fetchNotifications(nextPageUrl)}
+								>
+									{">"}
+								</button>
+							</div>
+						)}
+					</div>
+				</div>
 				<NavLink className={styles.navLink} to={`/search`}>
 					Search
 				</NavLink>
@@ -49,7 +146,7 @@ function NavBar() {
 						<path d="M8.793 2a1 1 0 0 1 1.414 0L12 3.793V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v3.293l1.854 1.853a.5.5 0 0 1-.708.708L15 8.207V13.5a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 4 13.5V8.207l-.146.147a.5.5 0 1 1-.708-.708L8.793 2Z" />
 					</svg>
 				</NavLink>
-				<a className={styles.navLink} href="faq-page.html">
+				{/* <a className={styles.navLink} href="faq-page.html">
 					FAQ
 				</a>
 				<a className={styles.navIcon} href="faq-page.html">
@@ -70,25 +167,7 @@ function NavBar() {
 							d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1A2.5 2.5 0 0 1 9.5 5h-3A2.5 2.5 0 0 1 4 2.5v-1Zm4 5.982c1.664-1.673 5.825 1.254 0 5.018-5.825-3.764-1.664-6.69 0-5.018Z"
 						/>
 					</svg>
-				</a>
-				<div class={styles["notification-container"]}>
-					<div class={styles["red-dot"]}></div>
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						width="24"
-						height="24"
-						fill="currentColor"
-						class="bi bi-bell-fill notification"
-						viewBox="0 0 16 16"
-					>
-						<path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z" />
-					</svg>
-					<div class={styles["notification-list"]}>
-						<a href="#">Notification 1</a>
-						<a href="#">Notification 2</a>
-						<a href="#">Notification 3</a>
-					</div>
-				</div>
+				</a> */}
 				{user.token ? (
 					<NavLink
 						className={styles["nav-name"]}

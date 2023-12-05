@@ -11,7 +11,7 @@ from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 
 class NotifPagination(PageNumberPagination):
-    page_size = 10  
+    page_size = 3  
 
 class NotificationList(ListAPIView):
     permission_classes = [IsAuthenticated] 
@@ -20,7 +20,9 @@ class NotificationList(ListAPIView):
 
     def get_queryset(self):
         user = self.request.user
-        queryset = Notification.objects.filter(user=user).order_by('-created_at')
+        print("notif user", user.id + 1)
+        new_user_id = user.id + 1
+        queryset = Notification.objects.filter(user=new_user_id).order_by('-created_at')
         # filter notif by read/unread
         is_read = self.request.query_params.get('read')
         if is_read is not None:
