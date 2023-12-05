@@ -32,7 +32,6 @@ function ViewMyListings() {
         try {
             const response = await axios.get(Endpoints.petresults, { params: { shelterId } });
             setPetListings(response.data.results);
-            console.log(petListings, "hello?");
         } catch (error) {
             console.error('Error fetching pet listings:', error);
         }
@@ -63,7 +62,7 @@ function ViewMyListings() {
                                 {pet.breed}
                             </p>
                         </div>
-                        <NavLink className={styles.detailsButton} to={`/petdetails/${pet.id}`}> See Details </NavLink>
+                        <NavLink className={styles.detailsButton} to={`/pets/${pet.id}`}> See Details </NavLink>
                     </div>
                 ))}
             </div>

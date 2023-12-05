@@ -7,7 +7,6 @@ import Endpoints from "../../constants/Endpoints";
 
 function UpdateSeeker() {
     const user = useUser()
-    console.log(user)
 
     const [file, setFile] = useState(null);
     const [formData, setFormData] = useState({
@@ -51,38 +50,65 @@ function UpdateSeeker() {
         e.preventDefault();
 
         try {
-            console.log(user)
             const endpoint = Endpoints.updateseeker.replace(":pk", user.userId);
-            const newUserData = {
-                first_name: formData.first_name,
-                last_name: formData.last_name,
-                email: formData.email,
-                password: formData.password,
-                account_type: formData.account_type,
-                seeker: {}
+            let newUserData = {};
+            // if (file) {
+            //     newUserData = {
+            //         first_name: formData.first_name,
+            //         last_name: formData.last_name,
+            //         email: formData.email,
+            //         password: formData.password,
+            //         account_type: formData.account_type,
+            //         seeker: {
+            //             photo: file,
+            //         },
+            //     }
+            // } else {
+            //     newUserData = {
+            //         first_name: formData.first_name,
+            //         last_name: formData.last_name,
+            //         email: formData.email,
+            //         password: formData.password,
+            //         account_type: formData.account_type,
+            //         seeker: {},
+            //     };
+            // }
+
+            // console.log(newUserData, "newUserData")
+
+            // const response = await axios.put(endpoint, newUserData, {
+            //     headers: {
+            //         Authorization: `Bearer ${user.token}`,
+            //     },
+            // });
+
+            const formData = new FormData();
+            formData.append("first_name", formData.first_name);
+            formData.append("last_name", formData.last_name);
+            formData.append("email", formData.email);
+            formData.append("password", formData.password);
+            if (file) {
+                formData.append("seeker[photo]", file);
             }
-            const response = await axios.put(endpoint, newUserData, {
+
+            console.log(formData, "formData");
+
+
+            const response = await axios.put(endpoint, formData, {
                 headers: {
                     Authorization: `Bearer ${user.token}`,
+                    "Content-Type": "multipart/form-data",
                 },
             });
+
+            user.setUserInfo((prevUserInfo) => ({
+                ...prevUserInfo,
+                first_name: newUserData.first_name,
+                last_name: newUserData.last_name,
+                email: newUserData.email,
+            }));
+
             console.log("User updated successfully:", response.data);
-            // add in file for photo
-            if (file) {
-                const form = new FormData();
-                form.append("photo", file);
-                const photoResponse = await axios.put(
-                    Endpoints.updateseeker.replace(":pk", user.userId),
-                    form,
-                    {
-                        headers: {
-                            Authorization: `Bearer ${user.token}`,
-                            "Content-Type": "multipart/form-data",
-                        },
-                    }
-                );
-                console.log("Photo updated successfully:", photoResponse.data);
-            }
         } catch (error) {
             console.error("Error updating user:", error);
         }
@@ -92,7 +118,7 @@ function UpdateSeeker() {
         <body className={styles.pageContainer}>
             <NavBar />
             <div className={styles.seekerManagement}>
-                <form className={styles.form} onSubmit={handleSubmit}>
+                <form className={styles.form} enctype="multipart/form-data" onSubmit={handleSubmit}>
                     <div className={styles.profileContainer}>
                         {/* <img className={styles.profileImg} src={require("../../images/profile1.png")} /> */}
                         <label htmlFor="profileImg" className={styles.profileImgLabel}>
@@ -115,7 +141,7 @@ function UpdateSeeker() {
                             <input
                                 id="firstname"
                                 type="text"
-                                name="firstname"
+                                name="first_name"
                                 placeholder="First name"
                                 value={formData.first_name}
                                 onChange={handleChange}
@@ -125,7 +151,7 @@ function UpdateSeeker() {
                             <input
                                 id="lastname"
                                 type="text"
-                                name="lastname"
+                                name="last_name"
                                 placeholder="Last name"
                                 value={formData.last_name}
                                 onChange={handleChange}
@@ -138,8 +164,7 @@ function UpdateSeeker() {
                                 name="email"
                                 placeholder="Email"
                                 value={formData.email}
-                                onChange={handleChange}
-                                required />
+                                disabled />
                         </div>
                         <div className={styles.gridItem}>
                             <input

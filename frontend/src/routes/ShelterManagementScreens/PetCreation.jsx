@@ -74,7 +74,7 @@ function PetCreation() {
         if (formDataUpdated) {
             const createPet = async () => {
                 try {
-                    const endpoint = Endpoints.pet;
+                    const endpoint = Endpoints.pets;
                     // const formDataWithImage = new FormData();
 
                     // for (const key in formData) {
@@ -93,7 +93,7 @@ function PetCreation() {
 
                     // redirect to the actual pet page
                     const petId = response.data.id;
-                    navigate(`/pet/${petId}`);
+                    navigate(`/pets/${petId}`);
                 } catch (error) {
                     console.error("Error creating pet:", error);
                 }
@@ -220,7 +220,7 @@ function PetCreation() {
                                 rows="4"
                                 id="medicalhistory"
                                 type="text"
-                                name="medicalhistory"
+                                name="medical_history"
                                 placeholder="Medical history"
                                 value={formData.medical_history}
                                 onChange={handleChange}
@@ -231,7 +231,7 @@ function PetCreation() {
                                 rows="4"
                                 id="specialneeds"
                                 type="text"
-                                name="specialneeds"
+                                name="special_needs"
                                 placeholder="Special needs or requirements"
                                 value={formData.special_needs}
                                 onChange={handleChange}
@@ -242,7 +242,7 @@ function PetCreation() {
                                 rows="4"
                                 id="behaviour"
                                 type="text"
-                                name="behaviour"
+                                name="personality"
                                 placeholder="Behaviour / Personality"
                                 value={formData.personality}
                                 onChange={handleChange}

@@ -11,7 +11,7 @@ class CommentListPagination(PageNumberPagination):
 
 class ShelterCommentCreateView(ListCreateAPIView):
     serializer_class = ShelterCommentSerializer
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
     pagination_class = CommentListPagination
 
     def get_queryset(self):
@@ -23,8 +23,15 @@ class ShelterCommentCreateView(ListCreateAPIView):
         shelter_id = self.kwargs.get('pk')
         shelter = get_object_or_404(Shelter, id=shelter_id)
         content = serializer.validated_data.get('content', None)
-        new_comment = Comment.objects.create(user=self.request.user, comment_type='shelter', content=content)
-        shelter_comment = ShelterComment.objects.create(comment=new_comment, shelter=shelter)
+        rating = serializer.validated_data.get('rating', None)
+        new_comment = Comment.objects.create(user=self.request.user, 
+                                             user_name=self.request.user.first_name + ' ' + self.request.user.last_name,
+                                             user_type=self.request.user.account_type,
+                                             rating=rating,
+                                             comment_type='shelter', 
+                                             content=content)
+        shelter_comment = ShelterComment.objects.create(comment=new_comment, 
+                                                        shelter=shelter)
         # create notification to shelter if the user isnt the shelter itself
         if self.request.user.account_type == 'seeker':
             Notification.objects.create(
@@ -62,7 +69,11 @@ class ApplicationCommentCreateView(ListCreateAPIView):
             if application.seeker != self.request.user.seeker:
                 raise PermissionDenied()
         content = serializer.validated_data.get('content', None)
-        new_comment = Comment.objects.create(user=self.request.user, comment_type='application', content=content)
+        new_comment = Comment.objects.create(user=self.request.user,
+                                             user_name=self.request.user.first_name + ' ' + self.request.user.last_name,
+                                             user_type=self.request.user.account_type, 
+                                             comment_type='application', 
+                                             content=content)
         application_comment = ApplicationComment.objects.create(comment=new_comment, application=application)
         application.last_updated = new_comment.creation_time
         # if the user is a seeker, create notification to shelter

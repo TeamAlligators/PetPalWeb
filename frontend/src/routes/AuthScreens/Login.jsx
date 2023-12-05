@@ -91,6 +91,7 @@ function Login() {
 				first_name: newUser.first_name,
 				last_name: newUser.last_name,
 				account_type: newUser.account_type,
+				email: newUser.email,
 				seeker: newUser.seeker,
 				shelter: newUser.shelter,
 				token: token,
