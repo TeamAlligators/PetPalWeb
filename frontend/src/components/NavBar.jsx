@@ -73,6 +73,23 @@ function NavBar() {
 		}
 	}
 
+	const deleteNotification = async (notificationId) => {
+		try {
+			await axios.delete(`http://localhost:80/notifications/${notificationId}`, {
+				headers: {
+					Authorization: `Bearer ${user.token}`,
+				},
+			})
+			console.log("dleted")
+		} catch (error) {
+			console.error(
+				`Error deleting notification with ID ${notificationId}:`,
+				error
+			)
+		}
+		fetchNotifications(Endpoints.notification)
+	}
+
 	return (
 		<nav id={styles.navigationBar}>
 			<span id={styles.navItemLeft}>
@@ -158,6 +175,12 @@ function NavBar() {
 											To{" "}
 											{user.account_type === AccountType.SHELTER ? "Shelter" : "Listing"}
 										</NavLink>
+										<button
+											className={styles["sign-up-button"]}
+											onClick={() => deleteNotification(notification.id)}
+										>
+											{"x"}
+										</button>
 									</div>
 								</div>
 							)
