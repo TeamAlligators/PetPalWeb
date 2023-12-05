@@ -3,8 +3,12 @@ const Endpoints = {
 	seekers: "http://localhost:80/seekers/",
 	shelter: "http://localhost:80/shelter/",
 	shelters: "http://localhost:80/shelters/",
+	shelterlists: "http://localhost:80/shelterlists/",
 	token: "http://localhost:80/api/token/",
 	search: "http://localhost:80/pets/results/",
+	pet: "http://localhost:80/pets/:pk/",
+	application: "http://localhost:80/applications/",
+	applicationfilled: "http://localhost:80/applications/:pk/",
 	updateshelter: "http://localhost:80/shelter/:pk/",
 	updateseeker: "http://localhost:80/seeker/:pk/",
 	pets: "http://localhost:80/pets/",
@@ -15,7 +19,6 @@ const Endpoints = {
 	sheltercomments: "http://localhost:80/shelter/:pk/comment/",
 	specificpet: "http://localhost:80/pets/:pk/",
 }
-
 
 // urlpatterns = [
 //     path('shelter/', views.UserShelterCreate.as_view()),

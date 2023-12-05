@@ -14,6 +14,7 @@ function Signup() {
 	const [lastName, setLastName] = useState("")
 	const [email, setEmail] = useState("")
 	const [password, setPassword] = useState("")
+	const [photo, setPhoto] = useState(null)
 	const [accountType, setAccountType] = useState(AccountType.SEEKER)
 	const [error, setError] = useState(false)
 
@@ -83,7 +84,7 @@ function Signup() {
 
 			// temp since we cant return id from backend
 
-			let userId = null;
+			let userId = null
 
 			if (accountType === AccountType.SEEKER) {
 				const seekersResponse = await axios.get(Endpoints.seekers)
@@ -101,19 +102,33 @@ function Signup() {
 				})
 			}
 
-			user.setUserInfo(
-				{
-					userId: userId,
-					first_name: firstName,
-					last_name: lastName,
-					email,
-					password,
-					token: tokenResponse.data.access,
-					account_type: accountType,
-					seeker,
-					shelter,
-				}
-			)
+			// if (photo) {
+			// 	const form = new FormData()
+			// 	form.append("photo", photo)
+			// 	const photoResponse = await axios.put(
+			// 		Endpoints.updateseeker.replace(":pk", userId),
+			// 		form,
+			// 		{
+			// 			headers: {
+			// 				Authorization: `Bearer ${tokenResponse.data.access}`,
+			// 				"Content-Type": "multipart/form-data",
+			// 			},
+			// 		}
+			// 	)
+			// 	console.log("Photo updated successfully:", photoResponse.data)
+			// }
+
+			user.setUserInfo({
+				userId: userId,
+				first_name: firstName,
+				last_name: lastName,
+				email,
+				password,
+				token: tokenResponse.data.access,
+				account_type: accountType,
+				seeker,
+				shelter,
+			})
 
 			console.log("user info:", user)
 
@@ -143,7 +158,7 @@ function Signup() {
 						alt="Dog and cat"
 					/>
 					<div className={classes["grid-container"]}>
-						<form onSubmit={handleSignup}>
+						<form onSubmit={handleSignup} encType="multipart/form-data">
 							<div className={classes["grid-item"]}>
 								<input
 									id="firstname"
@@ -188,6 +203,16 @@ function Signup() {
 									required
 								/>
 							</div>
+							{/* <div className={classes["grid-item"]}>
+								<label htmlFor="photo">Upload Photo:</label>
+								<input
+									id="photo"
+									type="file"
+									name="photo"
+									accept="image/*"
+									onChange={(e) => setPhoto(e.target.files[0])}
+								/>
+							</div> */}
 							<div className={classes["grid-item2"]}>
 								<input
 									type="radio"

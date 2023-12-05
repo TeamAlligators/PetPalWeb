@@ -8,6 +8,7 @@ from ..models import Shelter, Seeker, CustomUser, Application, Pet, Notification
 from django.contrib.auth.hashers import make_password
 from rest_framework.exceptions import PermissionDenied
 from rest_framework import status
+from rest_framework.pagination import PageNumberPagination
 
 # Create your views here.
 class UserShelterCreate(CreateAPIView):
@@ -64,6 +65,14 @@ class UserSeekerCreate(CreateAPIView):
             seeker_data['photo'] = photo
 
         Seeker.objects.create(**seeker_data, user=new_user)
+
+class ShelterListPagination(PageNumberPagination):
+    page_size = 5 
+
+class ShelterList(ListAPIView):
+    serializer_class = UserShelterSerializer
+    queryset = CustomUser.objects.filter(account_type="shelter")
+    pagination_class = ShelterListPagination
 
 class UserShelterList(ListAPIView):
     # permission_classes = [IsAuthenticated] 
