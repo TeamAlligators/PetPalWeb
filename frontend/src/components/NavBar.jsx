@@ -64,7 +64,6 @@ function NavBar() {
 				updatedNotifications.splice(index, 1)
 				return updatedNotifications
 			})
-			console.log("Notification details:", response.data)
 		} catch (error) {
 			console.error(
 				`Error fetching notification details for ID ${notificationId}:`,
@@ -80,7 +79,6 @@ function NavBar() {
 					Authorization: `Bearer ${user.token}`,
 				},
 			})
-			console.log("dleted")
 		} catch (error) {
 			console.error(
 				`Error deleting notification with ID ${notificationId}:`,

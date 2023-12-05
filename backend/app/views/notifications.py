@@ -27,7 +27,7 @@ class NotificationList(ListAPIView):
         # print('isread', is_read, is_read == False)
 
         if is_read is not None:
-          print('isread', is_read)
+
           queryset = queryset.filter(is_read=is_read)
 
         return queryset
