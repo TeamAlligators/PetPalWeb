@@ -28,12 +28,17 @@ function ViewMyListings() {
         }
     };
 
-    const fetchPetListings = async () => {
+    const fetchPetListings = async (url) => {
         if (!shelterId) return;
 
         try {
-            const response = await axios.get(Endpoints.petresults, { params: { shelterId } });
+            let endpoint = Endpoints.petresults;
+            if (url) {
+                endpoint = url;
+            }
+            const response = await axios.get(endpoint, { params: { shelterId } });
             setSearchResults(response.data.results)
+            console.log("pet listings response", response)
             setNextPageUrl(response.data.next)
             setPreviousPageUrl(response.data.previous)
         } catch (error) {

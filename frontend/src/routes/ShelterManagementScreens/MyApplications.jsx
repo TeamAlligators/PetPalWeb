@@ -15,9 +15,13 @@ function ViewMyApplications() {
     const [nextPageUrl, setNextPageUrl] = useState(null)
     const [previousPageUrl, setPreviousPageUrl] = useState(null)
 
-    const fetchApplications = async (status) => {
+    const fetchApplications = async (status, url) => {
         try {
-            const response = await axios.get(Endpoints.applications, {
+            let endpoint = Endpoints.applications;
+            if (url) {
+                endpoint = url;
+            }
+            const response = await axios.get(endpoint, {
                 params: {
                     status: status !== "all" ? status : undefined,
                 },
