@@ -85,6 +85,7 @@ function UpdateShelter() {
                         address: formData.shelter.address,
                         postal_code: formData.shelter.postal_code,
                         mission: formData.shelter.mission,
+                        photo: file,
                     }
                 }
             } else {
