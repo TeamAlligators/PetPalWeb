@@ -1,3 +1,19 @@
+.rating {
+    border: 1px #c8c8c8 solid;
+    padding: 10px;
+    margin-bottom: 12px;
+    margin-left: 10px;
+    box-shadow: -1px -1px 20px rgba(153.21, 153.21, 153.21, 0.13);
+    border-radius: 15px;
+}
+
+.ratingLabel {
+    font-family: Nunito, sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    margin-left: 5px;
+}
+
 .save {
     border: 0px;
     background-color: black;
@@ -13,7 +29,7 @@
 
 .shelterOwnerComment {
     border-radius: 30px;
-    background-color: #E4E4E4;
+    background-color: #ffdfd3;
     text-align: left;
     margin: 0 auto;
     padding: 15px;
@@ -227,5 +243,10 @@
 
     .gridItem2 {
         margin-right: 0;
+    }
+
+    .rating {
+        margin-left: 0;
+        width:100%;
     }
 }
