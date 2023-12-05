@@ -4,6 +4,9 @@ from .application import Application
 
 class Comment(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, blank=False)
+    user_name = models.CharField(max_length=200, blank=False)
+    user_type = models.CharField(max_length=200, blank=False)
+    rating = models.IntegerField(null=True, blank=True)
     content = models.CharField(max_length=200, blank=False)
     comment_type = models.CharField(max_length=200, blank=False)
     creation_time = models.DateTimeField(auto_now_add=True)

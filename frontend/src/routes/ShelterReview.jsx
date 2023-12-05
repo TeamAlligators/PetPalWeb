@@ -57,68 +57,6 @@ function ShelterReview() {
         fetchData();
     }, [pk]);
 
-
-    // useEffect(() => {
-    //     const fetchShelterInformation = async () => {
-    //         try {
-    //             const response = await axios.get(Endpoints.specificshelter.replace(":pk", pk));
-    //             setShelterData(response.data);
-    //         } catch (error) {
-    //             console.error('Error fetching shelter information:', error);
-    //         }
-    //     };
-
-    //     const fetchComments = async () => {
-    //         try {
-    //             const response = await axios.get(Endpoints.sheltercomments.replace(":pk", pk));
-    //             setComments(response.data.results);
-    //         } catch (error) {
-    //             console.error('Error fetching comments:', error);
-    //         }
-    //     };
-
-    //     const fetchUserDetails = async (userIds) => {
-    //         try {
-    //             const users = [];
-
-    //             for (const userId of userIds) {
-    //                 // Check if the user is a seeker
-    //                 const seekerResponse = await axios.get(Endpoints.seekers);
-    //                 const seekerUser = seekerResponse.data.find((currUser) => currUser.id === userId);
-    //                 if (seekerUser) {
-    //                     users.push(seekerUser);
-    //                     continue; // Move to the next iteration
-    //                 }
-
-    //                 // Check if the user is a shelter
-    //                 const shelterResponse = await axios.get(Endpoints.shelters);
-    //                 const shelterUser = shelterResponse.data.find((currUser) => currUser.id === userId);
-    //                 if (shelterUser) {
-    //                     users.push(shelterUser);
-    //                 }
-    //             }
-
-    //             setComments((prevComments) =>
-    //                 prevComments.map((comment) => ({
-    //                     ...comment,
-    //                     user: users.find((user) => user.id === comment.user),
-    //                 }))
-    //             );
-
-    //         } catch (error) {
-    //             console.error('Error fetching user details:', error);
-    //         }
-    //     };
-
-    //     fetchShelterInformation();
-    //     fetchComments()
-    //         .then((comments) => {
-    //             const userIds = comments.map((comment) => comment.user);
-    //             fetchUserDetails(userIds);
-    //         });
-    // }, [pk]);
-
-
     const handleSubmit = async (e) => {
         e.preventDefault();
 
