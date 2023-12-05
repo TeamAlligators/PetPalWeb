@@ -10,18 +10,26 @@ import AccountType from "../constants/AccountType"
 function NavBar() {
 	const user = useUser()
 	const [notifications, setNotifications] = useState([])
+	const [read, setRead] = useState("False")
 	const [nextPageUrl, setNextPageUrl] = useState(null)
 	const [previousPageUrl, setPreviousPageUrl] = useState(null)
 
 	const fetchNotifications = async (url) => {
 		try {
-			const response = await axios.get(url, {
+			const response = await axios.get(`http://localhost:80/notifications/`, {
 				headers: {
 					Authorization: `Bearer ${user.token}`,
 				},
 			})
 
-			setNotifications(response.data.results)
+			const filteredNotifications = response.data.results.filter(
+				(notification) => {
+					const val = read === "False" ? false : true
+					return notification.is_read === val
+				}
+			)
+
+			setNotifications(filteredNotifications)
 			setNextPageUrl(response.data.next)
 			setPreviousPageUrl(response.data.previous)
 			console.log("notifs response", response)
@@ -29,9 +37,41 @@ function NavBar() {
 			console.error("Error fetching notifications:", error)
 		}
 	}
+
+	// useEffect(() => {
+	// 	setInterval(() => {
+	// 		fetchNotifications(Endpoints.notifs)
+	// 	}, 10000)
+	// }, [])
+
 	useEffect(() => {
 		fetchNotifications(Endpoints.notifs)
-	}, [])
+	}, [read])
+
+	const handleNotificationClick = async (notificationId, index) => {
+		try {
+			const response = await axios.get(
+				`http://localhost:80/notifications/${notificationId}`,
+				{
+					headers: {
+						Authorization: `Bearer ${user.token}`,
+					},
+				}
+			)
+
+			setNotifications((prevNotifications) => {
+				const updatedNotifications = [...prevNotifications]
+				updatedNotifications.splice(index, 1)
+				return updatedNotifications
+			})
+			console.log("Notification details:", response.data)
+		} catch (error) {
+			console.error(
+				`Error fetching notification details for ID ${notificationId}:`,
+				error
+			)
+		}
+	}
 
 	return (
 		<nav id={styles.navigationBar}>
@@ -58,25 +98,50 @@ function NavBar() {
 						<path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z" />
 					</svg>
 					<div className={styles["notification-list"]}>
+						<div className={styles["poop"]}>
+							<select
+								name="filter"
+								className={styles["select"]}
+								value={read}
+								onChange={(e) => setRead(e.target.value)}
+							>
+								<option value={"False"}>Unread</option>
+								<option value={"True"}>Read</option>
+							</select>
+							<button
+								className={styles["sign-up-button"]}
+								onClick={() => fetchNotifications(Endpoints.notification)}
+							>
+								{"Refresh"}
+							</button>
+						</div>
 						{notifications.map((notification, index) => {
 							// /applications/{application.id}/comment/
 							let appUrl = notification.url.replace(/applications/g, "petapplication")
 							appUrl = appUrl.replace(/\/coment\//g, "")
-							console.log("notif url", appUrl)
 
+							const appResponse = axios.get(
+								`http://localhost:80/applications/${notification.application}/`,
+								{
+									headers: {
+										Authorization: `Bearer ${user.token}`,
+									},
+								}
+							)
 							return (
-								<div key={notification.id}>
-									<p className={styles["lol"]} key={notification.id}>
+								<div key={Math.random()}>
+									<p className={styles["lol"]} key={Math.random()}>
 										{notification.content}
 									</p>
 									<div
-										key={notification.id}
+										key={Math.random()}
 										className={styles["notification-list-coninater"]}
 									>
 										<NavLink
 											className={styles["sign-up-button"]}
 											to={appUrl}
-											key={notification.id}
+											key={Math.random()}
+											onClick={() => handleNotificationClick(notification.id, index)}
 										>
 											To App
 										</NavLink>
@@ -85,9 +150,10 @@ function NavBar() {
 											to={
 												user.account_type === AccountType.SHELTER
 													? "/sheltermanagement" // make this shetler detials when done
-													: "Listing"
+													: "/pets/" + appResponse.data.pet
 											}
-											key={notification.id}
+											key={Math.random()}
+											onClick={() => handleNotificationClick(notification.id, index)}
 										>
 											To{" "}
 											{user.account_type === AccountType.SHELTER ? "Shelter" : "Listing"}
@@ -98,18 +164,22 @@ function NavBar() {
 						})}
 						{notifications.length > 0 && (
 							<div className={styles["notification-list-coninater"]}>
-								<button
-									className={styles["sign-up-button"]}
-									onClick={() => fetchNotifications(previousPageUrl)}
-								>
-									{"<"}
-								</button>
-								<button
-									className={styles["sign-up-button"]}
-									onClick={() => fetchNotifications(nextPageUrl)}
-								>
-									{">"}
-								</button>
+								{
+									<button
+										className={styles["sign-up-button"]}
+										onClick={() => fetchNotifications(previousPageUrl)}
+									>
+										{"<"}
+									</button>
+								}
+								{
+									<button
+										className={styles["sign-up-button"]}
+										onClick={() => fetchNotifications(nextPageUrl)}
+									>
+										{">"}
+									</button>
+								}
 							</div>
 						)}
 					</div>
