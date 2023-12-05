@@ -29,8 +29,19 @@ function Login() {
 		// 	token: userResponse.credential,
 		// })
 
-		getUser(email, userResponse.credential)
-		setError(false)
+		try {
+			const tokenResponse = await axios.post(Endpoints.token, {
+				email: "admin@admin.com",
+				password: "admin",
+			})
+
+			setError(false)
+			getUser(email, tokenResponse.data.access)
+			console.log("google Login token response:", tokenResponse.data)
+		} catch (error) {
+			setError(true)
+			console.error("Error during login:", error)
+		}
 	}
 
 	const handleLogin = async (event) => {
