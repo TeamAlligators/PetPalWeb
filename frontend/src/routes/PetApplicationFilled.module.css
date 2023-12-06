@@ -214,7 +214,7 @@
 
 .save {
     border: 0px;
-    /* background-color: black; */
+    background-color: #d0a1a1;
     width: 150px;
     height: 50px;
     border-radius: 30px;
@@ -240,10 +240,10 @@
     color: white;
 }
 
-/* .save:disabled {
+.save:disabled {
     background-color: darkgray;
     color: white;
-} */
+}
 
 .gridItem2 {
     display: flex;

@@ -28,7 +28,7 @@ function PetApplicationFilled() {
     address: "",
     postal_code: "",
   });
-    
+
   const fetchData = async () => {
     try {
       // Fetch application details
@@ -77,28 +77,31 @@ function PetApplicationFilled() {
       console.error("Error fetching details:", error);
     }
   };
-    
+
   const fetchComments = async (url) => {
     try {
       const response = await axios.get(
-        url || Endpoints.applicationcomments.replace(":pk", pk)
+        url || Endpoints.applicationcomments.replace(":pk", pk),
+        {
+          headers: {
+            Authorization: "Bearer " + user.token,
+          },
+        }
       );
       setSearchResults(response.data.results);
       setNextPageUrl(response.data.next);
       setPreviousPageUrl(response.data.previous);
-        console.log("Fetched Comments Response", response);
-        
+      console.log("Fetched Comments Response", response);
     } catch (error) {
       console.error("Error fetching comments:", error);
     }
     //   fetchComments();
   };
-    
-  useEffect(() => {
-      fetchData();
-      fetchComments();
-  }, [pk, user.token]);
 
+  useEffect(() => {
+    fetchData();
+    fetchComments();
+  }, [pk, user.token]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -123,7 +126,6 @@ function PetApplicationFilled() {
       console.error("Error submitting comment:", error);
     }
   };
-
 
   return (
     <body className={classes["page-container"]}>
@@ -245,7 +247,7 @@ function PetApplicationFilled() {
         <div className={classes["reviewContainer"]}>
           <hr></hr>
           <h2 className={classes["reviews"]}>Comments</h2>
-          <form className={classes["new-review"]} onSubmit={handleSubmit}>
+          <form className={classes["newReview"]} onSubmit={handleSubmit}>
             <p id="review-name">
               {user.userId
                 ? `${user.first_name} ${user.last_name}`
@@ -288,8 +290,6 @@ function PetApplicationFilled() {
                 <p>
                   {comment.user &&
                     `${comment.user_name} (${comment.user_type})`}{" "}
-                  -{" "}
-                  {comment.rating ? `Rating: ${comment.rating}/5` : "No Rating"}
                 </p>
                 <p>{comment.content}</p>
               </div>
