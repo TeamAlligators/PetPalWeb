@@ -9,8 +9,10 @@ import { NavLink } from "react-router-dom";
 
 function ViewMyListings() {
     const user = useUser();
-    const [petListings, setPetListings] = useState([]);
     const [shelterId, setShelterId] = useState(null);
+    const [searchResults, setSearchResults] = useState([])
+    const [nextPageUrl, setNextPageUrl] = useState(null)
+    const [previousPageUrl, setPreviousPageUrl] = useState(null)
 
     const fetchShelterId = async () => {
         try {
@@ -26,12 +28,19 @@ function ViewMyListings() {
         }
     };
 
-    const fetchPetListings = async () => {
+    const fetchPetListings = async (url) => {
         if (!shelterId) return;
 
         try {
-            const response = await axios.get(Endpoints.petresults, { params: { shelterId } });
-            setPetListings(response.data.results);
+            let endpoint = Endpoints.petresults;
+            if (url) {
+                endpoint = url;
+            }
+            const response = await axios.get(endpoint, { params: { shelterId } });
+            setSearchResults(response.data.results)
+            console.log("pet listings response", response)
+            setNextPageUrl(response.data.next)
+            setPreviousPageUrl(response.data.previous)
         } catch (error) {
             console.error('Error fetching pet listings:', error);
         }
@@ -50,7 +59,7 @@ function ViewMyListings() {
             <NavBar />
             <ShelterManagementBar />
             <div className={styles.listingsContainer}>
-                {petListings.map((pet) => (
+                {searchResults.map((pet) => (
                     <div key={pet.id} className={styles.petItem}>
                         <img className={styles.petImg} src={pet.photo ? pet.photo : require("../../images/temppet.png")} alt={pet.name} />
                         <div className={styles.petTextContainer}>
@@ -65,6 +74,20 @@ function ViewMyListings() {
                         <NavLink className={styles.detailsButton} to={`/pets/${pet.id}`}> See Details </NavLink>
                     </div>
                 ))}
+            </div>
+            <div className={styles.footerContainer}>
+                <button
+                    className={styles.paginationButton}
+                    onClick={() => fetchPetListings(previousPageUrl)}
+                >
+                    {"<"}
+                </button>
+                <button
+                    className={styles.paginationButton}
+                    onClick={() => fetchPetListings(nextPageUrl)}
+                >
+                    {">"}
+                </button>
             </div>
         </body>
     )

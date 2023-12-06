@@ -133,10 +133,14 @@ function Signup() {
 			console.log("user info:", user)
 
 			navigate("/")
-			setError(false)
+			setError("")
 		} catch (error) {
 			console.error("Error during signup:", error)
-			setError(true)
+			if (error?.response?.data?.email) {
+				setError("User with email already exists")
+			} else {
+				setError("Issue with sign up, are your fields correct?")
+			}
 		}
 	}
 
@@ -315,7 +319,7 @@ function Signup() {
 									</div>
 								</>
 							)}
-							{error && <p>Error during sign up</p>}
+							{error && <p className={classes.poop}>{error}</p>}
 							<div className={classes["grid-item"]}>
 								<button className={classes["login"]} type="submit">
 									Continue

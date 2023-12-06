@@ -11,7 +11,7 @@ from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 
 class NotifPagination(PageNumberPagination):
-    page_size = 10  
+    page_size = 3  
 
 class NotificationList(ListAPIView):
     permission_classes = [IsAuthenticated] 
@@ -20,11 +20,16 @@ class NotificationList(ListAPIView):
 
     def get_queryset(self):
         user = self.request.user
-        queryset = Notification.objects.filter(user=user).order_by('-created_at')
+        new_user_id = user.id
+        queryset = Notification.objects.filter(user=new_user_id).order_by('-created_at')
         # filter notif by read/unread
         is_read = self.request.query_params.get('read')
+        # print('isread', is_read, is_read == False)
+
         if is_read is not None:
-            queryset = queryset.filter(is_read=is_read)
+
+          queryset = queryset.filter(is_read=is_read)
+
         return queryset
 
 class NotificationDetail(RetrieveUpdateDestroyAPIView):
@@ -48,3 +53,4 @@ class NotificationDetail(RetrieveUpdateDestroyAPIView):
             raise PermissionDenied("You do not have permission to delete this object.")
         if notification:
             notification.delete()
+            print('delte notif')

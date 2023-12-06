@@ -60,9 +60,13 @@ function PetCreation() {
                 },
             });
             const shelterId = shelterResponse.data.id;
+
+            // idk do something to image
+
             setFormData((prevData) => ({
                 ...prevData,
                 shelter: shelterId,
+                photo: file,
             }));
             setFormDataUpdated(true);
         } catch (error) {
@@ -75,18 +79,11 @@ function PetCreation() {
             const createPet = async () => {
                 try {
                     const endpoint = Endpoints.pets;
-                    // const formDataWithImage = new FormData();
 
-                    // for (const key in formData) {
-                    //     formDataWithImage.append(key, formData[key]);
-                    // }
-
-                    // if (file) {
-                    //     formDataWithImage.append("photo", file);
-                    // }
                     const response = await axios.post(endpoint, formData, {
                         headers: {
                             "Authorization": "Bearer " + user.token,
+                            "Content-Type": "multipart/form-data",
                         },
                     });
                     console.log("Pet created successfully:", response.data);

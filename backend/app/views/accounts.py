@@ -30,13 +30,14 @@ class UserShelterCreate(CreateAPIView):
             last_name=last_name,
             email=email,
             account_type=account_type,
-            is_active=is_active
+            is_active=is_active,
+            photo=serializer.validated_data.get('photo', None)
         )
         shelter_data = serializer.validated_data.get('shelter', {})
-        photo = self.request.FILES.get('photo')
 
-        if photo:
-            shelter_data['photo'] = photo
+
+        # if photo:
+        #     shelter_data['photo'] = photo
 
         Shelter.objects.create(user=new_user, **shelter_data)
 
@@ -57,14 +58,15 @@ class UserSeekerCreate(CreateAPIView):
             last_name=last_name,
             email=email,
             account_type=account_type,
-            is_active=is_active
+            is_active=is_active,
+            photo=serializer.validated_data.get('photo', None)
         )
         seeker_data = serializer.validated_data.get('seeker', tuple())
         photo = self.request.FILES.get('photo')
-        print(photo)
+        # print(photo)
 
-        if photo:
-            seeker_data['photo'] = photo
+        # if photo:
+        #     seeker_data['photo'] = photo
 
         Seeker.objects.create(**seeker_data, user=new_user)
 
@@ -106,18 +108,13 @@ class UserShelterRetrieveUpdateDestroy(RetrieveUpdateDestroyAPIView):
             setattr(shelter_instance, key, value)
         shelter_instance.save()
 
-        # Handle photo upload separately
-        photo = self.request.FILES.get('photo')
-        if photo:
-            shelter_instance.photo = photo
-            shelter_instance.save()
-
         # Update CustomUser fields
         user_data = {
             'first_name': serializer.validated_data.get('first_name', None),
             'last_name': serializer.validated_data.get('last_name', None),
             'email': serializer.validated_data.get('email', None),
             'password': make_password(serializer.validated_data.get('password', None)),
+            'photo': serializer.validated_data.get('photo', None),
         }
         CustomUser.objects.filter(id=self.request.user.id).update(**user_data)
     
@@ -162,10 +159,11 @@ class UserSeekerRetrieveUpdateDestroy(RetrieveUpdateDestroyAPIView):
         seeker_instance.save()
 
         # Handle photo upload separately
-        photo = self.request.FILES.get('photo')
-        if photo:
-            seeker_instance.photo = photo
-            seeker_instance.save()
+        # photo = self.request.FILES.get('photo')
+        # print(photo)
+        # if photo:
+        #     seeker_instance['photo'] = photo
+        #     seeker_instance.save()
 
         # Update CustomUser fields
         user_data = {
@@ -173,6 +171,7 @@ class UserSeekerRetrieveUpdateDestroy(RetrieveUpdateDestroyAPIView):
             'last_name': serializer.validated_data.get('last_name', None),
             'email': serializer.validated_data.get('email', None),
             'password': make_password(serializer.validated_data.get('password', None)),
+            'photo': serializer.validated_data.get('photo', None),
         }
         CustomUser.objects.filter(id=self.request.user.id).update(**user_data)
 

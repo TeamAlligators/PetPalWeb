@@ -46,7 +46,7 @@ function Login() {
 			getUser(googleEmail, tokenResponse.data.access_token)
 			console.log("google Login token response:", tokenResponse.data)
 		} catch (error) {
-			setError(true)
+			setError("Issue with login, have you made a user?")
 			console.error("Error during login:", error)
 		}
 	}
@@ -62,11 +62,11 @@ function Login() {
 
 			// user.setUserInfo({ ...user, token: tokenResponse.data.access })
 
-			setError(false)
+			setError("")
 			getUser(null, tokenResponse.data.access)
 			console.log("Login token response:", tokenResponse.data)
 		} catch (error) {
-			setError(true)
+			setError("Issue with login, email / password combo doesn't exist")
 			console.error("Error during login:", error)
 		}
 	}
@@ -92,7 +92,11 @@ function Login() {
 				})
 			}
 
-			console.log("loggedin user", newUser)
+			if (!newUser) {
+				setError("User doesn't exist, Please create a user before signing in.")
+				return
+			}
+
 			user.setUserInfo({
 				...user,
 				userId: newUser.id,
@@ -104,11 +108,12 @@ function Login() {
 				shelter: newUser.shelter,
 				token: token,
 			})
+			console.log("loggedin user", newUser)
 
-			setError(false)
+			setError("")
 			navigate("/")
 		} catch (error) {
-			setError(true)
+			setError("Email / password combo doesn't exist")
 			console.error("Error during login:", error)
 		}
 	}
@@ -133,7 +138,12 @@ function Login() {
 					<div className={styles.gridContainer}>
 						<form className={styles.form} onSubmit={handleLogin}>
 							<div className={styles.gridItem}>
-								<GoogleLogin onSuccess={google} onError={() => setError(true)} />
+								<GoogleLogin
+									onSuccess={google}
+									onError={() =>
+										setError("Please create a user before signing in with Google.")
+									}
+								/>
 							</div>
 							<div className={styles.gridItem}>
 								<input
@@ -157,7 +167,7 @@ function Login() {
 									required
 								/>
 							</div>
-							{error && <p>Invalid account, have you signed up yet?</p>}
+							{error && <p className={styles.poop}>{error}</p>}
 							<div className={styles.gridItem}>
 								<button className={styles.loginButton} type="submit">
 									Log In

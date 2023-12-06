@@ -12,6 +12,13 @@
 	margin-top: 16px;
 }
 
+.poop {
+	color: red;
+	font-weight: 600;
+	padding: 0;
+	margin: 0;
+}
+
 .something {
 	display: flex;
 	justify-content: center;

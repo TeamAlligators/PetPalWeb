@@ -1,3 +1,49 @@
+.footerContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 50px;
+}
+
+.paginationButton {
+    font-family: Nunito;
+    color: white;
+    background-color: #bbb;
+    border-radius: 25px;
+    font-weight: 600;
+    font-size: 18px;
+    text-decoration: none;
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    text-align: center;
+    margin: 5px;
+    transition: all 0.2s;
+    border: 0px;
+    box-shadow: -1px -1px 20px rgba(0, 0, 0, 0.25);
+}
+
+.paginationButton:hover {
+    color: white;
+    background-color: #d0a1a1;
+}
+
+.rating {
+    border: 1px #c8c8c8 solid;
+    padding: 10px;
+    margin-bottom: 12px;
+    margin-left: 10px;
+    box-shadow: -1px -1px 20px rgba(153.21, 153.21, 153.21, 0.13);
+    border-radius: 15px;
+}
+
+.ratingLabel {
+    font-family: Nunito, sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    margin-left: 5px;
+}
+
 .save {
     border: 0px;
     background-color: black;
@@ -13,7 +59,7 @@
 
 .shelterOwnerComment {
     border-radius: 30px;
-    background-color: #E4E4E4;
+    background-color: #ffdfd3;
     text-align: left;
     margin: 0 auto;
     padding: 15px;
@@ -87,7 +133,6 @@
     margin: auto;
     width: 60vw;
     margin-top: 20px;
-    margin-bottom: 50px;
     border-radius: 30px;
   }
   
@@ -227,5 +272,10 @@
 
     .gridItem2 {
         margin-right: 0;
+    }
+
+    .rating {
+        margin-left: 0;
+        width:100%;
     }
 }
