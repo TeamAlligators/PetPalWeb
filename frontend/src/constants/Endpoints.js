@@ -20,6 +20,7 @@ const Endpoints = {
 	notifs: "http://localhost:80/notifications/",
 	sheltercomments: "http://localhost:80/shelter/:pk/comment/",
 	specificpet: "http://localhost:80/pets/:pk/",
+	google: `http://localhost:80/google/`,
 }
 
 // urlpatterns = [

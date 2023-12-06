@@ -9,6 +9,8 @@ from django.contrib.auth.hashers import make_password
 from rest_framework.exceptions import PermissionDenied
 from rest_framework import status
 from rest_framework.pagination import PageNumberPagination
+from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework.permissions import AllowAny
 
 # Create your views here.
 class UserShelterCreate(CreateAPIView):
@@ -185,3 +187,16 @@ class UserSeekerRetrieveUpdateDestroy(RetrieveUpdateDestroyAPIView):
         seeker = Seeker.objects.get(user=self.request.user.id)
         seeker.delete()
         instance.delete()
+
+class GoogleView(ListAPIView):
+    permission_classes = [AllowAny]
+    def get(self, request):
+        email = self.request.query_params.get('email')
+
+        user = CustomUser.objects.get(email=email)
+ 
+        token = RefreshToken.for_user(user)  # generate token without username & password
+        response = {}
+        response['access_token'] = str(token.access_token)
+        print(token.access_token)
+        return Response(response)
