@@ -76,9 +76,9 @@ function PetApplication() {
           });
           console.log("Application created successfully:", response.data);
 
-          const petId = response.data.pet;
-          // const applicationId = response.data.id;
-          navigate(`/petapplicationfilled/${petId}`);
+          // const petId = response.data.pet;
+          const applicationId = response.data.id;
+          navigate(`/petapplicationfilled/${applicationId}`);
         } catch (error) {
           console.log("Error response:", error.response.data);
           console.error("Error creating appplication:", error);
