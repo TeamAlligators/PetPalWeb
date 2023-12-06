@@ -587,7 +587,6 @@
       "last_name": "Lu",
       "email": "amy@lu.com",
       "account_type": "shelter",
-      "photo": "",
       "groups": [],
       "user_permissions": []
     }
@@ -606,7 +605,6 @@
       "last_name": "Kim",
       "email": "lucy@kim.com",
       "account_type": "shelter",
-      "photo": "",
       "groups": [],
       "user_permissions": []
     }
@@ -625,7 +623,60 @@
       "last_name": "Vuong",
       "email": "herman@vuong.com",
       "account_type": "shelter",
-      "photo": "",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "app.customuser",
+    "pk": 4,
+    "fields": {
+      "password": "pbkdf2_sha256$600000$xMWEP2odFdxTiTP2WsrwE4$+QnKOFGBwUpJ5tCYXmAG6L0N4bAa6gfW3V2+SSI6Ix0=",
+      "last_login": null,
+      "is_superuser": false,
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2023-12-05T00:12:27.106Z",
+      "first_name": "Amy",
+      "last_name": "Lu",
+      "email": "yibingamy@gmail.com",
+      "account_type": "seeker",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "app.customuser",
+    "pk": 5,
+    "fields": {
+      "password": "pbkdf2_sha256$600000$M8Ff9gQF1fDEnb2WxsJJVN$KcwW5Msz9XDhQsdt6ir71M4GYC9Doji2vVi1P/PaD1Q=",
+      "last_login": null,
+      "is_superuser": false,
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2023-12-05T00:13:21.713Z",
+      "first_name": "shelter",
+      "last_name": "shelter",
+      "email": "shelter@gmail.com",
+      "account_type": "shelter",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "app.customuser",
+    "pk": 6,
+    "fields": {
+      "password": "pbkdf2_sha256$600000$8hWvxuA7Xh9pXx3VItd59j$ys3KPhUtrbra4Kv67x2JpxCEyPosTW6dLwWEw4PX3is=",
+      "last_login": null,
+      "is_superuser": false,
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2023-12-05T00:24:37.700Z",
+      "first_name": "something",
+      "last_name": "something",
+      "email": "seeker@seeker.com",
+      "account_type": "seeker",
       "groups": [],
       "user_permissions": []
     }
@@ -672,6 +723,22 @@
       "mission": "Spread love"
     }
   },
+  {
+    "model": "app.shelter",
+    "pk": 4,
+    "fields": {
+      "user": 5,
+      "name": "amy",
+      "phone": "123123123",
+      "country": "canada",
+      "province": "on",
+      "address": "asldkfj",
+      "postal_code": "alsdkf",
+      "mission": "asdfasdf"
+    }
+  },
+  { "model": "app.seeker", "pk": 1, "fields": { "user": 4 } },
+  { "model": "app.seeker", "pk": 2, "fields": { "user": 6} },
   {
     "model": "app.pet",
     "pk": 1,
@@ -838,6 +905,41 @@
       "personality": "Slow",
       "others": "Round",
       "posted_date": "2023-12-03"
+    }
+  },
+  {
+    "model": "app.application",
+    "pk": 1,
+    "fields": {
+      "pet": 9,
+      "seeker": 2,
+      "shelter": 3,
+      "application_date": "2023-12-05",
+      "first_name": "John",
+      "last_name": "Doe",
+      "phone": "123-456-7890",
+      "email": "john.doe@example.com",
+      "address": "123 Main St",
+      "country": "United States",
+      "province": "California",
+      "postal_code": "12345",
+      "status": "pending",
+      "last_updated": "2023-12-05T00:26:12.010Z"
+    }
+  },
+  {
+    "model": "app.notification",
+    "pk": 1,
+    "fields": {
+      "user": 3,
+      "content": "something something applied for your pet Potat.",
+      "created_at": "2023-12-05T00:26:12.014Z",
+      "is_read": false,
+      "notification_type": "new_application",
+      "application": 1,
+      "shelter_comment": null,
+      "application_comment": null,
+      "url": "/applications/1/"
     }
   }
 ]

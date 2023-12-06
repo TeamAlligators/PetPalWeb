@@ -12,24 +12,21 @@ function PetApplication() {
   const user = useUser();
   const { pk } = useParams();
   const [formDataUpdated, setFormDataUpdated] = useState(false);
+  const [petDetails, setPetDetails] = useState({});
   const [formData, setFormData] = useState({
-    pet: pk,
-    seeker: user.userId,
+    pet: parseInt(pk),
+    // seeker: user.userId,
     shelter: "",
     first_name: "",
     last_name: "",
-    email: "",
     phone: "",
+    email: "",
+
     country: "",
     province: "",
     address: "",
     postal_code: "",
   });
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
 
   useEffect(() => {
     if (formDataUpdated) {
@@ -37,6 +34,11 @@ function PetApplication() {
       setFormDataUpdated(false);
     }
   }, [formData, formDataUpdated]);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -64,19 +66,21 @@ function PetApplication() {
       const createApp = async () => {
         try {
           const endpoint = Endpoints.application;
-          // }
+          console.log("Endpoint:", endpoint);
+          console.log("Form data:", formData);
           const response = await axios.post(endpoint, formData, {
             headers: {
               Authorization: "Bearer " + user.token,
             },
+            params: { pet: formData.pet, shelter: formData.shelter },
           });
           console.log("Application created successfully:", response.data);
 
-          // redirect to the filled application page
-
+          // const petId = response.data.pet;
           const applicationId = response.data.id;
-          navigate(`/petapplication/${applicationId}`);
+          navigate(`/petapplicationfilled/${applicationId}`);
         } catch (error) {
+          console.log("Error response:", error.response.data);
           console.error("Error creating appplication:", error);
         }
       };
@@ -84,6 +88,23 @@ function PetApplication() {
       setFormDataUpdated(false);
     }
   }, [formDataUpdated, formData, user.token, navigate]);
+
+  useEffect(() => {
+    const fetchPetDetails = async () => {
+      try {
+        const response = await axios.get(Endpoints.pet.replace(":pk", pk), {
+          headers: {
+            Authorization: "Bearer " + user.token,
+          },
+        });
+        setPetDetails(response.data);
+      } catch (error) {
+        console.error("Error fetching pet details:", error);
+      }
+    };
+
+    fetchPetDetails();
+  }, [pk, user.token]);
 
   return (
     <body className={classes["page-container"]}>
@@ -94,15 +115,20 @@ function PetApplication() {
         <div className={classes["profile-container"]}>
           <img
             className={classes["app-img"]}
-            src={require("../images/temppet.png")}
-            alt="cat"
+            src={
+              petDetails.photo
+                ? petDetails.photo
+                : require("../images/temppet.png")
+            }
+            alt={petDetails.name}
           />
         </div>
 
         <form className={classes["form"]} onSubmit={handleSubmit}>
           <div className={classes["grid-container"]}>
             <div className={classes["grid-item"]}>
-              <input className="input"
+              <input
+                className="input"
                 id="first_name"
                 type="text"
                 name="first_name"
@@ -113,7 +139,8 @@ function PetApplication() {
               />
             </div>
             <div class={classes["grid-item"]}>
-              <input className="input"
+              <input
+                className="input"
                 id="last_name"
                 type="text"
                 name="last_name"
@@ -124,7 +151,8 @@ function PetApplication() {
               />
             </div>
             <div class={classes["grid-item"]}>
-              <input className="input"
+              <input
+                className="input"
                 id="email"
                 type="email"
                 name="email"
@@ -135,7 +163,8 @@ function PetApplication() {
               />
             </div>
             <div class={classes["grid-item"]}>
-              <input className="input"
+              <input
+                className="input"
                 id="phone"
                 type="text"
                 name="phone"
@@ -146,7 +175,8 @@ function PetApplication() {
               />
             </div>
             <div class={classes["grid-item"]}>
-              <input className="input"
+              <input
+                className="input"
                 id="country"
                 type="text"
                 name="country"
@@ -157,7 +187,8 @@ function PetApplication() {
               />
             </div>
             <div class={classes["grid-item"]}>
-              <input className="input"
+              <input
+                className="input"
                 id="province"
                 type="text"
                 name="province"
@@ -168,7 +199,8 @@ function PetApplication() {
               />
             </div>
             <div class={classes["grid-item"]}>
-              <input className="input"
+              <input
+                className="input"
                 id="address"
                 type="text"
                 name="address"
@@ -179,7 +211,8 @@ function PetApplication() {
               />
             </div>
             <div class={classes["grid-item"]}>
-              <input className="input"
+              <input
+                className="input"
                 id="postal_code"
                 type="text"
                 name="postal_code"
@@ -191,7 +224,7 @@ function PetApplication() {
             </div>
           </div>
           <div className={classes["button-holder"]}>
-            <button className={classes["login"]} type="submit">
+            <button className={classes["adopt-button"]} type="submit">
               Apply
             </button>
           </div>
