@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import NavBar from "../components/NavBar";
-import classes from "./PetApplication.module.css";
+import classes from "./PetApplicationFilled.module.css";
 import axios from "axios";
 import useUser from "../context/UserContext";
 import Endpoints from "../constants/Endpoints";
@@ -8,9 +8,10 @@ import { useNavigate, useParams } from "react-router-dom";
 
 function PetApplicationFilled() {
   const { pk } = useParams();
-  //   const endpoint = Endpoints.application.replace(":pk", pk);
-
-  // const navigate = useNavigate();
+  const [newComment, setNewComment] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+  const [nextPageUrl, setNextPageUrl] = useState(null);
+  const [previousPageUrl, setPreviousPageUrl] = useState(null);
   const user = useUser();
   const [petDetails, setPetDetails] = useState({});
 
@@ -27,6 +28,20 @@ function PetApplicationFilled() {
     address: "",
     postal_code: "",
   });
+
+  const fetchComments = async (url) => {
+    try {
+      const response = await axios.get(
+        url || Endpoints.applicationcomments.replace(":pk", pk)
+      );
+      setSearchResults(response.data.results);
+      setNextPageUrl(response.data.next);
+      setPreviousPageUrl(response.data.previous);
+      console.log("commentsResponse", response);
+    } catch (error) {
+      console.error("Error fetching comments:", error);
+    }
+  };
 
   useEffect(() => {
     // Fetch application from the server
@@ -64,6 +79,27 @@ function PetApplicationFilled() {
     fetchApplication();
   }, [pk, user.token]);
     
+    
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+        const response = await axios.post(Endpoints.applicationcomments.replace(":pk", pk), {
+            content: newComment,
+        }, {
+            headers: {
+                Authorization: `Bearer ${user.token}`,
+            },
+        });
+        console.log("Comment response:", response);
+
+        // Fetch comments again after submitting a new comment
+        fetchComments();
+        setNewComment("");
+    } catch (error) {
+        console.error('Error submitting comment:', error);
+    }
+};
+
   useEffect(() => {
     const fetchPetDetails = async () => {
       try {
@@ -198,35 +234,72 @@ function PetApplicationFilled() {
           </div>
         </form>
 
-        <form class={classes["new-review"]} action="">
-          <p id="review-name">First Last</p>
-          <div class={classes["grid-item"]}>
-            <input
-              id="review-content"
-              type="text"
-              name="review"
-              placeholder="Leave your comment here"
-              required
-            />
-          </div>
-          <div class={classes["button-holder"]}>
-            <button className={classes["login"]} type="submit">
-              Submit
-            </button>
-          </div>
-        </form>
+        <div className={classes["reviewContainer"]}>
+          <hr></hr>
+          <h2 className={classes["reviews"]}>Comments</h2>
+          <form className={classes["new-review"]} onSubmit={handleSubmit}>
+            <p id="review-name">
+              {user.userId
+                ? `${user.first_name} ${user.last_name}`
+                : "Please log in"}
+            </p>
 
-        <div class={classes["new-review"]}>
-          <p id="review-name">First Last</p>
-          <p id="review-content">Thank you I look forward to hearing more!</p>
+            <div className={classes["gridItem"]}>
+              <input
+                id="review-content"
+                type="text"
+                name="review"
+                placeholder="Leave your review here"
+                required
+                value={newComment}
+                onChange={(e) => setNewComment(e.target.value)}
+              />
+            </div>
+
+            <div className={classes["gridItem2"]}>
+              <button
+                className={classes["save"]}
+                type="submit"
+                disabled={!user.userId}
+              >
+                Submit
+              </button>
+            </div>
+          </form>
+
+          {searchResults &&
+            searchResults.map((comment) => (
+              <div
+                key={comment.id}
+                className={`${
+                  user.userId === formData.shelter.id
+                    ? classes["shelterOwnerComment"]
+                    : classes["commentItem"]
+                }`}
+              >
+                <p>
+                  {comment.user &&
+                    `${comment.user_name} (${comment.user_type})`}{" "}
+                  -{" "}
+                  {comment.rating ? `Rating: ${comment.rating}/5` : "No Rating"}
+                </p>
+                <p>{comment.content}</p>
+              </div>
+            ))}
         </div>
-
-        <div class={classes["new-review"]}>
-          <p id="review-name">Shelter Name</p>
-          <p id="review-content">
-            Hi, thank you for applying, we are currently processing your
-            application, please wait for an update.
-          </p>
+        <div className={classes["footerContainer"]}>
+          <button
+            className={classes["paginationButton"]}
+            onClick={() => fetchComments(previousPageUrl)}
+          >
+            {"<"}
+          </button>
+          <button
+            className={classes["paginationButton"]}
+            onClick={() => fetchComments(nextPageUrl)}
+          >
+            {">"}
+          </button>
         </div>
       </content>
     </body>

@@ -587,7 +587,6 @@
       "last_name": "Lu",
       "email": "amy@lu.com",
       "account_type": "shelter",
-      "photo": "",
       "groups": [],
       "user_permissions": []
     }
@@ -606,7 +605,6 @@
       "last_name": "Kim",
       "email": "lucy@kim.com",
       "account_type": "shelter",
-      "photo": "",
       "groups": [],
       "user_permissions": []
     }
@@ -625,7 +623,6 @@
       "last_name": "Vuong",
       "email": "herman@vuong.com",
       "account_type": "shelter",
-      "photo": "",
       "groups": [],
       "user_permissions": []
     }
@@ -737,12 +734,11 @@
       "province": "on",
       "address": "asldkfj",
       "postal_code": "alsdkf",
-      "mission": "asdfasdf",
-      "photo": ""
+      "mission": "asdfasdf"
     }
   },
-  { "model": "app.seeker", "pk": 1, "fields": { "user": 4, "photo": "" } },
-  { "model": "app.seeker", "pk": 2, "fields": { "user": 6, "photo": "" } },
+  { "model": "app.seeker", "pk": 1, "fields": { "user": 4 } },
+  { "model": "app.seeker", "pk": 2, "fields": { "user": 6} },
   {
     "model": "app.pet",
     "pk": 1,
