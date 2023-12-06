@@ -18,6 +18,7 @@ const Endpoints = {
 	applications: "http://localhost:80/applications/",
 	sheltercomments: "http://localhost:80/shelter/:pk/comment/",
 	specificpet: "http://localhost:80/pets/:pk/",
+	google: `http://localhost:80/google/`,
 }
 
 // urlpatterns = [
