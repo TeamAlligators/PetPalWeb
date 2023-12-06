@@ -28,66 +28,56 @@ function PetApplicationFilled() {
     address: "",
     postal_code: "",
   });
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        // Fetch application details
-        const applicationResponse = await axios.get(
-          Endpoints.application,
-          {
-            headers: {
-              Authorization: "Bearer " + user.token,
-            },
+    
+  const fetchData = async () => {
+    try {
+      // Fetch application details
+      const applicationResponse = await axios.get(
+        Endpoints.application,
+        {
+          headers: {
+            Authorization: "Bearer " + user.token,
           },
-          { params: { pk: pk } }
-        );
+        },
+        { params: { pk: pk } }
+      );
 
-        const foundApplication = applicationResponse.data.results.find(
-          (application) => application.id === parseInt(pk)
-        );
+      const foundApplication = applicationResponse.data.results.find(
+        (application) => application.id === parseInt(pk)
+      );
 
-        console.log("Found application", foundApplication);
+      console.log("Found application", foundApplication);
 
-        // Update formData with application details
-        // setFormData((prevData) => ({
-        //   ...prevData,
-        //   seeker: foundApplication.seeker,
-        //   pet: foundApplication.pet,
-        // }));
-        setFormData({
-          pet: foundApplication.pet,
-          seeker: foundApplication.seeker,
-          shelter: foundApplication.shelter,
-          first_name: foundApplication.first_name,
-          last_name: foundApplication.last_name,
-          email: foundApplication.email,
-          phone: foundApplication.phone,
-          country: foundApplication.country,
-          province: foundApplication.province,
-          address: foundApplication.address,
-          postal_code: foundApplication.postal_code,
-        });
+      setFormData({
+        pet: foundApplication.pet,
+        seeker: foundApplication.seeker,
+        shelter: foundApplication.shelter,
+        first_name: foundApplication.first_name,
+        last_name: foundApplication.last_name,
+        email: foundApplication.email,
+        phone: foundApplication.phone,
+        country: foundApplication.country,
+        province: foundApplication.province,
+        address: foundApplication.address,
+        postal_code: foundApplication.postal_code,
+      });
 
-        // Fetch pet details
-        const petResponse = await axios.get(
-          Endpoints.pet.replace(":pk", foundApplication.pet),
-          {
-            headers: {
-              Authorization: "Bearer " + user.token,
-            },
-          }
-        );
+      // Fetch pet details
+      const petResponse = await axios.get(
+        Endpoints.pet.replace(":pk", foundApplication.pet),
+        {
+          headers: {
+            Authorization: "Bearer " + user.token,
+          },
+        }
+      );
 
-        setPetDetails(petResponse.data);
-      } catch (error) {
-        console.error("Error fetching details:", error);
-      }
-    };
-
-    fetchData();
-  }, [pk, user.token]);
-
+      setPetDetails(petResponse.data);
+    } catch (error) {
+      console.error("Error fetching details:", error);
+    }
+  };
+    
   const fetchComments = async (url) => {
     try {
       const response = await axios.get(
@@ -101,48 +91,14 @@ function PetApplicationFilled() {
     } catch (error) {
       console.error("Error fetching comments:", error);
     }
+    //   fetchComments();
   };
+    
+  useEffect(() => {
+      fetchData();
+      fetchComments();
+  }, [pk, user.token]);
 
-  //   useEffect(() => {
-  //     // Fetch application from the server
-
-  //     const fetchApplication = async () => {
-  //       try {
-  //         const response = await axios.get(
-  //           // Endpoints.application.replace(":pk", pk),
-  //           Endpoints.application,
-  //           {
-  //             headers: {
-  //               Authorization: "Bearer " + user.token,
-  //             },
-  //           },
-  //           { params: { pk: pk } }
-  //         );
-  //         console.log("Application details", response.data.results);
-
-  //         var foundApplication = null;
-
-  //         response.data.results.forEach((application) => {
-  //           if (application.id === parseInt(pk)) {
-  //             foundApplication = application;
-  //           }
-  //         });
-
-  //         console.log("Found application", foundApplication);
-
-  //         // setFormData(foundApplication);
-  //         setFormData((prevData) => ({
-  //           ...prevData,
-  //           seeker: foundApplication.seeker,
-  //           pet: foundApplication.pet,
-  //         }));
-  //       } catch (error) {
-  //         console.error("Error fetching application details:", error);
-  //       }
-  //     };
-
-  //     fetchApplication();
-  //   }, [pk, user.token]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -168,25 +124,6 @@ function PetApplicationFilled() {
     }
   };
 
-  //   useEffect(() => {
-  //     const fetchPetDetails = async () => {
-  //       try {
-  //         const response = await axios.get(
-  //           Endpoints.pet.replace(":pk", formData.pet),
-  //           {
-  //             headers: {
-  //               Authorization: "Bearer " + user.token,
-  //             },
-  //           }
-  //         );
-  //         setPetDetails(response.data);
-  //       } catch (error) {
-  //         console.error("Error fetching pet details:", error);
-  //       }
-  //     };
-
-  //     fetchPetDetails();
-  //   }, [pk, user.token]);
 
   return (
     <body className={classes["page-container"]}>
