@@ -10,4 +10,4 @@ class NotificationSerializer(ModelSerializer):
 class NotificationUpdateRetrieveSerializer(ModelSerializer):
     class Meta:
         model = Notification
-        fields = ['is_read', 'url']
+        fields = ['is_read', 'url', 'notification_type', 'application']

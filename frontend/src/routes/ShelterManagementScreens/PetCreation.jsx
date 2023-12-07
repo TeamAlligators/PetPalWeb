@@ -60,9 +60,13 @@ function PetCreation() {
                 },
             });
             const shelterId = shelterResponse.data.id;
+
+            // idk do something to image
+
             setFormData((prevData) => ({
                 ...prevData,
                 shelter: shelterId,
+                photo: file,
             }));
             setFormDataUpdated(true);
         } catch (error) {
@@ -75,25 +79,18 @@ function PetCreation() {
             const createPet = async () => {
                 try {
                     const endpoint = Endpoints.pets;
-                    // const formDataWithImage = new FormData();
 
-                    // for (const key in formData) {
-                    //     formDataWithImage.append(key, formData[key]);
-                    // }
-
-                    // if (file) {
-                    //     formDataWithImage.append("photo", file);
-                    // }
                     const response = await axios.post(endpoint, formData, {
                         headers: {
                             "Authorization": "Bearer " + user.token,
+                            "Content-Type": "multipart/form-data",
                         },
                     });
                     console.log("Pet created successfully:", response.data);
 
                     // redirect to the actual pet page
                     const petId = response.data.id;
-                    navigate(`/pet/${petId}`);
+                    navigate(`/pets/${petId}`);
                 } catch (error) {
                     console.error("Error creating pet:", error);
                 }
@@ -220,7 +217,7 @@ function PetCreation() {
                                 rows="4"
                                 id="medicalhistory"
                                 type="text"
-                                name="medicalhistory"
+                                name="medical_history"
                                 placeholder="Medical history"
                                 value={formData.medical_history}
                                 onChange={handleChange}
@@ -231,7 +228,7 @@ function PetCreation() {
                                 rows="4"
                                 id="specialneeds"
                                 type="text"
-                                name="specialneeds"
+                                name="special_needs"
                                 placeholder="Special needs or requirements"
                                 value={formData.special_needs}
                                 onChange={handleChange}
@@ -242,7 +239,7 @@ function PetCreation() {
                                 rows="4"
                                 id="behaviour"
                                 type="text"
-                                name="behaviour"
+                                name="personality"
                                 placeholder="Behaviour / Personality"
                                 value={formData.personality}
                                 onChange={handleChange}

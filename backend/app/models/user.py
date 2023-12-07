@@ -8,6 +8,7 @@ class CustomUser(AbstractUser):
     last_name = models.CharField(max_length=200, blank=False)
     email = models.EmailField(unique=True, blank=False)
     account_type = models.CharField(max_length=200, blank=False)
+    photo = models.ImageField(upload_to='profile/', null=True, blank=True)
 
     objects = CustomUserManager()
 
@@ -23,8 +24,6 @@ class Shelter(models.Model):
     address = models.CharField(max_length=200, blank=False)
     postal_code = models.CharField(max_length=200, blank=False)
     mission = models.CharField(max_length=200, blank=False)
-    photo = models.ImageField(upload_to='profile/', null=True, blank=True)
 
 class Seeker(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
-    photo = models.ImageField(upload_to='profile/', null=True, blank=True)

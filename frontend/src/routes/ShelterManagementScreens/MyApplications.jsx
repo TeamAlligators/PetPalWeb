@@ -9,12 +9,19 @@ import { NavLink } from "react-router-dom";
 
 function ViewMyApplications() {
     const user = useUser();
-    const [applications, setApplications] = useState([]);
     const [petDetails, setPetDetails] = useState({});
     const [selectedStatus, setSelectedStatus] = useState("all");
-    const fetchApplications = async (status) => {
+    const [searchResults, setSearchResults] = useState([])
+    const [nextPageUrl, setNextPageUrl] = useState(null)
+    const [previousPageUrl, setPreviousPageUrl] = useState(null)
+
+    const fetchApplications = async (status, url) => {
         try {
-            const response = await axios.get(Endpoints.applications, {
+            let endpoint = Endpoints.applications;
+            if (url) {
+                endpoint = url;
+            }
+            const response = await axios.get(endpoint, {
                 params: {
                     status: status !== "all" ? status : undefined,
                 },
@@ -22,7 +29,9 @@ function ViewMyApplications() {
                     "Authorization": "Bearer " + user.token,
                 },
             });
-            setApplications(response.data.results);
+            setSearchResults(response.data.results);
+            setNextPageUrl(response.data.next)
+            setPreviousPageUrl(response.data.previous)
 
             // Fetch pet details for all applications
             const petIds = response.data.results.map(application => application.pet);
@@ -81,7 +90,7 @@ function ViewMyApplications() {
                 </select>
             </div>
             <div className={styles.allResults}>
-                {applications.map(application => {
+                {searchResults.map(application => {
                     const petDetail = petDetails[application.pet];
                     return (
                         <div key={application.id} className={styles.applicationItem}>
@@ -98,6 +107,20 @@ function ViewMyApplications() {
                         </div>
                     );
                 })}
+            </div>
+            <div className={styles.footerContainer}>
+                <button
+                    className={styles.paginationButton}
+                    onClick={() => fetchApplications(previousPageUrl)}
+                >
+                    {"<"}
+                </button>
+                <button
+                    className={styles.paginationButton}
+                    onClick={() => fetchApplications(nextPageUrl)}
+                >
+                    {">"}
+                </button>
             </div>
         </body>
     );
