@@ -103,7 +103,7 @@ function ViewMyApplications() {
                                 <p className={styles.applicationText}>Status: {application.status.charAt(0).toUpperCase() + application.status.slice(1)}</p>
                                 <p className={styles.applicationText}>Applied on: {application.application_date}</p>
                             </div>
-                            <NavLink className={styles.detailsButton} to={`/petapplication/${application.id}`}> See Details </NavLink>
+                            <NavLink className={styles.detailsButton} to={`/petapplicationfilled/${application.id}`}> See Details </NavLink>
                         </div>
                     );
                 })}
