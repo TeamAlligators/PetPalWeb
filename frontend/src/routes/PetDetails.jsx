@@ -5,8 +5,10 @@ import classes from "./PetDetails.module.css"
 import Endpoints from "../constants/Endpoints"
 import { useParams } from "react-router-dom"
 import { NavLink } from "react-router-dom"
+import useUser from "../context/UserContext";
 
 function PetDetails() {
+	const user = useUser()
 	const [petDetails, setPetDetails] = useState({
 		name: "",
 		gender: "",
@@ -22,7 +24,6 @@ function PetDetails() {
 
 	useEffect(() => {
 		// Fetch pet details from the server
-
 		const fetchPetDetails = async () => {
 			try {
 				const response = await axios.get(endpoint)
@@ -106,9 +107,14 @@ function PetDetails() {
 						<b>Other description: </b>
 						{petDetails.others}
 					</p>
-					<NavLink className={classes["adopt-button"]} to={`/petapplication/` + pk}>
-						ADOPT NOW
-					</NavLink>
+					<div className={classes["button-item"]}>
+						{user.shelter.id === petDetails.shelter ? <NavLink className={classes["adopt-button"]} to={`/petupdate/` + pk}>
+							EDIT LISTING
+						</NavLink> : null}
+						{user.account_type === "seeker" ? <NavLink className={classes["adopt-button"]} to={`/petapplication/` + pk}>
+							ADOPT NOW
+						</NavLink> : null}
+					</div>
 				</div>
 			</content>
 		</body>

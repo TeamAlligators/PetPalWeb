@@ -31,7 +31,7 @@ function UpdateShelter() {
     useEffect(() => {
         if (formDataUpdated) {
             console.log("Form data:", formData);
-            setFormDataUpdated(false);
+            // setFormDataUpdated(false);
         }
     }, [formData, formDataUpdated]);
 
@@ -79,6 +79,8 @@ function UpdateShelter() {
                 try {
                     const endpoint = Endpoints.updateshelter.replace(":pk", user.userId);
 
+                    console.log("Form data222:", formData);
+
                     const response = await axios.put(endpoint, formData, {
                         headers: {
                             "Authorization": "Bearer " + user.token,
@@ -90,11 +92,20 @@ function UpdateShelter() {
                     // Update user info in context
                     user.setUserInfo({
                         ...user,
-                        first_name: response.data.first_name,
-                        last_name: response.data.last_name,
-                        email: response.data.email,
-                        shelter: response.data.shelter,
-                        photo: response.data.photo,
+                        first_name: formData.first_name,
+                        last_name: formData.last_name,
+                        email: formData.email,
+                        photo: formData.photo,
+                        shelter: {
+                            ...user.shelter,
+                            name: formData.shelter.name,
+                            phone: formData.shelter.phone,
+                            country: formData.shelter.country,
+                            province: formData.shelter.province,
+                            address: formData.shelter.address,
+                            postal_code: formData.shelter.postal_code,
+                            mission: formData.shelter.mission,
+                        },
                     });
                 } catch (error) {
                     console.error("Error updating user:", error);

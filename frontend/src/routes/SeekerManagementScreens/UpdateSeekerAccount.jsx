@@ -65,7 +65,7 @@ function UpdateSeeker() {
                     const response = await axios.put(endpoint, formData, {
                         headers: {
                             "Authorization": "Bearer " + user.token,
-                            // "Content-Type": "multipart/form-data",
+                            "Content-Type": "multipart/form-data",
                         },
                     });
                     console.log("User updated successfully:", response.data);
@@ -73,11 +73,13 @@ function UpdateSeeker() {
                     // Update user context
                     user.setUserInfo({
                         ...user,
-                        first_name: response.data.first_name,
-                        last_name: response.data.last_name,
-                        email: response.data.email,
-                        seeker: response.data.seeker,
-                        photo: response.data.photo,
+                        first_name: formData.first_name,
+                        last_name: formData.last_name,
+                        email: formData.email,
+                        photo: formData.photo,
+                        seeker: {
+                            ...user.seeker,
+                        },
                     });
 
                 } catch (error) {
