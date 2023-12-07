@@ -5,9 +5,11 @@ import useUser from "../../context/UserContext"
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Endpoints from "../../constants/Endpoints";
+import { useNavigate } from "react-router-dom";
 
 function UpdateShelter() {
     const user = useUser()
+    const navigate = useNavigate();
     const [file, setFile] = useState(null);
     const [formDataUpdated, setFormDataUpdated] = useState(false);
     const [formData, setFormData] = useState({
@@ -131,6 +133,22 @@ function UpdateShelter() {
             setFormDataUpdated(true);
         } catch (error) {
             console.error("Error updating asdfasdfuser:", error);
+        }
+    };
+
+    const handleDeleteAccount = async () => {
+        try {
+            const endpoint = Endpoints.specificshelter.replace(":pk", user.userId);
+            await axios.delete(endpoint, {
+                headers: {
+                    'Authorization': 'Bearer ' + user.token,
+                },
+            });
+            // redirect to login page
+            navigate("/login");
+            console.log('Shelter deleted successfully');
+        } catch (error) {
+            console.error('Error deleting shelter:', error);
         }
     };
 
@@ -269,10 +287,13 @@ function UpdateShelter() {
                                 required />
                         </div>
                     </div>
-                    <button className={styles.save} type="submit">Save</button>
+                    <div className={styles.buttonContainer}>
+                        <button className={styles.back} type="delete" onClick={handleDeleteAccount}>Delete Account</button>
+                        <button className={styles.save} type="submit">Save</button>
+                    </div>
                 </form>
-            </div>
-        </body>
+            </div >
+        </body >
     )
 }
 

@@ -4,9 +4,11 @@ import useUser from "../../context/UserContext";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Endpoints from "../../constants/Endpoints";
+import { useNavigate } from "react-router-dom";
 
 function UpdateSeeker() {
     const user = useUser();
+    const navigate = useNavigate();
     const [formDataUpdated, setFormDataUpdated] = useState(false);
     const [file, setFile] = useState(null);
     const [formData, setFormData] = useState({
@@ -109,6 +111,22 @@ function UpdateSeeker() {
         }
     };
 
+    const handleDeleteAccount = async () => {
+        try {
+            const endpoint = Endpoints.updateseeker.replace(":pk", user.userId);
+            await axios.delete(endpoint, {
+                headers: {
+                    'Authorization': 'Bearer ' + user.token,
+                },
+            });
+            // redirect to login page
+            navigate("/login");
+            console.log('Shelter deleted successfully');
+        } catch (error) {
+            console.error('Error deleting shelter:', error);
+        }
+    };
+
     return (
         <body className={styles.pageContainer}>
             <NavBar />
@@ -172,7 +190,10 @@ function UpdateSeeker() {
                                 required />
                         </div>
                     </div>
-                    <button className={styles.save} type="submit">Save</button>
+                    <div className={styles.buttonContainer}>
+                        <button className={styles.back} type="delete" onClick={handleDeleteAccount}>Delete Account</button>
+                        <button className={styles.save} type="submit">Save</button>
+                    </div>
                 </form>
             </div>
         </body>
