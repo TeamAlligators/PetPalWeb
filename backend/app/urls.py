@@ -9,6 +9,7 @@ urlpatterns = [
     path('shelters/', views.UserShelterList.as_view()),
     path('shelterlists/', views.ShelterList.as_view()),
     path('seekers/', views.UserSeekerList.as_view()),
+    path('google/', views.GoogleView.as_view()),
 
     path('shelter/<int:pk>/comment/', views.ShelterCommentCreateView.as_view()),
     path('applications/<int:pk>/comment/', views.ApplicationCommentCreateView.as_view()),

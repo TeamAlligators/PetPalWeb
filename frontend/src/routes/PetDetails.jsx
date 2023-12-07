@@ -30,14 +30,14 @@ function PetDetails() {
 				console.log("Pet details", response.data)
 
 				// Assuming API response has a structure like { name, gender, birthday, status, medicalHistory, specialNeeds, personality }
-				setPetDetails(response.data)
+				setPetDetails(response.data);
 			} catch (error) {
-				console.error("Error fetching pet details:", error)
+				console.error("Error fetching pet details:", error);
 			}
-		}
+		};
 
-		fetchPetDetails()
-	}, [endpoint]) // Empty dependency array ensures this effect runs once when the component mounts
+		fetchPetDetails();
+	}, [endpoint]); // Empty dependency array ensures this effect runs once when the component mounts
 
 	return (
 		<body className={classes["page-container"]}>
@@ -49,7 +49,9 @@ function PetDetails() {
 				<img
 					className={classes["derpycat"]}
 					src={
-						petDetails.photo ? petDetails.photo : require("../images/temppet.png")
+						petDetails.photo
+							? petDetails.photo
+							: require("../images/temppet.png")
 					}
 					alt={petDetails.name}
 				/>
@@ -121,4 +123,4 @@ function PetDetails() {
 	)
 }
 
-export default PetDetails
+export default PetDetails;

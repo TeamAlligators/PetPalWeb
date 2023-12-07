@@ -18,7 +18,7 @@ function Login() {
 		console.log(userResponse)
 
 		let decoded = jwtDecode(userResponse?.credential)
-		const email = decoded?.email
+		const googleEmail = decoded?.email
 		const name = decoded?.name
 
 		// user.setUserInfo({
@@ -30,13 +30,20 @@ function Login() {
 		// })
 
 		try {
-			const tokenResponse = await axios.post(Endpoints.token, {
-				email: "admin@admin.com",
-				password: "admin",
+			// const tokenResponse = await axios.post(Endpoints.token, {
+			// 	email: "admin@admin.com",
+			// 	password: "admin",
+			// })
+			const tokenResponse = await axios.get(Endpoints.google, {
+				params: {
+					email: googleEmail,
+				},
 			})
 
-			setError("")
-			getUser(email, tokenResponse.data.access)
+			//localhost:80/google/?email=admin@admin.com
+
+			setError(false)
+			getUser(googleEmail, tokenResponse.data.access_token)
 			console.log("google Login token response:", tokenResponse.data)
 		} catch (error) {
 			setError("Issue with login, have you made a user?")

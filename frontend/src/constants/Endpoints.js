@@ -9,6 +9,7 @@ const Endpoints = {
 	pet: "http://localhost:80/pets/:pk/",
 	application: "http://localhost:80/applications/",
 	applicationfilled: "http://localhost:80/applications/:pk/",
+	applicationcomments: "http://localhost:80/applications/:pk/comment/",
 	updateshelter: "http://localhost:80/shelter/:pk/",
 	updateseeker: "http://localhost:80/seeker/:pk/",
 	pets: "http://localhost:80/pets/",
@@ -19,6 +20,7 @@ const Endpoints = {
 	notifs: "http://localhost:80/notifications/",
 	sheltercomments: "http://localhost:80/shelter/:pk/comment/",
 	specificpet: "http://localhost:80/pets/:pk/",
+	google: `http://localhost:80/google/`,
 }
 
 // urlpatterns = [
