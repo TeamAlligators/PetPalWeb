@@ -81,27 +81,27 @@ TEMPLATES = [
 WSGI_APPLICATION = 'petpal.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
+Database
+https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'railway',
-        "USER": 'postgres',
-        "PASSWORD": 'gda-E414*332G*F4bC4AbG-2A5CcB*--',
-        'HOST': 'roundhouse.proxy.rlwy.net',
-        'PORT': '29693'
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+# no work
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'railway',
+#         "USER": 'postgres',
+#         "PASSWORD": 'gda-E414*332G*F4bC4AbG-2A5CcB*--',
+#         'HOST': 'roundhouse.proxy.rlwy.net',
+#         'PORT': '29693'
+#     }
+# }
 
 
 AUTH_USER_MODEL = "app.CustomUser"
