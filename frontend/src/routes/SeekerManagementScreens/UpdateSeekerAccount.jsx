@@ -4,9 +4,11 @@ import useUser from "../../context/UserContext";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Endpoints from "../../constants/Endpoints";
+import { useNavigate } from "react-router-dom";
 
 function UpdateSeeker() {
     const user = useUser();
+    const navigate = useNavigate();
     const [formDataUpdated, setFormDataUpdated] = useState(false);
     const [file, setFile] = useState(null);
     const [formData, setFormData] = useState({
@@ -65,7 +67,7 @@ function UpdateSeeker() {
                     const response = await axios.put(endpoint, formData, {
                         headers: {
                             "Authorization": "Bearer " + user.token,
-                            // "Content-Type": "multipart/form-data",
+                            "Content-Type": "multipart/form-data",
                         },
                     });
                     console.log("User updated successfully:", response.data);
@@ -73,11 +75,13 @@ function UpdateSeeker() {
                     // Update user context
                     user.setUserInfo({
                         ...user,
-                        first_name: response.data.first_name,
-                        last_name: response.data.last_name,
-                        email: response.data.email,
-                        seeker: response.data.seeker,
-                        photo: response.data.photo,
+                        first_name: formData.first_name,
+                        last_name: formData.last_name,
+                        email: formData.email,
+                        photo: formData.photo,
+                        seeker: {
+                            ...user.seeker,
+                        },
                     });
 
                 } catch (error) {
@@ -104,6 +108,22 @@ function UpdateSeeker() {
             setFormDataUpdated(true);
         } catch (error) {
             console.error("Error updating asdfasdfuser:", error);
+        }
+    };
+
+    const handleDeleteAccount = async () => {
+        try {
+            const endpoint = Endpoints.updateseeker.replace(":pk", user.userId);
+            await axios.delete(endpoint, {
+                headers: {
+                    'Authorization': 'Bearer ' + user.token,
+                },
+            });
+            // redirect to login page
+            navigate("/login");
+            console.log('Shelter deleted successfully');
+        } catch (error) {
+            console.error('Error deleting shelter:', error);
         }
     };
 
@@ -170,7 +190,10 @@ function UpdateSeeker() {
                                 required />
                         </div>
                     </div>
-                    <button className={styles.save} type="submit">Save</button>
+                    <div className={styles.buttonContainer}>
+                        <button className={styles.back} type="delete" onClick={handleDeleteAccount}>Delete Account</button>
+                        <button className={styles.save} type="submit">Save</button>
+                    </div>
                 </form>
             </div>
         </body>

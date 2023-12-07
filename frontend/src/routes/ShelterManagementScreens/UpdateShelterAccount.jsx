@@ -5,9 +5,11 @@ import useUser from "../../context/UserContext"
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Endpoints from "../../constants/Endpoints";
+import { useNavigate } from "react-router-dom";
 
 function UpdateShelter() {
     const user = useUser()
+    const navigate = useNavigate();
     const [file, setFile] = useState(null);
     const [formDataUpdated, setFormDataUpdated] = useState(false);
     const [formData, setFormData] = useState({
@@ -31,7 +33,7 @@ function UpdateShelter() {
     useEffect(() => {
         if (formDataUpdated) {
             console.log("Form data:", formData);
-            setFormDataUpdated(false);
+            // setFormDataUpdated(false);
         }
     }, [formData, formDataUpdated]);
 
@@ -79,6 +81,8 @@ function UpdateShelter() {
                 try {
                     const endpoint = Endpoints.updateshelter.replace(":pk", user.userId);
 
+                    console.log("Form data222:", formData);
+
                     const response = await axios.put(endpoint, formData, {
                         headers: {
                             "Authorization": "Bearer " + user.token,
@@ -90,11 +94,20 @@ function UpdateShelter() {
                     // Update user info in context
                     user.setUserInfo({
                         ...user,
-                        first_name: response.data.first_name,
-                        last_name: response.data.last_name,
-                        email: response.data.email,
-                        shelter: response.data.shelter,
-                        photo: response.data.photo,
+                        first_name: formData.first_name,
+                        last_name: formData.last_name,
+                        email: formData.email,
+                        photo: formData.photo,
+                        shelter: {
+                            ...user.shelter,
+                            name: formData.shelter.name,
+                            phone: formData.shelter.phone,
+                            country: formData.shelter.country,
+                            province: formData.shelter.province,
+                            address: formData.shelter.address,
+                            postal_code: formData.shelter.postal_code,
+                            mission: formData.shelter.mission,
+                        },
                     });
                 } catch (error) {
                     console.error("Error updating user:", error);
@@ -120,6 +133,22 @@ function UpdateShelter() {
             setFormDataUpdated(true);
         } catch (error) {
             console.error("Error updating asdfasdfuser:", error);
+        }
+    };
+
+    const handleDeleteAccount = async () => {
+        try {
+            const endpoint = Endpoints.specificshelter.replace(":pk", user.userId);
+            await axios.delete(endpoint, {
+                headers: {
+                    'Authorization': 'Bearer ' + user.token,
+                },
+            });
+            // redirect to login page
+            navigate("/login");
+            console.log('Shelter deleted successfully');
+        } catch (error) {
+            console.error('Error deleting shelter:', error);
         }
     };
 
@@ -258,10 +287,13 @@ function UpdateShelter() {
                                 required />
                         </div>
                     </div>
-                    <button className={styles.save} type="submit">Save</button>
+                    <div className={styles.buttonContainer}>
+                        <button className={styles.back} type="delete" onClick={handleDeleteAccount}>Delete Account</button>
+                        <button className={styles.save} type="submit">Save</button>
+                    </div>
                 </form>
-            </div>
-        </body>
+            </div >
+        </body >
     )
 }
 
