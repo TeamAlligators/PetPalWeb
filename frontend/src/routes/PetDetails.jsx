@@ -17,15 +17,15 @@ function PetDetails() {
     special_needs: "",
     personality: "",
   });
-	
+
   const user = useUser();
   const { pk } = useParams();
   const endpoint = Endpoints.pet.replace(":pk", pk);
 
-	// const currentUserIsShelter = user.userType === "shelter";
-	// console.log("currentUserIsShelter", currentUserIsShelter);
-	const currentShelterId = user.userId;
-	console.log("currentShelterId", currentShelterId);
+  // const currentUserIsShelter = user.userType === "shelter";
+  // console.log("currentUserIsShelter", currentUserIsShelter);
+  const currentShelterId = user.userId;
+  console.log("currentShelterId", currentShelterId);
 
   useEffect(() => {
     // Fetch pet details from the server
@@ -115,12 +115,15 @@ function PetDetails() {
             <b>Other description: </b>
             {petDetails.others}
           </p>
-          <NavLink
-            className={classes["adopt-button"]}
-            to={`/petapplication/` + pk}
-          >
-            ADOPT NOW
-          </NavLink>
+
+          {petDetails.shelter !== currentShelterId && (
+            <NavLink
+              className={classes["adopt-button"]}
+              to={`/petapplication/` + pk}
+            >
+              ADOPT NOW
+            </NavLink>
+          )}
 
           {/* Conditionally render the "EDIT" button */}
           {petDetails.shelter === currentShelterId && (

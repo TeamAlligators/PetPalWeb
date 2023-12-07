@@ -77,7 +77,7 @@ function PetUpdate() {
 
                     // Redirect to the updated pet page
                     const updatedPetId = response.data.id;
-                    navigate(`/pet/${updatedPetId}`);
+                    navigate(`/pets/${updatedPetId}`);
                 } catch (error) {
                     console.error("Error updating pet:", error);
                 }
@@ -274,7 +274,7 @@ function PetUpdate() {
                             ></textarea>
                         </div>
                         <div className={styles.gridItem}>
-                            <button className={styles.back} type="button" onClick={() => navigate(`/pet/${pk}`)}>Back</button>
+                            <button className={styles.back} type="button" onClick={() => navigate(`/pets/${pk}`)}>Back</button>
                         </div>
                         <div className={styles.gridItem}>
                             <button className={styles.save} type="submit">Save</button>
