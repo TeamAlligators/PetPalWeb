@@ -132,17 +132,22 @@ function NavBar() {
 						</div>
 						{notifications.map((notification, index) => {
 							// /applications/{application.id}/comment/
-							let appUrl = notification.url.replace(/applications/g, "petapplication")
+							let appUrl = notification.url.replace(
+								/applications/g,
+								"petapplicationfilled"
+							)
 							appUrl = appUrl.replace(/\/coment\//g, "")
 
-							const appResponse = axios.get(
-								`http://localhost:80/applications/${notification.application}/`,
-								{
+							const appResponse = axios
+								.get(`http://localhost:80/applications/${notification.application}/`, {
 									headers: {
 										Authorization: `Bearer ${user.token}`,
 									},
-								}
-							)
+								})
+								.catch((e) => {
+									console.log("app notif error", e)
+								})
+                
 							return (
 								<div key={Math.random()}>
 									<p className={styles["lol"]} key={Math.random()}>

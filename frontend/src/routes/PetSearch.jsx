@@ -99,7 +99,7 @@ function PetSearch() {
 						<div className={classes["search-item"]} key={result.id}>
 							<img
 								className={classes["search-img"]}
-								src={result.image}
+								src={result.photo}
 								alt={result.name}
 							/>
 							<div className={classes["search-text-container"]}>
