@@ -47,6 +47,7 @@ const Endpoints = {
 	sheltercomments: "http://localhost:80/shelter/:pk/comment/",
 	specificpet: "http://localhost:80/pets/:pk/",
 	google: `http://localhost:80/google/`,
+	profilephoto: "http://localhost:80/photo/:pk/",
 }
 
 export default Endpoints

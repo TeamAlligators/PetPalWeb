@@ -2,8 +2,8 @@ from django.shortcuts import render
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework.generics import RetrieveUpdateDestroyAPIView, ListAPIView, CreateAPIView
-from ..serializers import UserShelterSerializer, UserSeekerSerializer
+from rest_framework.generics import RetrieveUpdateDestroyAPIView, ListAPIView, CreateAPIView, UpdateAPIView
+from ..serializers import UserShelterSerializer, UserSeekerSerializer, PhotoUpdateSerializer
 from ..models import Shelter, Seeker, CustomUser, Application, Pet, Notification
 from django.contrib.auth.hashers import make_password
 from rest_framework.exceptions import PermissionDenied
@@ -200,3 +200,24 @@ class GoogleView(ListAPIView):
         response['access_token'] = str(token.access_token)
         print(token.access_token)
         return Response(response)
+    
+from os.path import basename
+
+class PhotoUpdateView(UpdateAPIView):
+    queryset = CustomUser.objects.all()
+    serializer_class = PhotoUpdateSerializer
+    permission_classes = [IsAuthenticated]
+
+    def update(self, request, *args, **kwargs):
+        if self.request.user.id != self.get_object().id:
+            raise PermissionDenied()
+        instance = self.get_object()
+        serializer = self.get_serializer(instance, data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        user = CustomUser.objects.get(pk=self.request.user.id)
+        user.photo = "profile/" + basename(serializer.data['photo']) 
+        user.save()
+        print(user.photo, "help")
+
+        return Response(serializer.data, status=status.HTTP_200_OK)

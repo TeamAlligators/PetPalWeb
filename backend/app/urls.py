@@ -10,6 +10,7 @@ urlpatterns = [
     path('shelterlists/', views.ShelterList.as_view()),
     path('seekers/', views.UserSeekerList.as_view()),
     path('google/', views.GoogleView.as_view()),
+    path('photo/<int:pk>/', views.PhotoUpdateView.as_view()),
 
     path('shelter/<int:pk>/comment/', views.ShelterCommentCreateView.as_view()),
     path('applications/<int:pk>/comment/', views.ApplicationCommentCreateView.as_view()),
