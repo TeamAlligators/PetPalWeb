@@ -190,7 +190,7 @@ function PetUpdate() {
                                 id="age"
                                 type="number"
                                 name="age"
-                                placeholder="Age (in months)"
+                                placeholder="Age"
                                 value={formData.age}
                                 onChange={handleChange}
                                 required

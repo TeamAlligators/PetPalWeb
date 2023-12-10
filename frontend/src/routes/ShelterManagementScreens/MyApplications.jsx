@@ -99,7 +99,7 @@ function ViewMyApplications() {
                                 <h2 className={styles.applicationTitle}> Pet Seeker: {application.first_name + ' ' + application.last_name}</h2>
                                 <h2 className={styles.applicationTitle}> Wants to adopt... </h2>
                                 <p className={styles.applicationText}> {petDetail?.name} - {petDetail?.breed}</p>
-                                <p className={styles.applicationText}>{petDetail?.age} month(s) old</p>
+                                <p className={styles.applicationText}>{petDetail?.age} year(s) old</p>
                                 <p className={styles.applicationText}>Status: {application.status.charAt(0).toUpperCase() + application.status.slice(1)}</p>
                                 <p className={styles.applicationText}>Applied on: {application.application_date}</p>
                             </div>

@@ -93,28 +93,16 @@ DATABASES = {
     }
 }
 
-# no work
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql',
 #         'NAME': 'railway',
 #         "USER": 'postgres',
-#         "PASSWORD": 'gda-E414*332G*F4bC4AbG-2A5CcB*--',
+#         "PASSWORD": 'eFdcDc6eCGA3aCC46CAfcgEf*CB-DGgb',
 #         'HOST': 'roundhouse.proxy.rlwy.net',
-#         'PORT': '29693'
+#         'PORT': '41581'
 #     }
 # }
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'railway',
-        "USER": 'postgres',
-        "PASSWORD": 'eFdcDc6eCGA3aCC46CAfcgEf*CB-DGgb',
-        'HOST': 'roundhouse.proxy.rlwy.net',
-        'PORT': '41581'
-    }
-}
 
 
 AUTH_USER_MODEL = "app.CustomUser"

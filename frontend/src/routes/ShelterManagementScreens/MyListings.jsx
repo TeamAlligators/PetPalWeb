@@ -65,7 +65,7 @@ function ViewMyListings() {
                         <div className={styles.petTextContainer}>
                             <p>
                                 {pet.name} <br />
-                                {pet.age} month(s)
+                                {pet.age} year(s) old
                             </p>
                             <p>{pet.status.charAt(0).toUpperCase() + pet.status.slice(1)} <br />
                                 {pet.breed}
