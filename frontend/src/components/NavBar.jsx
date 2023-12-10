@@ -136,7 +136,7 @@ function NavBar() {
 								/applications/g,
 								"petapplicationfilled"
 							)
-							appUrl = appUrl.replace(/\/coment\//g, "")
+							appUrl = appUrl.replace(/\/comment\//g, "")
 
 							const appResponse = axios
 								.get(`http://localhost:80/applications/${notification.application}/`, {
@@ -147,7 +147,7 @@ function NavBar() {
 								.catch((e) => {
 									console.log("app notif error", e)
 								})
-                
+
 							return (
 								<div key={Math.random()}>
 									<p className={styles["lol"]} key={Math.random()}>
