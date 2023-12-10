@@ -14,6 +14,8 @@ function PetApplicationFilled() {
   const [previousPageUrl, setPreviousPageUrl] = useState(null);
   const user = useUser();
   const [petDetails, setPetDetails] = useState({});
+  // have status as a state variable available to be updated
+  const [status, setStatus] = useState("");
 
   const [formData, setFormData] = useState({
     pet: "",
@@ -61,6 +63,8 @@ function PetApplicationFilled() {
         address: foundApplication.address,
         postal_code: foundApplication.postal_code,
       });
+
+      setStatus(foundApplication.status);
 
       // Fetch pet details
       const petResponse = await axios.get(
@@ -127,6 +131,30 @@ function PetApplicationFilled() {
     }
   };
 
+  const handleStatusChange = async (newStatus) => {
+    try {
+      // Make a PATCH request to update the application status
+      const response = await axios.patch(
+        Endpoints.applicationfilled.replace(":pk", pk),
+        {
+          status: newStatus,
+        },
+        {
+          headers: {
+            Authorization: "Bearer " + user.token,
+          },
+        }
+      );
+
+      console.log("Application status updated successfully:", response.data);
+
+      // Update the local state with the new status
+      setStatus(newStatus);
+    } catch (error) {
+      console.error("Error updating application status:", error);
+    }
+  }
+
   return (
     <body className={classes["page-container"]}>
       <NavBar />
@@ -143,6 +171,13 @@ function PetApplicationFilled() {
             }
             alt={petDetails.name}
           />
+        </div>
+
+        <div className={classes["status-container"]}>
+          <p>
+            <b>Status of application: </b>
+            {status.charAt(0).toUpperCase() + status.slice(1)}
+          </p>
         </div>
 
         <form className={classes["form"]} action="">
@@ -243,6 +278,32 @@ function PetApplicationFilled() {
             </div>
           </div>
         </form>
+        <div className={classes["status-buttons"]}>
+          {user.account_type === "shelter" && status === "pending" && (
+            <button
+              className={classes["status-button"]}
+              onClick={() => handleStatusChange("accepted")}
+            >
+              Accept
+            </button>
+          )}
+          {user.account_type === "shelter" && status === "pending" && (
+            <button
+              className={classes["status-button"]}
+              onClick={() => handleStatusChange("denied")}
+            >
+              Deny
+            </button>
+          )}
+          {user.account_type === "seeker" && (status === "accepted" || status === "pending") && (
+            <button
+              className={classes["status-button"]}
+              onClick={() => handleStatusChange("withdrawn")}
+            >
+              Withdraw
+            </button>
+          )}
+        </div>
 
         <div className={classes["reviewContainer"]}>
           <hr></hr>
@@ -281,11 +342,10 @@ function PetApplicationFilled() {
             searchResults.map((comment) => (
               <div
                 key={comment.id}
-                className={`${
-                  user.userId === formData.shelter.id
-                    ? classes["shelterOwnerComment"]
-                    : classes["commentItem"]
-                }`}
+                className={`${user.userId === formData.shelter.id
+                  ? classes["shelterOwnerComment"]
+                  : classes["commentItem"]
+                  }`}
               >
                 <p>
                   {comment.user &&
