@@ -19,13 +19,15 @@ const Alert = (props) => {
         <div className={styles.alert}>
             {props.success ? (
                 <div className={styles.success}>
+                    <p className={styles.title}> Error </p>
                     <h4 className={styles.text}>{props.message}</h4>
-                    <button onClick={props.onClose}> Close </button>
+                    <button className={styles.button} onClick={props.onClose}> Close </button>
                 </div>
             ) : (
                 <div className={styles.failure}>
+                    <p className={styles.title}> Error </p>
                     <h4 className={styles.text}>{props.message}</h4>
-                    <button onClick={props.onClose}> Close </button>
+                    <button className={styles.button} onClick={props.onClose}> Close </button>
                 </div>
             )}
         </div>
