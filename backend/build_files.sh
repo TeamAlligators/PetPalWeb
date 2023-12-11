@@ -4,7 +4,7 @@ virtualenv venv
 # On Windows
 # source venv/Scripts/activate
 # # On macOS/Linux
-source venv/bin/activate
+# source venv/bin/activate
 
 pip install -r requirements.txt
 python manage.py collectstatic
