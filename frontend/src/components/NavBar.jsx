@@ -16,7 +16,7 @@ function NavBar() {
 
 	const fetchNotifications = async (url) => {
 		try {
-			const response = await axios.get(`http://localhost:80/notifications/`, {
+			const response = await axios.get(Endpoints.allNotif, {
 				headers: {
 					Authorization: `Bearer ${user.token}`,
 				},
@@ -50,14 +50,12 @@ function NavBar() {
 
 	const handleNotificationClick = async (notificationId, index) => {
 		try {
-			const response = await axios.get(
-				`http://localhost:80/notifications/${notificationId}`,
-				{
-					headers: {
-						Authorization: `Bearer ${user.token}`,
-					},
-				}
-			)
+			const notifApp = Endpoints.notifDelete.replace("pk", notificationId)
+			const response = await axios.get(notifApp, {
+				headers: {
+					Authorization: `Bearer ${user.token}`,
+				},
+			})
 
 			setNotifications((prevNotifications) => {
 				const updatedNotifications = [...prevNotifications]
@@ -74,7 +72,8 @@ function NavBar() {
 
 	const deleteNotification = async (notificationId) => {
 		try {
-			await axios.delete(`http://localhost:80/notifications/${notificationId}`, {
+			const notifApp = Endpoints.notifDelete.replace("pk", notificationId)
+			await axios.delete(notifApp, {
 				headers: {
 					Authorization: `Bearer ${user.token}`,
 				},
@@ -137,12 +136,19 @@ function NavBar() {
 								"petapplicationfilled"
 							)
 							appUrl = appUrl.replace(/\/comment\//g, "")
-
+							console.log(notification, "notif")
+							const notifApp = Endpoints.application.replace(
+								"pk",
+								notification?.application
+							)
 							const appResponse = axios
-								.get(`http://localhost:80/applications/${notification.application}/`, {
+								.get(notifApp, {
 									headers: {
 										Authorization: `Bearer ${user.token}`,
 									},
+								})
+								.then((e) => {
+									console.log("app notif response", e)
 								})
 								.catch((e) => {
 									console.log("app notif error", e)
@@ -170,7 +176,7 @@ function NavBar() {
 											to={
 												user.account_type === AccountType.SHELTER
 													? "/sheltermanagement" // make this shetler detials when done
-													: "/pets/" + appResponse.data.pet
+													: "/pets/" + appResponse.data?.pet
 											}
 											key={Math.random()}
 											onClick={() => handleNotificationClick(notification.id, index)}
