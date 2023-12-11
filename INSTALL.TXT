@@ -26,6 +26,19 @@ python manage.py loaddata mockdata2.json
 python manage.py runserver
 ```
 
+Linux commands: Make sure you have python3 and python-pip3 installed
+```
+sudo apt-get update
+sudo apt-get install python3
+sudo apt-get install python3-pip
+cd backend
+sudo pip3 install -r requirements.txt
+python3 manage.py makemigrations
+python3 manage.py migrate
+python3 manage.py loaddata mockdata2.json
+python3 manage.py runserver
+```
+
 Note: Since you are running our files locally, please go to our Endpoints file located in frontend/constants/Endpoints and comment our endpoint object pointing to our deployed server, and uncomment our localhost links, whatever the backend says it is locally ran on.
 
 
@@ -35,6 +48,13 @@ Window commands
 cd frontend
 npm run install
 npm run start
+```
+
+Linux commands:
+```
+cd frontend
+npm install
+npm start
 ```
 
 You successfully have a local version of our app running!
