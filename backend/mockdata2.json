@@ -930,7 +930,7 @@
             "size": 8,
             "gender": "Male",
             "photo": "pet/whiskey.jpg",
-            "status": "Available",
+            "status": "available",
             "birthday": "2020-09-25",
             "medical_history": "Spayed, microchipped, recent vet check",
             "special_needs": "",
@@ -951,7 +951,7 @@
             "size": 28,
             "gender": "Female",
             "photo": "pet/sadie.jpg",
-            "status": "oending",
+            "status": "pending",
             "birthday": "2016-12-12",
             "medical_history": "Up-to-date vaccinations, recent blood work",
             "special_needs": "",
@@ -2252,7 +2252,7 @@
             "created_at": "2023-12-10T02:57:18.116Z",
             "is_read": false,
             "notification_type": "application_comment",
-            "application": null,
+            "application": 1,
             "shelter_comment": null,
             "application_comment": 1,
             "url": "/applications/1/comment/"
@@ -2267,7 +2267,7 @@
             "created_at": "2023-12-10T02:57:39.286Z",
             "is_read": false,
             "notification_type": "application_comment",
-            "application": null,
+            "application": 2,
             "shelter_comment": null,
             "application_comment": 2,
             "url": "/applications/2/comment/"
@@ -2282,7 +2282,7 @@
             "created_at": "2023-12-10T02:57:58.490Z",
             "is_read": false,
             "notification_type": "application_comment",
-            "application": null,
+            "application": 3,
             "shelter_comment": null,
             "application_comment": 3,
             "url": "/applications/3/comment/"
@@ -2297,7 +2297,7 @@
             "created_at": "2023-12-10T02:58:41.471Z",
             "is_read": false,
             "notification_type": "application_comment",
-            "application": null,
+            "application": 4,
             "shelter_comment": null,
             "application_comment": 4,
             "url": "/applications/4/comment/"
@@ -2312,7 +2312,7 @@
             "created_at": "2023-12-10T02:58:54.960Z",
             "is_read": false,
             "notification_type": "application_comment",
-            "application": null,
+            "application": 5,
             "shelter_comment": null,
             "application_comment": 5,
             "url": "/applications/5/comment/"
@@ -2327,7 +2327,7 @@
             "created_at": "2023-12-10T02:59:09.160Z",
             "is_read": false,
             "notification_type": "application_comment",
-            "application": null,
+            "application": 6,
             "shelter_comment": null,
             "application_comment": 6,
             "url": "/applications/6/comment/"
@@ -2342,7 +2342,7 @@
             "created_at": "2023-12-10T02:59:45.070Z",
             "is_read": false,
             "notification_type": "application_comment",
-            "application": null,
+            "application": 7,
             "shelter_comment": null,
             "application_comment": 7,
             "url": "/applications/7/comment/"
@@ -2357,7 +2357,7 @@
             "created_at": "2023-12-10T02:59:58.980Z",
             "is_read": false,
             "notification_type": "application_comment",
-            "application": null,
+            "application": 8,
             "shelter_comment": null,
             "application_comment": 8,
             "url": "/applications/8/comment/"
@@ -2372,7 +2372,7 @@
             "created_at": "2023-12-10T03:00:11.633Z",
             "is_read": false,
             "notification_type": "application_comment",
-            "application": null,
+            "application": 9,
             "shelter_comment": null,
             "application_comment": 9,
             "url": "/applications/9/comment/"
@@ -2387,7 +2387,7 @@
             "created_at": "2023-12-10T03:01:08.977Z",
             "is_read": false,
             "notification_type": "application_comment",
-            "application": null,
+            "application": 1,
             "shelter_comment": null,
             "application_comment": 10,
             "url": "/applications/1/comment/"
@@ -2402,7 +2402,7 @@
             "created_at": "2023-12-10T03:01:27.553Z",
             "is_read": false,
             "notification_type": "application_comment",
-            "application": null,
+            "application": 4,
             "shelter_comment": null,
             "application_comment": 11,
             "url": "/applications/4/comment/"
@@ -2417,7 +2417,7 @@
             "created_at": "2023-12-10T03:01:44.487Z",
             "is_read": false,
             "notification_type": "application_comment",
-            "application": null,
+            "application": 7,
             "shelter_comment": null,
             "application_comment": 12,
             "url": "/applications/7/comment/"
@@ -2432,7 +2432,7 @@
             "created_at": "2023-12-10T03:02:39.940Z",
             "is_read": false,
             "notification_type": "application_comment",
-            "application": null,
+            "application": 2,
             "shelter_comment": null,
             "application_comment": 13,
             "url": "/applications/2/comment/"
@@ -2447,7 +2447,7 @@
             "created_at": "2023-12-10T03:03:11.500Z",
             "is_read": false,
             "notification_type": "application_comment",
-            "application": null,
+            "application": 5,
             "shelter_comment": null,
             "application_comment": 14,
             "url": "/applications/5/comment/"
@@ -2462,7 +2462,7 @@
             "created_at": "2023-12-10T03:03:48.254Z",
             "is_read": false,
             "notification_type": "application_comment",
-            "application": null,
+            "application": 3,
             "shelter_comment": null,
             "application_comment": 15,
             "url": "/applications/3/comment/"
@@ -2477,7 +2477,7 @@
             "created_at": "2023-12-10T03:04:06.466Z",
             "is_read": false,
             "notification_type": "application_comment",
-            "application": null,
+            "application": 9,
             "shelter_comment": null,
             "application_comment": 16,
             "url": "/applications/9/comment/"
