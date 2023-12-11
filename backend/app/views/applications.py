@@ -8,6 +8,7 @@ from ..models import Application, Pet, Seeker, Shelter, Notification
 from ..serializers import ApplicationSerializer
 from rest_framework.pagination import PageNumberPagination
 from rest_framework import serializers
+from django.utils import timezone
 
 class ApplicationListPagination(PageNumberPagination):
     page_size = 10 
@@ -35,7 +36,16 @@ class ApplicationCreateView(ListCreateAPIView):
             seeker = get_object_or_404(Seeker, user=user)
             queryset = queryset.filter(seeker=seeker)
             # return Application.objects.filter(seeker=seeker)
-        return queryset.order_by('application_date', 'last_updated')
+        # sort by either application date or last updated
+        sort_by = self.request.query_params.get('sort')
+        if sort_by == 'application_date':
+            queryset = queryset.order_by('-application_date')
+            return queryset
+        elif sort_by == 'last_updated':
+            queryset = queryset.order_by('-last_updated')
+            return queryset
+        else:
+            return queryset.order_by('-application_date')
 
         # return Application.objects.none()  # Default to an empty queryset for other user
 
@@ -103,6 +113,7 @@ class ApplicationRetrieveUpdate(RetrieveUpdateAPIView):
                 if current_status == 'pending' and new_status in ['accepted', 'denied']:
                     # status = serializer.validated_data.get('status', None)
                     serializer.validated_data['status'] = new_status
+                    serializer.validated_data['last_updated'] = timezone.now()
                     serializer.save()
                     # make notification for status update
                     Notification.objects.create(
@@ -117,6 +128,7 @@ class ApplicationRetrieveUpdate(RetrieveUpdateAPIView):
                 if current_status in ['pending', 'accepted'] and new_status == 'withdrawn':
                     # status = serializer.validated_data.get('status', None)
                     serializer.validated_data['status'] = new_status
+                    serializer.validated_data['last_updated'] = timezone.now()
                     serializer.save()
                     # make notification for status update
                     Notification.objects.create(

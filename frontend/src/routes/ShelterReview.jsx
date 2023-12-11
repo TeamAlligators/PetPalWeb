@@ -4,6 +4,7 @@ import styles from "./ShelterReview.module.css";
 import NavBar from "../components/NavBar";
 import axios from 'axios';
 import Endpoints from '../constants/Endpoints';
+import Alert from "../components/Alert";
 import useUser from "../context/UserContext";
 
 function ShelterReview() {
@@ -16,6 +17,8 @@ function ShelterReview() {
     const [searchResults, setSearchResults] = useState([])
     const [nextPageUrl, setNextPageUrl] = useState(null)
     const [previousPageUrl, setPreviousPageUrl] = useState(null)
+    const [errorMessage, setErrorMessage] = useState(null);
+    const [showAlert, setShowAlert] = useState(false);
 
     const fetchShelterData = async () => {
         try {
@@ -24,6 +27,8 @@ function ShelterReview() {
             console.log("shelterResponse", response);
         } catch (error) {
             console.error('Error fetching shelter data:', error);
+            setErrorMessage("Failed to get shelter data. Please try again.");
+            setShowAlert(true);
         }
     };
 
@@ -36,6 +41,8 @@ function ShelterReview() {
             console.log("commentsResponse", response);
         } catch (error) {
             console.error('Error fetching comments:', error);
+            setErrorMessage("Failed to get comments.");
+            setShowAlert(true);
         }
     };
 
@@ -63,18 +70,26 @@ function ShelterReview() {
             setNewRating(null);
         } catch (error) {
             console.error('Error submitting comment:', error);
+            setErrorMessage("Failed to submit comment. Please try again.");
+            setShowAlert(true);
         }
     };
 
     return (
         <body className={styles.pageContainer}>
+            <Alert
+                show={showAlert}
+                success={false}
+                message={errorMessage}
+                onClose={() => setShowAlert(false)}
+            />
             <NavBar />
             {shelterData ? (
                 <div className={styles.shelterManagement}>
                     <h1 className={styles.shelterName}>{shelterData.shelter.name}</h1>
                     <div className={styles.gridContainer}>
                         <div className={styles.shelterImgContainer}>
-                            <img className={styles.shelterImg} src={shelterData.shelter.photo ? shelterData.shelter.photo : require("../images/saskatoon-spca.jpg")} alt={shelterData.shelter.name} />
+                            <img className={styles.shelterImg} src={shelterData.photo ? shelterData.photo : require("../images/saskatoon-spca.jpg")} alt={shelterData.shelter.name} />
                         </div>
                         <p id="shelter-details-shelter-phone"><strong>Phone:</strong> {shelterData.shelter.phone}</p>
                         <p id="shelter-details-shelter-mission">

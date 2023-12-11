@@ -115,15 +115,8 @@
   }
   
   .adopt-button:hover {
-    margin: 20px;
-    border-radius: 43px;
-    padding: 10px;
     color: #fff;
-    box-shadow: -1px -1px 20px 0px rgba(0, 0, 0, 0.25);
-    font-weight: 600;
-    border-radius: 43px;
     background: #d0a1a1;
-    box-shadow: -1px -1px 20px 0px rgba(0, 0, 0, 0.25);
   }
   
   .notification-container {

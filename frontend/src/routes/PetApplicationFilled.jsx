@@ -5,6 +5,7 @@ import axios from "axios";
 import useUser from "../context/UserContext";
 import Endpoints from "../constants/Endpoints";
 import { useNavigate, useParams } from "react-router-dom";
+import Alert from "../components/Alert";
 
 function PetApplicationFilled() {
   const { pk } = useParams();
@@ -12,8 +13,12 @@ function PetApplicationFilled() {
   const [searchResults, setSearchResults] = useState([]);
   const [nextPageUrl, setNextPageUrl] = useState(null);
   const [previousPageUrl, setPreviousPageUrl] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(null);
+  const [showAlert, setShowAlert] = useState(false);
   const user = useUser();
   const [petDetails, setPetDetails] = useState({});
+  // have status as a state variable available to be updated
+  const [status, setStatus] = useState("");
 
   const [formData, setFormData] = useState({
     pet: "",
@@ -33,13 +38,13 @@ function PetApplicationFilled() {
     try {
       // Fetch application details
       const applicationResponse = await axios.get(
-        Endpoints.application,
+        Endpoints.application.replace(":pk", pk),
         {
           headers: {
             Authorization: "Bearer " + user.token,
           },
         },
-        { params: { pk: pk } }
+        // { params: { pk: pk } }
       );
 
       const foundApplication = applicationResponse.data.results.find(
@@ -62,6 +67,8 @@ function PetApplicationFilled() {
         postal_code: foundApplication.postal_code,
       });
 
+      setStatus(foundApplication.status);
+
       // Fetch pet details
       const petResponse = await axios.get(
         Endpoints.pet.replace(":pk", foundApplication.pet),
@@ -75,6 +82,8 @@ function PetApplicationFilled() {
       setPetDetails(petResponse.data);
     } catch (error) {
       console.error("Error fetching details:", error);
+      setErrorMessage("Failed to get application details. Please try again.");
+      setShowAlert(true);
     }
   };
 
@@ -91,9 +100,11 @@ function PetApplicationFilled() {
       setSearchResults(response.data.results);
       setNextPageUrl(response.data.next);
       setPreviousPageUrl(response.data.previous);
-      console.log("Fetched Comments Response", response);
+      // console.log("Fetched Comments Response", response);
     } catch (error) {
       console.error("Error fetching comments:", error);
+      setErrorMessage("Failed to get comments.");
+      setShowAlert(true);
     }
     //   fetchComments();
   };
@@ -124,11 +135,43 @@ function PetApplicationFilled() {
       setNewComment("");
     } catch (error) {
       console.error("Error submitting comment:", error);
+      setErrorMessage("Failed to submit comment. Please try again.");
+      setShowAlert(true);
     }
   };
 
+  const handleStatusChange = async (newStatus) => {
+    try {
+      // Make a PATCH request to update the application status
+      const response = await axios.patch(
+        Endpoints.applicationfilled.replace(":pk", pk),
+        {
+          status: newStatus,
+        },
+        {
+          headers: {
+            Authorization: "Bearer " + user.token,
+          },
+        }
+      );
+
+      console.log("Application status updated successfully:", response.data);
+
+      // Update the local state with the new status
+      setStatus(newStatus);
+    } catch (error) {
+      console.error("Error updating application status:", error);
+    }
+  }
+
   return (
     <body className={classes["page-container"]}>
+      <Alert
+        show={showAlert}
+        success={false}
+        message={errorMessage}
+        onClose={() => setShowAlert(false)}
+      />
       <NavBar />
       <content className={classes["pet-application-content"]}>
         <h1 className={classes["title"]}>Adoption Application</h1>
@@ -143,6 +186,13 @@ function PetApplicationFilled() {
             }
             alt={petDetails.name}
           />
+        </div>
+
+        <div className={classes["status-container"]}>
+          <p>
+            <b>Status of application: </b>
+            {status.charAt(0).toUpperCase() + status.slice(1)}
+          </p>
         </div>
 
         <form className={classes["form"]} action="">
@@ -243,6 +293,32 @@ function PetApplicationFilled() {
             </div>
           </div>
         </form>
+        <div className={classes["status-buttons"]}>
+          {user.account_type === "shelter" && status === "pending" && (
+            <button
+              className={classes["status-button"]}
+              onClick={() => handleStatusChange("accepted")}
+            >
+              Accept
+            </button>
+          )}
+          {user.account_type === "shelter" && status === "pending" && (
+            <button
+              className={classes["status-button"]}
+              onClick={() => handleStatusChange("denied")}
+            >
+              Deny
+            </button>
+          )}
+          {user.account_type === "seeker" && (status === "accepted" || status === "pending") && (
+            <button
+              className={classes["status-button"]}
+              onClick={() => handleStatusChange("withdrawn")}
+            >
+              Withdraw
+            </button>
+          )}
+        </div>
 
         <div className={classes["reviewContainer"]}>
           <hr></hr>
@@ -281,11 +357,10 @@ function PetApplicationFilled() {
             searchResults.map((comment) => (
               <div
                 key={comment.id}
-                className={`${
-                  user.userId === formData.shelter.id
-                    ? classes["shelterOwnerComment"]
-                    : classes["commentItem"]
-                }`}
+                className={`${user.userId === formData.shelter.id
+                  ? classes["shelterOwnerComment"]
+                  : classes["commentItem"]
+                  }`}
               >
                 <p>
                   {comment.user &&

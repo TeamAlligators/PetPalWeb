@@ -97,6 +97,8 @@ function Login() {
 				return
 			}
 
+			console.log("newUser", newUser.photo);
+
 			user.setUserInfo({
 				...user,
 				userId: newUser.id,
@@ -104,6 +106,7 @@ function Login() {
 				last_name: newUser.last_name,
 				account_type: newUser.account_type,
 				email: newUser.email,
+				photo: newUser.photo,
 				seeker: newUser.seeker,
 				shelter: newUser.shelter,
 				token: token,

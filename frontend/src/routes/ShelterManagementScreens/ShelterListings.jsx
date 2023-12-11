@@ -5,11 +5,14 @@ import NavBar from "../../components/NavBar"
 import useUser from "../../context/UserContext"
 import Endpoints from "../../constants/Endpoints"
 import { NavLink } from "react-router-dom"
+import Alert from "../../components/Alert"
 
 function ShelterListings() {
 	const [shelters, setShelters] = useState([])
 	const [nextPageUrl, setNextPageUrl] = useState(null)
 	const [previousPageUrl, setPreviousPageUrl] = useState(null)
+	const [errorMessage, setErrorMessage] = useState(null);
+	const [showAlert, setShowAlert] = useState(false);
 
 	const user = useUser()
 
@@ -26,6 +29,8 @@ function ShelterListings() {
 			setPreviousPageUrl(response.data.previous)
 		} catch (error) {
 			console.error("Error fetching shelters:", error)
+			setErrorMessage("Failed to get shelters. Please try again.");
+			setShowAlert(true);
 		}
 	}
 
@@ -43,6 +48,8 @@ function ShelterListings() {
 				setPreviousPageUrl(response.data.previous)
 			} catch (error) {
 				console.error("Error fetching shelters:", error)
+				setErrorMessage("Failed to get shelters. Are you logged in?");
+				setShowAlert(true);
 			}
 		}
 
@@ -51,10 +58,16 @@ function ShelterListings() {
 
 	return (
 		<div className={classes["page-container"]}>
+			<Alert
+				show={showAlert}
+				success={false}
+				message={errorMessage}
+				onClose={() => setShowAlert(false)}
+			/>
 			<NavBar />
 			<div className={classes.body}>
 				<h1 className={classes.header}>Shelters & Reviews</h1>
-				<div className={classes.buttons}>
+				{/* <div className={classes.buttons}>
 					<button
 						className={classes["sign-up-button"]}
 						onClick={() => handleSearch(previousPageUrl)}
@@ -67,18 +80,19 @@ function ShelterListings() {
 					>
 						{">"}
 					</button>
-				</div>
+				</div> */}
 				<div className={classes["search-results"]}>
 					{shelters.map((shelter) => (
 						<div key={shelter.shelter.id} className={classes["search-item"]}>
 							<img
 								className={classes["search-img"]}
-								src={shelter.shelter.photo}
+								src={shelter.photo ? shelter.photo : require("../../images/saskatoon-spca.jpg")}
 								alt={`${shelter.shelter.name}-img`}
 							/>
 							<div className={classes["search-text-container"]}>
-								<h2>{shelter.shelter.name}</h2>
-								<p>{shelter.shelter.address}</p>
+								<h2 className={classes.shelterName}>{shelter.shelter.name}</h2>
+								<p className={classes.shelterDescription}>{shelter.shelter.mission}</p>
+								<p className={classes.shelterAddress}>{shelter.shelter.address}, {shelter.shelter.province}, {shelter.shelter.country}</p>
 							</div>
 							<NavLink className={classes["details-button"]} to={`/shelters/${shelter.shelter.id}`}>
 								Details
@@ -92,6 +106,20 @@ function ShelterListings() {
 				integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
 				crossOrigin="anonymous"
 			></script>
+			<div className={classes.footerContainer}>
+				<button
+					className={classes.paginationButton}
+					onClick={() => handleSearch(previousPageUrl)}
+				>
+					{"<"}
+				</button>
+				<button
+					className={classes.paginationButton}
+					onClick={() => handleSearch(nextPageUrl)}
+				>
+					{">"}
+				</button>
+			</div>
 		</div>
 	)
 }

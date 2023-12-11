@@ -19,6 +19,7 @@ import PetDetails from "./routes/PetDetails"
 import PetApplication from "./routes/PetApplication"
 import PetApplicationFilled from "./routes/PetApplicationFilled"
 import ShelterListings from "./routes/ShelterManagementScreens/ShelterListings"
+import ViewSeekerApplications from "./routes/SeekerManagementScreens/SeekerApplications"
 
 const router = createBrowserRouter([
 	{
@@ -52,6 +53,10 @@ const router = createBrowserRouter([
 	{
 		path: "/seekermanagement",
 		element: <SeekerUpdate />,
+	},
+	{
+		path: "/seekermanagement/applications",
+		element: <ViewSeekerApplications />,
 	},
 	{
 		path: "/sheltermanagement",

@@ -5,10 +5,14 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Endpoints from "../../constants/Endpoints";
 import { useNavigate } from "react-router-dom";
+import SeekerManagementBar from "../../components/SeekerManagementBar";
+import Alert from "../../components/Alert";
 
 function UpdateSeeker() {
     const user = useUser();
     const navigate = useNavigate();
+    const [errorMessage, setErrorMessage] = useState(null);
+    const [showAlert, setShowAlert] = useState(false);
     const [formDataUpdated, setFormDataUpdated] = useState(false);
     const [file, setFile] = useState(null);
     const [formData, setFormData] = useState({
@@ -43,7 +47,7 @@ function UpdateSeeker() {
             email: user.email || "",
             password: "",
             account_type: "seeker",
-            photo: user.photo || null,
+            photo: null,
         });
     }, [user]);
 
@@ -67,7 +71,6 @@ function UpdateSeeker() {
                     const response = await axios.put(endpoint, formData, {
                         headers: {
                             "Authorization": "Bearer " + user.token,
-                            "Content-Type": "multipart/form-data",
                         },
                     });
                     console.log("User updated successfully:", response.data);
@@ -78,14 +81,20 @@ function UpdateSeeker() {
                         first_name: formData.first_name,
                         last_name: formData.last_name,
                         email: formData.email,
-                        photo: formData.photo,
                         seeker: {
                             ...user.seeker,
                         },
                     });
 
+                    // Call handlePhotoSubmit if there is a file
+                    if (file) {
+                        await handlePhotoSubmit();
+                    }
+
                 } catch (error) {
                     console.error("Error updating user:", error);
+                    setErrorMessage("Failed to update user. Please try again.");
+                    setShowAlert(true);
                 }
             };
             updateUser();
@@ -99,7 +108,6 @@ function UpdateSeeker() {
         try {
             setFormData((prevData) => ({
                 ...prevData,
-                photo: file,
                 shelter: {
                     ...prevData.shelter,
                 },
@@ -108,8 +116,43 @@ function UpdateSeeker() {
             setFormDataUpdated(true);
         } catch (error) {
             console.error("Error updating asdfasdfuser:", error);
+            setErrorMessage("Failed to update user. Please try again.");
+            setShowAlert(true);
         }
     };
+
+    const handlePhotoSubmit = async () => {
+        const photoFormData = new FormData();
+        photoFormData.append('photo', file);
+
+        try {
+            const photoEndpoint = Endpoints.profilephoto.replace(":pk", user.userId);
+            const photoResponse = await axios.put(photoEndpoint, photoFormData, {
+                headers: {
+                    "Authorization": "Bearer " + user.token,
+                    "Content-Type": "multipart/form-data",
+                },
+            });
+            console.log("User photo updated successfully:", photoResponse.data);
+
+            // Update user info in context
+            user.setUserInfo({
+                ...user,
+                photo: photoResponse.data.photo,
+            });
+        } catch (error) {
+            console.error("Error updating user photo:", error);
+            setErrorMessage("Failed to update user. Please try again.");
+            setShowAlert(true);
+        }
+    };
+
+    useEffect(() => {
+        console.log("User info:", user);
+        if (user.photo) {
+            console.log("User photo:", user.photo);
+        }
+    }, [user]);
 
     const handleDeleteAccount = async () => {
         try {
@@ -119,17 +162,28 @@ function UpdateSeeker() {
                     'Authorization': 'Bearer ' + user.token,
                 },
             });
+            // reset user context
+            user.setUserInfo(null);
             // redirect to login page
             navigate("/login");
             console.log('Shelter deleted successfully');
         } catch (error) {
             console.error('Error deleting shelter:', error);
+            setErrorMessage("Failed to delete user. Please try again.");
+            setShowAlert(true);
         }
     };
 
     return (
-        <body className={styles.pageContainer}>
+        <body className={styles.pageContainer}>'
+            <Alert
+                show={showAlert}
+                success={false}
+                message={errorMessage}
+                onClose={() => setShowAlert(false)}
+            />
             <NavBar />
+            <SeekerManagementBar />
             <div className={styles.seekerManagement}>
                 <form className={styles.form} enctype="multipart/form-data" onSubmit={handleSubmit}>
                     <div className={styles.profileContainer}>
@@ -137,7 +191,7 @@ function UpdateSeeker() {
                         <label htmlFor="profileImg" className={styles.profileImgLabel}>
                             <img
                                 className={styles.profileImg}
-                                src={file ? URL.createObjectURL(file) : require("../../images/profile1.png")}
+                                src={user.photo ? user.photo : (file ? URL.createObjectURL(file) : require("../../images/profile1.png"))}
                                 alt="Profile"
                             />
                         </label>

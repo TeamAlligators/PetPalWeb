@@ -6,12 +6,15 @@ import axios from "axios";
 import useUser from "../../context/UserContext";
 import Endpoints from "../../constants/Endpoints";
 import { useNavigate } from "react-router-dom";
+import Alert from "../../components/Alert";
 
 function PetCreation() {
     const user = useUser()
     const navigate = useNavigate();
     const [file, setFile] = useState(null);
     const [formDataUpdated, setFormDataUpdated] = useState(false);
+    const [errorMessage, setErrorMessage] = useState(null);
+    const [showAlert, setShowAlert] = useState(false);
     const [formData, setFormData] = useState({
         shelter: "",
         name: "",
@@ -71,6 +74,8 @@ function PetCreation() {
             setFormDataUpdated(true);
         } catch (error) {
             console.error("Error getting shelter ID:", error);
+            setErrorMessage("Failed to create pet. Please try again.");
+            setShowAlert(true);
         }
     };
 
@@ -93,6 +98,8 @@ function PetCreation() {
                     navigate(`/pets/${petId}`);
                 } catch (error) {
                     console.error("Error creating pet:", error);
+                    setErrorMessage("Failed to create pet. Please try again.");
+                    setShowAlert(true);
                 }
             };
             createPet();
@@ -103,6 +110,12 @@ function PetCreation() {
 
     return (
         <body className={styles.pageContainer}>
+            <Alert
+                show={showAlert}
+                success={false}
+                message={errorMessage}
+                onClose={() => setShowAlert(false)}
+            />
             <NavBar />
             <ShelterManagementBar />
             <div className={styles.shelterManagement}>
@@ -171,7 +184,7 @@ function PetCreation() {
                                 id="age"
                                 type="number"
                                 name="age"
-                                placeholder="Age (in months)"
+                                placeholder="Age"
                                 value={formData.age}
                                 onChange={handleChange}
                                 required

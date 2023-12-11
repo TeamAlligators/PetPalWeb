@@ -6,6 +6,7 @@ import axios from "axios";
 import useUser from "../context/UserContext";
 import Endpoints from "../constants/Endpoints";
 import { useNavigate, useParams } from "react-router-dom";
+import Alert from "../components/Alert";
 
 function PetApplication() {
   const navigate = useNavigate();
@@ -13,6 +14,8 @@ function PetApplication() {
   const { pk } = useParams();
   const [formDataUpdated, setFormDataUpdated] = useState(false);
   const [petDetails, setPetDetails] = useState({});
+  const [errorMessage, setErrorMessage] = useState(null);
+  const [showAlert, setShowAlert] = useState(false);
   const [formData, setFormData] = useState({
     pet: parseInt(pk),
     // seeker: user.userId,
@@ -58,6 +61,8 @@ function PetApplication() {
       setFormDataUpdated(true);
     } catch (error) {
       console.error("Error submitting application:", error);
+      setErrorMessage("Failed to submit application. You can only apply for available pets!");
+      setShowAlert(true);
     }
   };
 
@@ -82,6 +87,8 @@ function PetApplication() {
         } catch (error) {
           console.log("Error response:", error.response.data);
           console.error("Error creating appplication:", error);
+          setErrorMessage("Failed to submit application. You can only apply for available pets!");
+          setShowAlert(true);
         }
       };
       createApp();
@@ -108,6 +115,12 @@ function PetApplication() {
 
   return (
     <body className={classes["page-container"]}>
+      <Alert
+        show={showAlert}
+        success={false}
+        message={errorMessage}
+        onClose={() => setShowAlert(false)}
+      />
       <NavBar />
       <content className={classes["pet-application-content"]}>
         <h1 className={classes["title"]}>Adoption Application</h1>

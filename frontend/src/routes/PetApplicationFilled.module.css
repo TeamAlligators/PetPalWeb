@@ -137,6 +137,51 @@
 	margin-bottom: 50px;
 	margin-top: 30px;
 }
+
+.status-container {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	margin-top: 35px;
+	font-family: Nunito;
+	font-size: 20px;
+}
+
+.status-buttons {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	margin-top: 35px;
+	font-family: Nunito;
+	font-size: 20px;
+}
+
+.status-button {
+    font-family: Nunito;
+    color: white;
+    background-color: #bbb;
+    border-radius: 25px;
+    font-weight: 600;
+    font-size: 18px;
+    text-decoration: none;
+    padding: 10px;
+    padding-left: 28px;
+    padding-right: 28px;
+    text-align: center;
+    margin: 5px;
+    transition: all 0.2s;
+    border: 0px;
+    box-shadow: -1px -1px 20px rgba(0, 0, 0, 0.25);
+	width: 150px;
+}
+
+.status-button:hover {
+    color: white;
+    background-color: #d0a1a1;
+}
+
 /* 
 .notification-container {
 	margin-left: 16px;

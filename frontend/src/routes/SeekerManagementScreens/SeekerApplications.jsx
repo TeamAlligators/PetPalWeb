@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import styles from "./MyApplications.module.css";
-import ShelterManagementBar from "../../components/ShelterManagementBar";
+import styles from "./SeekerApplications.module.css";
+import SeekerManagementBar from "../../components/SeekerManagementBar";
 import NavBar from "../../components/NavBar";
 import axios from 'axios';
 import useUser from "../../context/UserContext";
@@ -8,16 +8,16 @@ import Endpoints from '../../constants/Endpoints';
 import { NavLink } from "react-router-dom";
 import Alert from "../../components/Alert";
 
-function ViewMyApplications() {
+function ViewSeekerApplication() {
     const user = useUser();
     const [petDetails, setPetDetails] = useState({});
-    const [errorMessage, setErrorMessage] = useState(null);
-    const [showAlert, setShowAlert] = useState(false);
     const [selectedStatus, setSelectedStatus] = useState("all");
     const [selectedSort, setSelectedSort] = useState("application_date");
     const [searchResults, setSearchResults] = useState([])
     const [nextPageUrl, setNextPageUrl] = useState(null)
     const [previousPageUrl, setPreviousPageUrl] = useState(null)
+    const [errorMessage, setErrorMessage] = useState(null);
+    const [showAlert, setShowAlert] = useState(false);
 
     const fetchApplications = async (status, sort, url) => {
         try {
@@ -93,7 +93,7 @@ function ViewMyApplications() {
                 onClose={() => setShowAlert(false)}
             />
             <NavBar />
-            <ShelterManagementBar />
+            <SeekerManagementBar />
             <div className={styles.filterContainer}>
                 <label className={styles.selectFieldLabel} htmlFor="statusFilter">Filter:</label>
                 <select
@@ -129,8 +129,7 @@ function ViewMyApplications() {
                         <div key={application.id} className={styles.applicationItem}>
                             <img className={styles.petImg} src={petDetail?.photo ? petDetail?.photo : require("../../images/temppet.png")} alt={petDetail?.name} />
                             <div className={styles.applicationTextContainer}>
-                                <h2 className={styles.applicationTitle}> Pet Seeker: {application.first_name + ' ' + application.last_name}</h2>
-                                <h2 className={styles.applicationTitle}> Wants to adopt... </h2>
+                                <h2 className={styles.applicationTitle}> You've applied to adopt... </h2>
                                 <p className={styles.applicationText}> {petDetail?.name} - {petDetail?.breed}</p>
                                 <p className={styles.applicationText}>{petDetail?.age} year(s) old</p>
                                 <p className={styles.applicationText}>Status: {application.status.charAt(0).toUpperCase() + application.status.slice(1)}</p>
@@ -159,4 +158,4 @@ function ViewMyApplications() {
     );
 }
 
-export default ViewMyApplications;
+export default ViewSeekerApplication;
