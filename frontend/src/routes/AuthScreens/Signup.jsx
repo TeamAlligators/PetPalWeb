@@ -37,17 +37,16 @@ function Signup() {
 				last_name: lastName,
 				email,
 				password,
+				photo: null,
 				account_type: accountType,
 			}
 
 			if (accountType === AccountType.SEEKER) {
 				seeker = {
-					photo: null,
 				}
 			} else if (accountType === AccountType.SHELTER) {
 				shelter = {
 					// for now
-					photo: null,
 					name: shelterName,
 					phone: phoneNum,
 					country,
@@ -63,6 +62,7 @@ function Signup() {
 				last_name: lastName,
 				email,
 				password,
+				photo: null,
 				account_type: accountType,
 				seeker,
 				shelter,
@@ -124,6 +124,7 @@ function Signup() {
 				last_name: lastName,
 				email,
 				password,
+				photo: null,
 				token: tokenResponse.data.access,
 				account_type: accountType,
 				seeker,

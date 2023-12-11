@@ -140,7 +140,7 @@
     align-items: center;
     flex-direction: row;
     width: 100%;
-
+    font-family: Nunito;
 }
  
 input {
@@ -231,5 +231,9 @@ textarea {
     .profileContainer {
         width: 70vw;
         height: 70vw;
+    }
+
+    .buttonContainer {
+        flex-direction: column;
     }
 }

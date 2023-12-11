@@ -204,6 +204,7 @@ textarea {
     align-items: center;
     flex-direction: row;
     width: 100%;
+    font-family: Nunito;
 
 }
  
@@ -233,5 +234,9 @@ textarea {
     .profileContainer {
         width: 70vw;
         height: 70vw;
+    }
+
+    .buttonContainer {
+        flex-direction: column;
     }
 }

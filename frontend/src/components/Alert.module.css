@@ -1,0 +1,102 @@
+/* .alert {
+  justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-x-0 z-50;
+  top: 80px;
+} */
+
+.alert {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: fixed;
+    z-index: 50;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.success {
+    background-color: white;
+    border-radius: 30px;
+    width: 500px;
+    min-height: 60px;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 10;
+    padding: 20px;
+
+}
+
+.failure {
+    background-color: white;
+    border-radius: 50px;
+    min-width: 500px;
+    min-height: 150px;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 10;
+    padding: 30px;
+    transition: all 0.2s;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    font-family: Nunito;
+    font-size: 16px;
+}
+
+.title {
+    text-align: center;
+    font-family: PlayfairDisplay;
+    font-size: 30px;
+    font-weight: 700;
+}
+
+.text {
+    text-align: center;
+    font-family: Nunito;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.button {
+    background-color: #ddd;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+    font-weight: 600;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-top: 15px;
+}
+
+.button:hover {
+    background-color: #d0a1a1;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+}
+
+/* .success {
+  @apply bg-green-500 rounded-3xl shadow-lg relative flex justify-center flex-col z-10;
+  width: 240px;
+  min-height: 60px;
+  height: auto;
+}
+
+.failure {
+  @apply bg-red-500 rounded-3xl shadow-lg relative flex justify-center items-center flex-col z-10;
+  width: 240px;
+  min-height: 60px;
+  height: auto;
+}
+
+.text {
+  @apply text-center text-white font-nunito font-bold text-xl justify-center items-center;
+} */

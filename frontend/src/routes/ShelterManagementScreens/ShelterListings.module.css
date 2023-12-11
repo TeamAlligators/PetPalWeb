@@ -84,6 +84,7 @@
 	font-weight: 600;
 	font-size: 62px;
 	text-align: center;
+	font-family: PlayFairDisplay;
 }
 
 .shelter-container {
@@ -182,7 +183,7 @@
 .search-text-container {
 	display: flex;
 	flex-direction: column;
-	justify-content: space-evenly;
+	margin-top: 100px;
 	align-items: flex-start;
 	text-align: center;
 	font-weight: 600;
@@ -233,6 +234,7 @@
 	bottom: 16px;
 	opacity: 1;
 	transition: all 0.2s;
+	font-family: Nunito;
 }
 
 .search-item:hover .details-button {
@@ -280,7 +282,56 @@
 	width: 8px;
 	height: 8px;
 }
-@media only screen and (max-width: 480px) {
+
+.shelterName {
+	font-size: 32px;
+	font-weight: 600;
+	font-family: PlayFairDisplay;
+}
+
+.shelterDescription {
+	font-size: 18px;
+	font-weight: 600;
+	font-family: Nunito;
+}
+
+.shelterAddress {
+	font-size: 18px;
+	font-weight: 400;
+	font-family: Nunito;
+}
+
+.footerContainer {
+    margin-top: 16px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.paginationButton {
+    font-family: Nunito;
+    color: white;
+    background-color: #bbb;
+    border-radius: 25px;
+    font-weight: 600;
+    font-size: 18px;
+    text-decoration: none;
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    text-align: center;
+    margin: 5px 5px 30px 5px;
+    transition: all 0.2s;
+    border: 0px;
+    box-shadow: -1px -1px 20px rgba(0, 0, 0, 0.25);
+}
+
+.paginationButton:hover {
+    color: white;
+    background-color: #d0a1a1;
+}
+
+/* @media only screen and (max-width: 480px) {
 	.header {
 		font-weight: 600;
 		font-size: 48px;
@@ -497,4 +548,50 @@
 	width: 80vw;
 	padding-left: 16px;
 	padding-right: 16px;
+} */
+
+@media only screen and (max-width: 1000px) {
+	.search-results {
+		width: 100vw;
+		height: 100%;
+		gap: 2.5vh 0;
+		overflow: scroll;
+		padding: 16px;
+	}
+
+	.search-item {
+		width: 80vw;
+		height: 100%;
+		flex-direction: column;
+		margin: auto;
+		margin-bottom: 16px;
+	}
+
+	.search-item:hover {
+		background-color: #ffdfd3;
+		box-shadow: 3px 3px 10px 3px rgba(0, 0, 0, 0.5);
+	}
+
+	.search-img {
+		width: 80vw;
+		height: 50%;
+	}
+
+	.details-button {
+		right: 16px;
+		top: 16px;
+		bottom: unset;
+	}
+
+	.search-text-container {
+		margin-top: 0;
+		margin-left: 0;
+		margin-right: 0;
+		align-items: center;
+		padding: 10px;
+	}
+
+	.shelterName {
+		font-size: 24px;
+	}
 }

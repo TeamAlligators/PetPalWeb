@@ -13,10 +13,11 @@ function NavBar() {
 	const [read, setRead] = useState("False")
 	const [nextPageUrl, setNextPageUrl] = useState(null)
 	const [previousPageUrl, setPreviousPageUrl] = useState(null)
+	const [menuOpen, setMenuOpen] = useState(false);
 
 	const fetchNotifications = async (url) => {
 		try {
-			const response = await axios.get(`http://localhost:80/notifications/`, {
+			const response = await axios.get(Endpoints.allNotif, {
 				headers: {
 					Authorization: `Bearer ${user.token}`,
 				},
@@ -50,14 +51,12 @@ function NavBar() {
 
 	const handleNotificationClick = async (notificationId, index) => {
 		try {
-			const response = await axios.get(
-				`http://localhost:80/notifications/${notificationId}`,
-				{
-					headers: {
-						Authorization: `Bearer ${user.token}`,
-					},
-				}
-			)
+			const notifApp = Endpoints.notifDelete.replace("pk", notificationId)
+			const response = await axios.get(notifApp, {
+				headers: {
+					Authorization: `Bearer ${user.token}`,
+				},
+			})
 
 			setNotifications((prevNotifications) => {
 				const updatedNotifications = [...prevNotifications]
@@ -74,7 +73,8 @@ function NavBar() {
 
 	const deleteNotification = async (notificationId) => {
 		try {
-			await axios.delete(`http://localhost:80/notifications/${notificationId}`, {
+			const notifApp = Endpoints.notifDelete.replace("pk", notificationId)
+			await axios.delete(notifApp, {
 				headers: {
 					Authorization: `Bearer ${user.token}`,
 				},
@@ -88,10 +88,14 @@ function NavBar() {
 		fetchNotifications(Endpoints.notification)
 	}
 
+	// const toggleMenu = () => {
+	// 	setMenuOpen(!menuOpen);
+	// };
+
 	return (
 		<nav id={styles.navigationBar}>
 			<span id={styles.navItemLeft}>
-				<NavLink className={styles.navLink} to={`/`}>
+				<NavLink to={`/`}>
 					<img
 						src={require("../images/logo.png")}
 						class={styles["logo"]}
@@ -100,6 +104,23 @@ function NavBar() {
 				</NavLink>
 			</span>
 			<span id={styles.navItem}>
+				{/* <div className={styles.burger} onClick={toggleMenu}>
+					<svg xmlns="http://www.w3.org/2000/svg"
+						width="24"
+						height="24"
+						fill="currentColor"
+						class="bi bi-list"
+						viewBox="0 0 16 16">
+						<path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5" />
+					</svg>
+
+					{menuOpen && (
+						<div className={styles.menuItems}>
+							<a href="/search">Search</a>
+							<a href="/shelterlistings">Shelters</a>
+						</div>
+					)}
+				</div> */}
 				<div className={styles["notification-container"]}>
 					{notifications.length > 0 && <div className={styles["red-dot"]}></div>}
 					<svg
@@ -124,7 +145,7 @@ function NavBar() {
 								<option value={"True"}>Read</option>
 							</select>
 							<button
-								className={styles["sign-up-button"]}
+								className={styles["refreshButton"]}
 								onClick={() => fetchNotifications(Endpoints.notification)}
 							>
 								{"Refresh"}
@@ -136,29 +157,36 @@ function NavBar() {
 								/applications/g,
 								"petapplicationfilled"
 							)
-							appUrl = appUrl.replace(/\/coment\//g, "")
-
+							appUrl = appUrl.replace(/\/comment\//g, "")
+							console.log(notification, "notif")
+							const notifApp = Endpoints.application.replace(
+								":pk",
+								notification?.application
+							)
 							const appResponse = axios
-								.get(`http://localhost:80/applications/${notification.application}/`, {
+								.get(notifApp, {
 									headers: {
 										Authorization: `Bearer ${user.token}`,
 									},
 								})
+								.then((e) => {
+									console.log("app notif response", e)
+								})
 								.catch((e) => {
 									console.log("app notif error", e)
 								})
-                
+
 							return (
-								<div key={Math.random()}>
+								<div className={styles.please} key={Math.random()}>
 									<p className={styles["lol"]} key={Math.random()}>
 										{notification.content}
 									</p>
 									<div
 										key={Math.random()}
-										className={styles["notification-list-coninater"]}
+										className={styles["buttonContainer"]}
 									>
 										<NavLink
-											className={styles["sign-up-button"]}
+											className={styles["linkButton"]}
 											to={appUrl}
 											key={Math.random()}
 											onClick={() => handleNotificationClick(notification.id, index)}
@@ -166,11 +194,11 @@ function NavBar() {
 											To App
 										</NavLink>
 										<NavLink
-											className={styles["sign-up-button"]}
+											className={styles["linkButton"]}
 											to={
 												user.account_type === AccountType.SHELTER
 													? "/sheltermanagement" // make this shetler detials when done
-													: "/pets/" + appResponse.data.pet
+													: "/pets/" + appResponse.data?.pet
 											}
 											key={Math.random()}
 											onClick={() => handleNotificationClick(notification.id, index)}
@@ -179,7 +207,7 @@ function NavBar() {
 											{user.account_type === AccountType.SHELTER ? "Shelter" : "Listing"}
 										</NavLink>
 										<button
-											className={styles["sign-up-button"]}
+											className={styles["deleteButton"]}
 											onClick={() => deleteNotification(notification.id)}
 										>
 											{"x"}
@@ -189,10 +217,10 @@ function NavBar() {
 							)
 						})}
 						{notifications.length > 0 && (
-							<div className={styles["notification-list-coninater"]}>
+							<div className={styles["paginationButtonContainer"]}>
 								{
 									<button
-										className={styles["sign-up-button"]}
+										className={styles["paginationButton"]}
 										onClick={() => fetchNotifications(previousPageUrl)}
 									>
 										{"<"}
@@ -200,7 +228,7 @@ function NavBar() {
 								}
 								{
 									<button
-										className={styles["sign-up-button"]}
+										className={styles["paginationButton"]}
 										onClick={() => fetchNotifications(nextPageUrl)}
 									>
 										{">"}

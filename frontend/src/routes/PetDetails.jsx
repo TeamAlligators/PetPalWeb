@@ -6,9 +6,12 @@ import Endpoints from "../constants/Endpoints"
 import { useParams } from "react-router-dom"
 import { NavLink } from "react-router-dom"
 import useUser from "../context/UserContext";
+import Alert from "../components/Alert"
 
 function PetDetails() {
 	const user = useUser()
+	const [errorMessage, setErrorMessage] = useState(null);
+	const [showAlert, setShowAlert] = useState(false);
 	const [petDetails, setPetDetails] = useState({
 		name: "",
 		gender: "",
@@ -33,6 +36,8 @@ function PetDetails() {
 				setPetDetails(response.data);
 			} catch (error) {
 				console.error("Error fetching pet details:", error);
+				setErrorMessage("Failed to get pet details. Please try again.");
+				setShowAlert(true);
 			}
 		};
 
@@ -41,6 +46,12 @@ function PetDetails() {
 
 	return (
 		<body className={classes["page-container"]}>
+			<Alert
+				show={showAlert}
+				success={false}
+				message={errorMessage}
+				onClose={() => setShowAlert(false)}
+			/>
 			<NavBar />
 			<content className={classes["pet-details-content"]}>
 				{/* <h1>{petDetails.name} ({petDetails.gender})</h1> */}
@@ -110,7 +121,7 @@ function PetDetails() {
 						{petDetails.others}
 					</p>
 					<div className={classes["button-item"]}>
-						{user.shelter.id === petDetails.shelter ? <NavLink className={classes["adopt-button"]} to={`/petupdate/` + pk}>
+						{user.account_type === "shelter" && user.shelter.id === petDetails.shelter ? <NavLink className={classes["adopt-button"]} to={`/petupdate/` + pk}>
 							EDIT LISTING
 						</NavLink> : null}
 						{user.account_type === "seeker" ? <NavLink className={classes["adopt-button"]} to={`/petapplication/` + pk}>

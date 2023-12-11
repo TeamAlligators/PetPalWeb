@@ -14,7 +14,7 @@
     padding-left: 20px;
     padding-right: 20px;
     text-align: center;
-    margin: 5px;
+    margin: 5px 5px 30px 5px;
     transition: all 0.2s;
     border: 0px;
     box-shadow: -1px -1px 20px rgba(0, 0, 0, 0.25);
@@ -81,7 +81,6 @@
  
 .listingsContainer {
     width: 80vw;
-    height: 100%;
     display: grid;
     grid-template-columns: 20vw 20vw 20vw;
     justify-content: space-around;
@@ -182,7 +181,10 @@
 @media screen and (max-width: 1000px) {
     .listingsContainer {
         grid-template-columns: 80vw; /* Switch to a single column layout */
+        display: grid;
+        overflow: visible;
     }
+    
     .petItem {
         width: 100%;
         height: 42vh;
@@ -195,5 +197,9 @@
         display: grid;
         grid-template-columns: 60vw;
         margin-top: 5px;
+    }
+
+    .footerContainer {
+        margin-top: 16px;
     }
 }

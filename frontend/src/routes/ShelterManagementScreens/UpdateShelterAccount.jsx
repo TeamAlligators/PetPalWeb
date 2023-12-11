@@ -6,12 +6,15 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Endpoints from "../../constants/Endpoints";
 import { useNavigate } from "react-router-dom";
+import Alert from "../../components/Alert";
 
 function UpdateShelter() {
     const user = useUser()
     const navigate = useNavigate();
     const [file, setFile] = useState(null);
     const [formDataUpdated, setFormDataUpdated] = useState(false);
+    const [errorMessage, setErrorMessage] = useState(null);
+    const [showAlert, setShowAlert] = useState(false);
     const [formData, setFormData] = useState({
         shelter: {
             name: "",
@@ -59,7 +62,7 @@ function UpdateShelter() {
             last_name: user.last_name || "",
             email: user.email || "",
             account_type: "shelter",
-            photo: user.photo || null,
+            photo: null,
         });
     }, [user]);
 
@@ -85,8 +88,7 @@ function UpdateShelter() {
 
                     const response = await axios.put(endpoint, formData, {
                         headers: {
-                            "Authorization": "Bearer " + user.token,
-                            // "Content-Type": "multipart/form-data",
+                            "Authorization": "Bearer " + user.token
                         },
                     });
                     console.log("User updated successfully:", response.data);
@@ -97,7 +99,6 @@ function UpdateShelter() {
                         first_name: formData.first_name,
                         last_name: formData.last_name,
                         email: formData.email,
-                        photo: formData.photo,
                         shelter: {
                             ...user.shelter,
                             name: formData.shelter.name,
@@ -109,8 +110,14 @@ function UpdateShelter() {
                             mission: formData.shelter.mission,
                         },
                     });
+                    // Call handlePhotoSubmit if there is a file
+                    if (file) {
+                        await handlePhotoSubmit();
+                    }
                 } catch (error) {
                     console.error("Error updating user:", error);
+                    setErrorMessage("Failed to update user. Please try again.");
+                    setShowAlert(true);
                 }
             };
             updateUser();
@@ -124,7 +131,6 @@ function UpdateShelter() {
         try {
             setFormData((prevData) => ({
                 ...prevData,
-                photo: file,
                 shelter: {
                     ...prevData.shelter,
                 },
@@ -133,8 +139,43 @@ function UpdateShelter() {
             setFormDataUpdated(true);
         } catch (error) {
             console.error("Error updating asdfasdfuser:", error);
+            setErrorMessage("Failed to update user. Please try again.");
+            setShowAlert(true);
         }
     };
+
+    const handlePhotoSubmit = async () => {
+        const photoFormData = new FormData();
+        photoFormData.append('photo', file);
+
+        try {
+            const photoEndpoint = Endpoints.profilephoto.replace(":pk", user.userId);
+            const photoResponse = await axios.put(photoEndpoint, photoFormData, {
+                headers: {
+                    "Authorization": "Bearer " + user.token,
+                    "Content-Type": "multipart/form-data",
+                },
+            });
+            console.log("User photo updated successfully:", photoResponse.data);
+
+            // Update user info in context
+            user.setUserInfo({
+                ...user,
+                photo: photoResponse.data.photo,
+            });
+        } catch (error) {
+            console.error("Error updating user photo:", error);
+            setErrorMessage("Failed to update user. Please try again.");
+            setShowAlert(true);
+        }
+    };
+
+    useEffect(() => {
+        console.log("User info:", user);
+        if (user.photo) {
+            console.log("User photo:", user.photo);
+        }
+    }, [user]);
 
     const handleDeleteAccount = async () => {
         try {
@@ -144,16 +185,26 @@ function UpdateShelter() {
                     'Authorization': 'Bearer ' + user.token,
                 },
             });
+            // remove user from context
+            user.setUserInfo(null);
             // redirect to login page
             navigate("/login");
             console.log('Shelter deleted successfully');
         } catch (error) {
             console.error('Error deleting shelter:', error);
+            setErrorMessage("Failed to delete shelter. Please try again.");
+            setShowAlert(true);
         }
     };
 
     return (
         <body className={styles.pageContainer}>
+            <Alert
+                show={showAlert}
+                success={false}
+                message={errorMessage}
+                onClose={() => setShowAlert(false)}
+            />
             <NavBar />
             <ShelterManagementBar />
             <div className={styles.shelterManagement}>
@@ -163,7 +214,7 @@ function UpdateShelter() {
                         <label htmlFor="profileImg" className={styles.profileImgLabel}>
                             <img
                                 className={styles.profileImg}
-                                src={file ? URL.createObjectURL(file) : require("../../images/profile1.png")}
+                                src={user.photo ? user.photo : (file ? URL.createObjectURL(file) : require("../../images/profile1.png"))}
                                 alt="Profile"
                             />
                         </label>

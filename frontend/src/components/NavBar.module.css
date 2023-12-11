@@ -16,6 +16,15 @@
 	align-items: center;
 	/* height: 10vh; */
 	padding: 16px;
+	z-index: 100;
+	/* position: fixed; */
+}
+
+.nav {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
 }
 
 .logo {
@@ -198,6 +207,7 @@
 
 .notification-container {
 	position: relative;
+	z-index: 100;
 }
 
 .notification-list a:hover {
@@ -223,24 +233,9 @@
 	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
 	z-index: 1;
 	min-height: 400px;
-}
-
-.select {
-	color: white;
-	background-color: #d0a1a1;
-	font-weight: 600;
-	font-size: 24px;
-	text-decoration: none;
-	padding: 8px;
-	padding-left: 16px;
-	padding-right: 16px;
-	text-align: center;
-	margin: 5px;
-	transition: all 0.2s;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	text-align: left;
+	border-radius: 30px;
+	padding: 16px;
+	font-family: Nunito;
 }
 
 .notification-list-link {
@@ -250,12 +245,12 @@
 	display: block;
 }
 
-.notification-list-coninater {
+/* .notification-list-coninater {
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	min-width: 400px;
-}
+} */
 
 .red-dot {
 	position: absolute;
@@ -270,9 +265,8 @@
 .sign-up-button {
 	color: white;
 	background-color: #d0a1a1;
-	border-radius: 25px;
 	font-weight: 600;
-	font-size: 24px;
+	font-size: 18px;
 	text-decoration: none;
 	padding: 8px;
 	padding-left: 16px;
@@ -280,6 +274,123 @@
 	text-align: center;
 	margin: 5px;
 	transition: all 0.2s;
+	/* display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: left; */
+	
+	border: 0px;
+    height: 50px;
+    box-shadow: -1px -1px 20px rgba(153.21, 153.21, 153.21, 0.13);
+    border-radius: 20px;
+    margin-left: 16px;
+}
+
+.sign-up-button:hover {
+	color: white;
+	background-color: black;
+}
+
+.refreshButton {
+	font-family: Nunito;
+	color: white;
+	background-color: black;
+	border-radius: 25px;
+	font-weight: 600;
+	font-size: 18px;
+	text-decoration: none;
+	padding: 10px;
+	padding-left: 20px;
+	padding-right: 20px;
+	text-align: center;
+	margin: 5px 5px 30px 5px;
+	transition: all 0.2s;
+	border: 0px;
+	box-shadow: -1px -1px 20px rgba(0, 0, 0, 0.25);
+}
+
+.refreshButton:hover {
+	color: white;
+	background-color: #d0a1a1;
+}
+
+.paginationButtonContainer {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 15px;
+
+}
+
+.paginationButton {
+    font-family: Nunito;
+    color: white;
+    background-color: #bbb;
+    border-radius: 25px;
+    font-weight: 600;
+    font-size: 18px;
+    text-decoration: none;
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    text-align: center;
+    margin: 5px 5px 30px 5px;
+    transition: all 0.2s;
+    border: 0px;
+    box-shadow: -1px -1px 20px rgba(0, 0, 0, 0.25);
+}
+
+.paginationButton:hover {
+    color: white;
+    background-color: #d0a1a1;
+}
+
+.deleteButton {
+	font-family: Nunito;
+	color: white;
+	background-color: #bbb;
+	border-radius: 25px;
+	font-weight: 600;
+	font-size: 18px;
+	text-decoration: none;
+	padding: 4px 12px; 
+	text-align: center;
+	margin: 0px 5px 5px 5px;
+	transition: all 0.2s;
+	border: 0px;
+	box-shadow: -1px -1px 20px rgba(0, 0, 0, 0.25);
+}
+
+.deleteButton:hover {
+	color: white;
+	background-color: black;
+}
+
+.linkButton {
+	font-family: Nunito;
+	color: white;
+	background-color: #d0a1a1;
+	border-radius: 25px;
+	font-weight: 600;
+	font-size: 16px;
+	text-decoration: none;
+	padding: 10px 20px; 
+	text-align: center;
+	margin: 0px 5px 5px 5px;
+	transition: all 0.2s;
+	border: 0px;
+	box-shadow: -1px -1px 20px rgba(0, 0, 0, 0.25);
+}
+
+.linkButton:hover {
+	color: white;
+	background-color: black;
+}
+
+.buttonContainer {
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .navIcon {
@@ -291,10 +402,10 @@
 }
 
 .select {
-	color: white;
-	background-color: #d0a1a1;
+	color: black;
+	background-color: white;
 	font-weight: 600;
-	font-size: 24px;
+	font-size: 18px;
 	text-decoration: none;
 	padding: 8px;
 	padding-left: 16px;
@@ -306,6 +417,11 @@
 	justify-content: center;
 	align-items: center;
 	text-align: left;
+	border: 1px #c8c8c8 solid;
+    height: 50px;
+    box-shadow: -1px -1px 20px rgba(153.21, 153.21, 153.21, 0.13);
+    border-radius: 25px;
+    margin-left: 16px;
 }
 
 .select * {
@@ -313,7 +429,11 @@
 	padding: 16px;
 }
 
-@media only screen and (max-width: 480px) {
+.burger {
+	display: none;
+}
+
+@media only screen and (max-width: 550px) {
 	.header {
 		font-weight: 600;
 		font-size: 48px;
@@ -331,6 +451,7 @@
 		font-size: 12px;
 		padding: 6px;
 		margin-left: 6px;
+		
 	}
 
 	.logo {
@@ -342,9 +463,74 @@
 	.nav-name {
 		font-size: 12px;
 	}
+
+	.navLink {
+		display: none;
+	}
+
+	#navItem {
+		margin-right: 0px;
+	}
+
+	.notification-list {
+		transform: translate(-35%, 0%);
+		max-width: 50vw;
+	}
+	.poop {
+		margin: 0px 0px 0px 0px;
+		min-width: 0px;
+	}
+
+	.lol {
+		width: 70vw;
+	}
+
+	.buttonContainer {
+		width: 70vw;
+	}
+
+	.please {
+		align-items: center;
+		display: flex;
+		justify-content: center;
+		flex-direction: column;
+	}
 }
 
 @media only screen and (max-width: 700px) {
+
+	.header {
+		font-weight: 600;
+		font-size: 48px;
+	}
+
+	.paragraph {
+		font-size: 14px;
+	}
+
+	.index-picture {
+		display: none;
+	}
+
+	.signUpButton {
+		font-size: 12px;
+		padding: 6px;
+		margin-left: 6px;
+		
+	}
+
+	.logo {
+		width: 100px;
+		padding: 5px;
+		padding-top: 0;
+	}
+
+	.nav-name {
+		font-size: 12px;
+	}
+
+
+
 	.index-picture {
 		display: none;
 	}
@@ -360,9 +546,6 @@
 		width: 90vw;
 	}
 
-	.navLink {
-		display: none;
-	}
 
 	.navIcon {
 		margin-left: 8px;
@@ -374,40 +557,6 @@
 		margin-left: 0px;
 		margin-right: 0px;
 		position: relative;
-	}
-
-	.logo {
-		width: 150px;
-		padding: 10px;
-		padding-top: 0;
-	}
-
-	.signUpButton {
-		font-size: 16px;
-	}
-}
-
-@media only screen and (max-width: 730px) {
-	.signUpButton {
-		font-size: 16px;
-	}
-}
-
-@media only screen and (max-width: 1200px) {
-	.index-picture {
-		width: 500px;
-	}
-
-	.logo {
-		width: 150px;
-	}
-
-	.signUpButton {
-		font-size: 16px;
-	}
-
-	.navName {
-		font-size: 16px;
 	}
 }
 
@@ -429,26 +578,4 @@
 
 .nav-name:hover {
 	color: #d0a1a1;
-}
-
-@media only screen and (max-width: 1000px) {
-	.search-container {
-		flex-direction: column;
-	}
-
-	.search-results {
-		grid-template-columns: 60vw;
-	}
-
-	.search-item {
-		width: 60vw;
-	}
-
-	.search-img {
-		width: 60vw;
-	}
-
-	.search-text-container {
-		grid-template-columns: 20vw 20vw;
-	}
 }
