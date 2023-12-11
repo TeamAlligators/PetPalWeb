@@ -89,7 +89,7 @@ function ShelterReview() {
                     <h1 className={styles.shelterName}>{shelterData.shelter.name}</h1>
                     <div className={styles.gridContainer}>
                         <div className={styles.shelterImgContainer}>
-                            <img className={styles.shelterImg} src={shelterData.shelter.photo ? shelterData.shelter.photo : require("../images/saskatoon-spca.jpg")} alt={shelterData.shelter.name} />
+                            <img className={styles.shelterImg} src={shelterData.photo ? shelterData.photo : require("../images/saskatoon-spca.jpg")} alt={shelterData.shelter.name} />
                         </div>
                         <p id="shelter-details-shelter-phone"><strong>Phone:</strong> {shelterData.shelter.phone}</p>
                         <p id="shelter-details-shelter-mission">

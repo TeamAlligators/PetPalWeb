@@ -1,0 +1,60 @@
+Note: This document was written on a computer hosted on Windows 10
+
+Requirements:
+Python (3.10)
+NodeJS (LTS)
+
+For access to our code git clone our markus repo
+
+```
+git clone https://markus.teach.cs.toronto.edu/git/2023-09/csc309/group_3334
+
+cd P3
+```
+
+Backend:
+All of our packages required is in requirements.txt.
+Please install our requirements file, makemigrations, migrate, load our mockdata then runserver
+
+Window commands:
+```
+cd backend
+pip3 install -r requirements.txt
+python manage.py makemigrations 
+python manage.py migrate
+python manage.py loaddata mockdata2.json
+python manage.py runserver
+```
+
+Linux commands: Make sure you have python3 and python-pip3 installed
+```
+sudo apt-get update
+sudo apt-get install python3
+sudo apt-get install python3-pip
+cd backend
+sudo pip3 install -r requirements.txt
+python3 manage.py makemigrations
+python3 manage.py migrate
+python3 manage.py loaddata mockdata2.json
+python3 manage.py runserver
+```
+
+Note: Since you are running our files locally, please go to our Endpoints file located in frontend/constants/Endpoints and comment our endpoint object pointing to our deployed server, and uncomment our localhost links, whatever the backend says it is locally ran on.
+
+
+Frontend:
+Window commands
+```
+cd frontend
+npm run install
+npm run start
+```
+
+Linux commands:
+```
+cd frontend
+npm install
+npm start
+```
+
+You successfully have a local version of our app running!
