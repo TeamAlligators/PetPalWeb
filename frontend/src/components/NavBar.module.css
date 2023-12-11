@@ -433,7 +433,7 @@
 	display: none;
 }
 
-@media only screen and (max-width: 480px) {
+@media only screen and (max-width: 550px) {
 	.header {
 		font-weight: 600;
 		font-size: 48px;
@@ -472,9 +472,8 @@
 		margin-right: 0px;
 	}
 
-	/* .notification-list {
-		transform: translate(-41%, 10%);
-		display: flex;
+	.notification-list {
+		transform: translate(-35%, 0%);
 		max-width: 50vw;
 	}
 	.poop {
@@ -495,10 +494,43 @@
 		display: flex;
 		justify-content: center;
 		flex-direction: column;
-	} */
+	}
 }
 
-/* @media only screen and (max-width: 700px) {
+@media only screen and (max-width: 700px) {
+
+	.header {
+		font-weight: 600;
+		font-size: 48px;
+	}
+
+	.paragraph {
+		font-size: 14px;
+	}
+
+	.index-picture {
+		display: none;
+	}
+
+	.signUpButton {
+		font-size: 12px;
+		padding: 6px;
+		margin-left: 6px;
+		
+	}
+
+	.logo {
+		width: 100px;
+		padding: 5px;
+		padding-top: 0;
+	}
+
+	.nav-name {
+		font-size: 12px;
+	}
+
+
+
 	.index-picture {
 		display: none;
 	}
@@ -514,9 +546,6 @@
 		width: 90vw;
 	}
 
-	.navLink {
-		display: none;
-	}
 
 	.navIcon {
 		margin-left: 8px;
@@ -529,83 +558,7 @@
 		margin-right: 0px;
 		position: relative;
 	}
-
-	.logo {
-		width: 150px;
-		padding: 10px;
-		padding-top: 0;
-	}
-
-	.signUpButton {
-		font-size: 16px;
-	}
 }
-
-@media only screen and (max-width: 730px) {
-	.signUpButton {
-		font-size: 16px;
-	}
-}
-
-@media only screen and (max-width: 1200px) {
-	.index-picture {
-		width: 500px;
-	}
-
-	.logo {
-		width: 150px;
-	}
-
-	.signUpButton {
-		font-size: 16px;
-	}
-
-	.navName {
-		font-size: 16px;
-	}
-}
-
-.navIcon {
-	color: black;
-}
-
-.navIcon:hover {
-	color: #d0a1a1;
-}
-
-.nav-name {
-	color: black;
-	font-weight: 600;
-	font-size: 24px;
-	padding: 16px;
-	text-decoration: none;
-}
-
-.nav-name:hover {
-	color: #d0a1a1;
-}
-
-@media only screen and (max-width: 1000px) {
-	.search-container {
-		flex-direction: column;
-	}
-
-	.search-results {
-		grid-template-columns: 60vw;
-	}
-
-	.search-item {
-		width: 60vw;
-	}
-
-	.search-img {
-		width: 60vw;
-	}
-
-	.search-text-container {
-		grid-template-columns: 20vw 20vw;
-	}
-} */
 
 .navIcon {
 	color: black;
