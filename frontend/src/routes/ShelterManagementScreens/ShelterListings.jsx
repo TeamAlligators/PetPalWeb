@@ -67,7 +67,7 @@ function ShelterListings() {
 			<NavBar />
 			<div className={classes.body}>
 				<h1 className={classes.header}>Shelters & Reviews</h1>
-				<div className={classes.buttons}>
+				{/* <div className={classes.buttons}>
 					<button
 						className={classes["sign-up-button"]}
 						onClick={() => handleSearch(previousPageUrl)}
@@ -80,7 +80,7 @@ function ShelterListings() {
 					>
 						{">"}
 					</button>
-				</div>
+				</div> */}
 				<div className={classes["search-results"]}>
 					{shelters.map((shelter) => (
 						<div key={shelter.shelter.id} className={classes["search-item"]}>
@@ -90,8 +90,9 @@ function ShelterListings() {
 								alt={`${shelter.shelter.name}-img`}
 							/>
 							<div className={classes["search-text-container"]}>
-								<h2>{shelter.shelter.name}</h2>
-								<p>{shelter.shelter.address}</p>
+								<h2 className={classes.shelterName}>{shelter.shelter.name}</h2>
+								<p className={classes.shelterDescription}>{shelter.shelter.mission}</p>
+								<p className={classes.shelterAddress}>{shelter.shelter.address}, {shelter.shelter.province}, {shelter.shelter.country}</p>
 							</div>
 							<NavLink className={classes["details-button"]} to={`/shelters/${shelter.shelter.id}`}>
 								Details
@@ -105,6 +106,20 @@ function ShelterListings() {
 				integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
 				crossOrigin="anonymous"
 			></script>
+			<div className={classes.footerContainer}>
+				<button
+					className={classes.paginationButton}
+					onClick={() => handleSearch(previousPageUrl)}
+				>
+					{"<"}
+				</button>
+				<button
+					className={classes.paginationButton}
+					onClick={() => handleSearch(nextPageUrl)}
+				>
+					{">"}
+				</button>
+			</div>
 		</div>
 	)
 }
