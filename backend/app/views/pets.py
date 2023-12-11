@@ -68,7 +68,7 @@ class PetSearchView(ListAPIView):
 
         if (not shelter_id) and (not status) and (not gender) and (not breed):
             queryset = queryset.filter(status='available')
-
+        print(order)
         if len(order) == 2:
             queryset = queryset.order_by(order[0], order[1])
         elif len(order) == 1:
