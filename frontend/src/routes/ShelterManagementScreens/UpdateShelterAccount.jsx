@@ -185,6 +185,8 @@ function UpdateShelter() {
                     'Authorization': 'Bearer ' + user.token,
                 },
             });
+            // remove user from context
+            user.setUserInfo(null);
             // redirect to login page
             navigate("/login");
             console.log('Shelter deleted successfully');
