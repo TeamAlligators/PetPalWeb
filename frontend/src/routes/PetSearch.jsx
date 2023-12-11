@@ -9,7 +9,7 @@ import Alert from "../components/Alert"
 function PetSearch() {
 	const [filter, setFilter] = useState("")
 	const [filterKeywords, setFilterKeywords] = useState("")
-	const [sort, setSort] = useState("")
+	const [order, setSort] = useState("")
 	const [searchResults, setSearchResults] = useState([])
 	const [nextPageUrl, setNextPageUrl] = useState(null)
 	const [previousPageUrl, setPreviousPageUrl] = useState(null)
@@ -25,7 +25,7 @@ function PetSearch() {
 			const response = await axios.get(endpoint, {
 				params: {
 					[filter]: filterKeywords,
-					order: sort,
+					[order]: order,
 				},
 			})
 
@@ -83,7 +83,7 @@ function PetSearch() {
 					<select
 						name="sort"
 						className={classes["select"]}
-						value={sort}
+						value={order}
 						onChange={(e) => setSort(e.target.value)}
 					>
 						<option value="">Sort</option>
