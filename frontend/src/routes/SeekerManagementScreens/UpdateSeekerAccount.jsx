@@ -6,10 +6,13 @@ import axios from "axios";
 import Endpoints from "../../constants/Endpoints";
 import { useNavigate } from "react-router-dom";
 import SeekerManagementBar from "../../components/SeekerManagementBar";
+import Alert from "../../components/Alert";
 
 function UpdateSeeker() {
     const user = useUser();
     const navigate = useNavigate();
+    const [errorMessage, setErrorMessage] = useState(null);
+    const [showAlert, setShowAlert] = useState(false);
     const [formDataUpdated, setFormDataUpdated] = useState(false);
     const [file, setFile] = useState(null);
     const [formData, setFormData] = useState({
@@ -90,6 +93,8 @@ function UpdateSeeker() {
 
                 } catch (error) {
                     console.error("Error updating user:", error);
+                    setErrorMessage("Failed to update user. Please try again.");
+                    setShowAlert(true);
                 }
             };
             updateUser();
@@ -111,6 +116,8 @@ function UpdateSeeker() {
             setFormDataUpdated(true);
         } catch (error) {
             console.error("Error updating asdfasdfuser:", error);
+            setErrorMessage("Failed to update user. Please try again.");
+            setShowAlert(true);
         }
     };
 
@@ -135,6 +142,8 @@ function UpdateSeeker() {
             });
         } catch (error) {
             console.error("Error updating user photo:", error);
+            setErrorMessage("Failed to update user. Please try again.");
+            setShowAlert(true);
         }
     };
 
@@ -158,11 +167,19 @@ function UpdateSeeker() {
             console.log('Shelter deleted successfully');
         } catch (error) {
             console.error('Error deleting shelter:', error);
+            setErrorMessage("Failed to delete user. Please try again.");
+            setShowAlert(true);
         }
     };
 
     return (
-        <body className={styles.pageContainer}>
+        <body className={styles.pageContainer}>'
+            <Alert
+                show={showAlert}
+                success={false}
+                message={errorMessage}
+                onClose={() => setShowAlert(false)}
+            />
             <NavBar />
             <SeekerManagementBar />
             <div className={styles.seekerManagement}>

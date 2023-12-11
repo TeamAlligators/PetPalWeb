@@ -6,10 +6,13 @@ import axios from 'axios';
 import useUser from "../../context/UserContext";
 import Endpoints from '../../constants/Endpoints';
 import { NavLink } from "react-router-dom";
+import Alert from "../../components/Alert";
 
 function ViewMyApplications() {
     const user = useUser();
     const [petDetails, setPetDetails] = useState({});
+    const [errorMessage, setErrorMessage] = useState(null);
+    const [showAlert, setShowAlert] = useState(false);
     const [selectedStatus, setSelectedStatus] = useState("all");
     const [selectedSort, setSelectedSort] = useState("application_date");
     const [searchResults, setSearchResults] = useState([])
@@ -41,6 +44,8 @@ function ViewMyApplications() {
             setPetDetails(petDetails);
         } catch (error) {
             console.error('Error fetching applications:', error);
+            setErrorMessage("Failed to get your applications. Are you logged in?");
+            setShowAlert(true);
         }
     };
 
@@ -57,6 +62,8 @@ function ViewMyApplications() {
             });
         } catch (error) {
             console.error('Error fetching pet details:', error);
+            setErrorMessage("Failed to get your applications. Are you logged in?");
+            setShowAlert(true);
         }
         return petDetails;
     };
@@ -79,6 +86,12 @@ function ViewMyApplications() {
 
     return (
         <body className={styles.body}>
+            <Alert
+                show={showAlert}
+                success={false}
+                message={errorMessage}
+                onClose={() => setShowAlert(false)}
+            />
             <NavBar />
             <ShelterManagementBar />
             <div className={styles.filterContainer}>

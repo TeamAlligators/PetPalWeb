@@ -4,6 +4,7 @@ import classes from "./PetSearch.module.css"
 import axios from "axios"
 import Endpoints from "../constants/Endpoints"
 import { NavLink } from "react-router-dom"
+import Alert from "../components/Alert"
 
 function PetSearch() {
 	const [filter, setFilter] = useState("")
@@ -12,10 +13,16 @@ function PetSearch() {
 	const [searchResults, setSearchResults] = useState([])
 	const [nextPageUrl, setNextPageUrl] = useState(null)
 	const [previousPageUrl, setPreviousPageUrl] = useState(null)
+	const [errorMessage, setErrorMessage] = useState(null);
+	const [showAlert, setShowAlert] = useState(false);
 
 	const handleSearch = async (url) => {
 		try {
-			const response = await axios.get(url, {
+			let endpoint = Endpoints.petresults;
+			if (url) {
+				endpoint = url;
+			}
+			const response = await axios.get(endpoint, {
 				params: {
 					[filter]: filterKeywords,
 					sort,
@@ -28,11 +35,19 @@ function PetSearch() {
 			setPreviousPageUrl(response.data.previous)
 		} catch (error) {
 			console.error("Error during search:", error)
+			setErrorMessage("Failed to search pets. Please try again.");
+			setShowAlert(true);
 		}
 	}
 
 	return (
 		<body className={classes["page-container"]}>
+			<Alert
+				show={showAlert}
+				success={false}
+				message={errorMessage}
+				onClose={() => setShowAlert(false)}
+			/>
 			<NavBar />
 			<div className={classes["body"]}>
 				<h1 className={classes["header"]}>Find your PetPal</h1>
@@ -105,9 +120,11 @@ function PetSearch() {
 							<div className={classes["search-text-container"]}>
 								<p>
 									{result.name} <br />
-									{result.age}
+									{result.age} year(s) old
 								</p>
-								<p>{result.breed}</p>
+								<p>{result.status.charAt(0).toUpperCase() + result.status.slice(1)} <br />
+									{result.breed}
+								</p>
 							</div>
 							<NavLink className={classes["details-button"]} to={`/pets/${result.id}`}>
 								See Details

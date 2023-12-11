@@ -5,6 +5,7 @@ import axios from "axios";
 import useUser from "../context/UserContext";
 import Endpoints from "../constants/Endpoints";
 import { useNavigate, useParams } from "react-router-dom";
+import Alert from "../components/Alert";
 
 function PetApplicationFilled() {
   const { pk } = useParams();
@@ -12,6 +13,8 @@ function PetApplicationFilled() {
   const [searchResults, setSearchResults] = useState([]);
   const [nextPageUrl, setNextPageUrl] = useState(null);
   const [previousPageUrl, setPreviousPageUrl] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(null);
+  const [showAlert, setShowAlert] = useState(false);
   const user = useUser();
   const [petDetails, setPetDetails] = useState({});
   // have status as a state variable available to be updated
@@ -79,6 +82,8 @@ function PetApplicationFilled() {
       setPetDetails(petResponse.data);
     } catch (error) {
       console.error("Error fetching details:", error);
+      setErrorMessage("Failed to get application details. Please try again.");
+      setShowAlert(true);
     }
   };
 
@@ -98,6 +103,8 @@ function PetApplicationFilled() {
       console.log("Fetched Comments Response", response);
     } catch (error) {
       console.error("Error fetching comments:", error);
+      setErrorMessage("Failed to get comments.");
+      setShowAlert(true);
     }
     //   fetchComments();
   };
@@ -128,6 +135,8 @@ function PetApplicationFilled() {
       setNewComment("");
     } catch (error) {
       console.error("Error submitting comment:", error);
+      setErrorMessage("Failed to submit comment. Please try again.");
+      setShowAlert(true);
     }
   };
 
@@ -157,6 +166,12 @@ function PetApplicationFilled() {
 
   return (
     <body className={classes["page-container"]}>
+      <Alert
+        show={showAlert}
+        success={false}
+        message={errorMessage}
+        onClose={() => setShowAlert(false)}
+      />
       <NavBar />
       <content className={classes["pet-application-content"]}>
         <h1 className={classes["title"]}>Adoption Application</h1>

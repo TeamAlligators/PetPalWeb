@@ -5,11 +5,14 @@ import NavBar from "../../components/NavBar"
 import useUser from "../../context/UserContext"
 import Endpoints from "../../constants/Endpoints"
 import { NavLink } from "react-router-dom"
+import Alert from "../../components/Alert"
 
 function ShelterListings() {
 	const [shelters, setShelters] = useState([])
 	const [nextPageUrl, setNextPageUrl] = useState(null)
 	const [previousPageUrl, setPreviousPageUrl] = useState(null)
+	const [errorMessage, setErrorMessage] = useState(null);
+	const [showAlert, setShowAlert] = useState(false);
 
 	const user = useUser()
 
@@ -26,6 +29,8 @@ function ShelterListings() {
 			setPreviousPageUrl(response.data.previous)
 		} catch (error) {
 			console.error("Error fetching shelters:", error)
+			setErrorMessage("Failed to get shelters. Please try again.");
+			setShowAlert(true);
 		}
 	}
 
@@ -43,6 +48,8 @@ function ShelterListings() {
 				setPreviousPageUrl(response.data.previous)
 			} catch (error) {
 				console.error("Error fetching shelters:", error)
+				setErrorMessage("Failed to get shelters. Are you logged in?");
+				setShowAlert(true);
 			}
 		}
 
@@ -51,6 +58,12 @@ function ShelterListings() {
 
 	return (
 		<div className={classes["page-container"]}>
+			<Alert
+				show={showAlert}
+				success={false}
+				message={errorMessage}
+				onClose={() => setShowAlert(false)}
+			/>
 			<NavBar />
 			<div className={classes.body}>
 				<h1 className={classes.header}>Shelters & Reviews</h1>

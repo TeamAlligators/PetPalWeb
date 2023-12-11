@@ -6,11 +6,14 @@ import axios from 'axios';
 import useUser from "../../context/UserContext";
 import Endpoints from '../../constants/Endpoints';
 import { NavLink } from "react-router-dom";
+import Alert from "../../components/Alert";
 
 function ViewMyListings() {
     const user = useUser();
     const [shelterId, setShelterId] = useState(null);
     const [searchResults, setSearchResults] = useState([])
+    const [errorMessage, setErrorMessage] = useState(null);
+    const [showAlert, setShowAlert] = useState(false);
     const [nextPageUrl, setNextPageUrl] = useState(null)
     const [previousPageUrl, setPreviousPageUrl] = useState(null)
 
@@ -25,6 +28,8 @@ function ViewMyListings() {
             setShelterId(shelterResponse.data.id);
         } catch (error) {
             console.error("Error getting shelter ID:", error);
+            setErrorMessage("Failed to get your pet listings. Are you logged in?");
+            setShowAlert(true);
         }
     };
 
@@ -43,6 +48,8 @@ function ViewMyListings() {
             setPreviousPageUrl(response.data.previous)
         } catch (error) {
             console.error('Error fetching pet listings:', error);
+            setErrorMessage("Failed to get your pet listings. Are you logged in?");
+            setShowAlert(true);
         }
     };
 
@@ -56,6 +63,12 @@ function ViewMyListings() {
 
     return (
         <body className={styles.body}>
+            <Alert
+                show={showAlert}
+                success={false}
+                message={errorMessage}
+                onClose={() => setShowAlert(false)}
+            />
             <NavBar />
             <ShelterManagementBar />
             <div className={styles.listingsContainer}>

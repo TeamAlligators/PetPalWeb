@@ -5,6 +5,7 @@ import axios from "axios";
 import useUser from "../../context/UserContext";
 import Endpoints from "../../constants/Endpoints";
 import { useNavigate, useParams } from "react-router-dom";
+import Alert from "../../components/Alert";
 
 function PetUpdate() {
     const user = useUser();
@@ -12,6 +13,8 @@ function PetUpdate() {
     const { pk } = useParams(); // Assuming you are using React Router for the pk parameter
     const [file, setFile] = useState(null);
     const [formDataUpdated, setFormDataUpdated] = useState(false);
+    const [errorMessage, setErrorMessage] = useState(null);
+    const [showAlert, setShowAlert] = useState(false);
     const [formData, setFormData] = useState({
         shelter: "",
         name: "",
@@ -52,6 +55,8 @@ function PetUpdate() {
                 });
             } catch (error) {
                 console.error('Error fetching pet data:', error);
+                setErrorMessage("Failed to get pet data. Please try again.");
+                setShowAlert(true);
             }
         };
 
@@ -81,6 +86,8 @@ function PetUpdate() {
                     navigate(`/pets/${updatedPetId}`);
                 } catch (error) {
                     console.error("Error updating pet:", error);
+                    setErrorMessage("Failed to update pet. Please try again.");
+                    setShowAlert(true);
                 }
             };
             updatePet();
@@ -115,11 +122,19 @@ function PetUpdate() {
             setFormDataUpdated(true);
         } catch (error) {
             console.error("Error getting shelter ID:", error);
+            setErrorMessage("Failed to update pet. Please try again.");
+            setShowAlert(true);
         }
     };
 
     return (
         <body className={styles.pageContainer}>
+            <Alert
+                show={showAlert}
+                success={false}
+                message={errorMessage}
+                onClose={() => setShowAlert(false)}
+            />
             <NavBar />
             <div className={styles.shelterManagement}>
                 <form className={styles.form} onSubmit={handleSubmit}>

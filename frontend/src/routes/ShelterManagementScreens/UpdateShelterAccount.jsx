@@ -6,12 +6,15 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Endpoints from "../../constants/Endpoints";
 import { useNavigate } from "react-router-dom";
+import Alert from "../../components/Alert";
 
 function UpdateShelter() {
     const user = useUser()
     const navigate = useNavigate();
     const [file, setFile] = useState(null);
     const [formDataUpdated, setFormDataUpdated] = useState(false);
+    const [errorMessage, setErrorMessage] = useState(null);
+    const [showAlert, setShowAlert] = useState(false);
     const [formData, setFormData] = useState({
         shelter: {
             name: "",
@@ -113,6 +116,8 @@ function UpdateShelter() {
                     }
                 } catch (error) {
                     console.error("Error updating user:", error);
+                    setErrorMessage("Failed to update user. Please try again.");
+                    setShowAlert(true);
                 }
             };
             updateUser();
@@ -134,6 +139,8 @@ function UpdateShelter() {
             setFormDataUpdated(true);
         } catch (error) {
             console.error("Error updating asdfasdfuser:", error);
+            setErrorMessage("Failed to update user. Please try again.");
+            setShowAlert(true);
         }
     };
 
@@ -158,6 +165,8 @@ function UpdateShelter() {
             });
         } catch (error) {
             console.error("Error updating user photo:", error);
+            setErrorMessage("Failed to update user. Please try again.");
+            setShowAlert(true);
         }
     };
 
@@ -181,11 +190,19 @@ function UpdateShelter() {
             console.log('Shelter deleted successfully');
         } catch (error) {
             console.error('Error deleting shelter:', error);
+            setErrorMessage("Failed to delete shelter. Please try again.");
+            setShowAlert(true);
         }
     };
 
     return (
         <body className={styles.pageContainer}>
+            <Alert
+                show={showAlert}
+                success={false}
+                message={errorMessage}
+                onClose={() => setShowAlert(false)}
+            />
             <NavBar />
             <ShelterManagementBar />
             <div className={styles.shelterManagement}>
