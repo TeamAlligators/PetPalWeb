@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Endpoints from "../../constants/Endpoints";
 import { useNavigate } from "react-router-dom";
+import SeekerManagementBar from "../../components/SeekerManagementBar";
 
 function UpdateSeeker() {
     const user = useUser();
@@ -163,6 +164,7 @@ function UpdateSeeker() {
     return (
         <body className={styles.pageContainer}>
             <NavBar />
+            <SeekerManagementBar />
             <div className={styles.seekerManagement}>
                 <form className={styles.form} enctype="multipart/form-data" onSubmit={handleSubmit}>
                     <div className={styles.profileContainer}>

@@ -15,27 +15,27 @@ function NavBar() {
 	const [previousPageUrl, setPreviousPageUrl] = useState(null)
 
 	const fetchNotifications = async (url) => {
-		try {
-			const response = await axios.get(`http://localhost:80/notifications/`, {
-				headers: {
-					Authorization: `Bearer ${user.token}`,
-				},
-			})
+		// try {
+		// 	const response = await axios.get(`http://localhost:80/notifications/`, {
+		// 		headers: {
+		// 			Authorization: `Bearer ${user.token}`,
+		// 		},
+		// 	})
 
-			const filteredNotifications = response.data.results.filter(
-				(notification) => {
-					const val = read === "False" ? false : true
-					return notification.is_read === val
-				}
-			)
+		// 	const filteredNotifications = response.data.results.filter(
+		// 		(notification) => {
+		// 			const val = read === "False" ? false : true
+		// 			return notification.is_read === val
+		// 		}
+		// 	)
 
-			setNotifications(filteredNotifications)
-			setNextPageUrl(response.data.next)
-			setPreviousPageUrl(response.data.previous)
-			console.log("notifs response", response)
-		} catch (error) {
-			console.error("Error fetching notifications:", error)
-		}
+		// 	setNotifications(filteredNotifications)
+		// 	setNextPageUrl(response.data.next)
+		// 	setPreviousPageUrl(response.data.previous)
+		// 	console.log("notifs response", response)
+		// } catch (error) {
+		// 	console.error("Error fetching notifications:", error)
+		// }
 	}
 
 	// useEffect(() => {
