@@ -23,3 +23,8 @@ class UserShelterSerializer(UserSerializer):
 
 class UserSeekerSerializer(UserSerializer):
     seeker = SeekerSerializer()
+
+class PhotoUpdateSerializer(ModelSerializer):
+    class Meta:
+        model = CustomUser
+        fields = ['photo']

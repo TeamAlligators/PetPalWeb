@@ -83,6 +83,7 @@ class ApplicationCommentCreateView(ListCreateAPIView):
                 notification_type='application_comment', 
                 application_comment = application_comment,
                 url = f'/applications/{application.id}/comment/',
+                application=application.id,
                 content=f'{self.request.user.first_name} {self.request.user.last_name} commented on their application for {application.pet.name}.'
             )
         # if the user is a shelter, create notification to seeker
@@ -92,6 +93,7 @@ class ApplicationCommentCreateView(ListCreateAPIView):
                 notification_type='application_comment', 
                 application_comment = application_comment,
                 url = f'/applications/{application.id}/comment/',
-                content=f'{self.request.user.first_name} {self.request.user.last_name} commented on your application for {application.pet.name}.'
+                content=f'{self.request.user.first_name} {self.request.user.last_name} commented on your application for {application.pet.name}.',
+                application=application.id
             )
         application.save()
