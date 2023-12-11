@@ -102,7 +102,7 @@
 	justify-content: center;
 	text-align: left;
 	width: calc(600 + 30vw);
-	z-index: 10;
+
 }
 
 .body-item-2 {
@@ -143,7 +143,7 @@
 	z-index: -1;
 	position: absolute;
 	top: 50%;
-	right: -5%;
+	right: 0%;
 	/* left: 20%; */
 	transform: translate(0, -50%);
 }

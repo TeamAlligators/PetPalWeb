@@ -138,7 +138,7 @@ function NavBar() {
 							appUrl = appUrl.replace(/\/comment\//g, "")
 							console.log(notification, "notif")
 							const notifApp = Endpoints.application.replace(
-								"pk",
+								":pk",
 								notification?.application
 							)
 							const appResponse = axios
