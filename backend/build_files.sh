@@ -6,5 +6,5 @@ virtualenv venv
 # # On macOS/Linux
 source venv/bin/activate
 
-pip install -r requirements2.txt
+pip install -r requirements.txt
 python manage.py collectstatic
