@@ -102,12 +102,14 @@
 	justify-content: center;
 	text-align: left;
 	width: calc(600 + 30vw);
+	z-index: 10;
 }
 
 .body-item-2 {
 	display: flex;
 	justify-content: flex-end;
 	width: 60vw;
+	z-index: 10;
 }
 
 .body-text {
@@ -137,11 +139,12 @@
 
 .index-picture-2 {
 	position: absolute;
-	width: 800px;
+	width: 1100px;
 	z-index: -1;
 	position: absolute;
-	top: 50%;
-	right: 0%;
+	top: 47%;
+	right: -5%;
+	/* left: 20%; */
 	transform: translate(0, -50%);
 }
 
