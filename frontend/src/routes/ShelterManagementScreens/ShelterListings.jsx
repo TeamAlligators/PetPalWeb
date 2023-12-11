@@ -86,7 +86,7 @@ function ShelterListings() {
 						<div key={shelter.shelter.id} className={classes["search-item"]}>
 							<img
 								className={classes["search-img"]}
-								src={shelter.shelter.photo}
+								src={shelter.photo ? shelter.photo : require("../../images/saskatoon-spca.jpg")}
 								alt={`${shelter.shelter.name}-img`}
 							/>
 							<div className={classes["search-text-container"]}>

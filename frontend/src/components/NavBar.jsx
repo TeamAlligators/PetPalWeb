@@ -88,7 +88,7 @@ function NavBar() {
 	}
 
 	return (
-		<nav id={styles.navigationBar}>
+		<nav id={styles.navigationBar} className={styles.nav}>
 			<span id={styles.navItemLeft}>
 				<NavLink className={styles.navLink} to={`/`}>
 					<img

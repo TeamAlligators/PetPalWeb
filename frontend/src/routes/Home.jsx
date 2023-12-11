@@ -7,13 +7,20 @@ function Home() {
 		<body class={classes["page-container"]}>
 			<NavBar />
 			<div class={classes["body"]}>
+				<img
+					class={classes["index-picture-2"]}
+					src={require("../images/pink_paw_print.png")}
+					alt="home2"
+				/>
 				<div class={classes["body-item"]}>
 					<img
 						class={classes["index-picture"]}
 						src={require("../images/index1.png")}
 						alt="home"
 					/>
-					<div>
+				</div>
+				<div class={classes["body-item"]}>
+					<div class={classes["sigh"]}>
 						<h1 class={classes["header"]}>
 							Bring <span class={classes["purple"]}>pawsitivity</span> in your life
 							with a<span class={classes["purple"]}> PetPal</span>
@@ -24,14 +31,7 @@ function Home() {
 							and every nuzzle is a reminder that love knows no bounds.
 						</p>
 					</div>
-					<img
-						class={classes["index-picture-2"]}
-						src={require("../images/index2.png")}
-						alt="home2"
-					/>
-				</div>
-				<div class={classes["body-item-2"]}>
-					<NavLink className={classes["sign-up-button"]} to={`/search`}>
+					<NavLink className={classes["button"]} to={`/search`}>
 						Explore{" "}
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
