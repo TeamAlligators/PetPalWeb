@@ -13,19 +13,21 @@ function PetSearch() {
 	const [searchResults, setSearchResults] = useState([])
 	const [nextPageUrl, setNextPageUrl] = useState(null)
 	const [previousPageUrl, setPreviousPageUrl] = useState(null)
-	const [errorMessage, setErrorMessage] = useState(null);
-	const [showAlert, setShowAlert] = useState(false);
+	const [errorMessage, setErrorMessage] = useState(null)
+	const [showAlert, setShowAlert] = useState(false)
 
 	const handleSearch = async (url) => {
 		try {
-			let endpoint = Endpoints.petresults;
+			let endpoint = Endpoints.petresults
 			if (url) {
-				endpoint = url;
+				endpoint = url
 			}
+
+			console.log(order)
 			const response = await axios.get(endpoint, {
 				params: {
 					[filter]: filterKeywords,
-					[order]: order,
+					order: order,
 				},
 			})
 
@@ -35,8 +37,8 @@ function PetSearch() {
 			setPreviousPageUrl(response.data.previous)
 		} catch (error) {
 			console.error("Error during search:", error)
-			setErrorMessage("Failed to search pets. Please try again.");
-			setShowAlert(true);
+			setErrorMessage("Failed to search pets. Please try again.")
+			setShowAlert(true)
 		}
 	}
 
@@ -126,7 +128,8 @@ function PetSearch() {
 									{result.name} <br />
 									{result.age} year(s) old
 								</p>
-								<p>{result.status.charAt(0).toUpperCase() + result.status.slice(1)} <br />
+								<p>
+									{result.status.charAt(0).toUpperCase() + result.status.slice(1)} <br />
 									{result.breed}
 								</p>
 							</div>
