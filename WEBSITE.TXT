@@ -1,0 +1,5 @@
+frontend:
+https://pet-pal-web.vercel.app/
+
+backend:
+https://pet-pal-web-backend-alligators.vercel.app/
