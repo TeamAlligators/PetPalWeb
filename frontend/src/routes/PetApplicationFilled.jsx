@@ -87,6 +87,33 @@ function PetApplicationFilled() {
     }
   };
 
+  // const fetchComments = async (url) => {
+  //   try {
+  //     const response = await axios.get(
+  //       url || Endpoints.applicationcomments.replace(":pk", pk),
+  //       {
+  //         headers: {
+  //           Authorization: "Bearer " + user.token,
+  //         },
+  //       }
+  //     );
+  //     setSearchResults(response.data.results);
+  //     setNextPageUrl(response.data.next);
+  //     setPreviousPageUrl(response.data.previous);
+  //     // console.log("Fetched Comments Response", response);
+  //   } catch (error) {
+  //     console.error("Error fetching comments:", error);
+  //     setErrorMessage("Failed to get comments.");
+  //     setShowAlert(true);
+  //   }
+  //   //   fetchComments();
+  // };
+
+  // useEffect(() => {
+  //   fetchData();
+  //   fetchComments();
+  // }, [pk, user.token]);
+
   const fetchComments = async (url) => {
     try {
       const response = await axios.get(
@@ -100,19 +127,18 @@ function PetApplicationFilled() {
       setSearchResults(response.data.results);
       setNextPageUrl(response.data.next);
       setPreviousPageUrl(response.data.previous);
-      // console.log("Fetched Comments Response", response);
+      console.log("commentsResponse", response);
     } catch (error) {
-      console.error("Error fetching comments:", error);
+      console.error('Error fetching comments:', error);
       setErrorMessage("Failed to get comments.");
       setShowAlert(true);
     }
-    //   fetchComments();
   };
 
   useEffect(() => {
     fetchData();
     fetchComments();
-  }, [pk, user.token]);
+  }, [pk]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

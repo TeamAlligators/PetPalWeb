@@ -25,7 +25,7 @@ function PetSearch() {
 			const response = await axios.get(endpoint, {
 				params: {
 					[filter]: filterKeywords,
-					[order]: order,
+					order: order,
 				},
 			})
 
