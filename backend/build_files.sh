@@ -4,6 +4,8 @@ virtualenv venv
 # On Windows
 # source venv/Scripts/activate
 # # On macOS/Linux
+pwd
+ls
 source venv/bin/activate
 
 pip install -r requirements.txt
