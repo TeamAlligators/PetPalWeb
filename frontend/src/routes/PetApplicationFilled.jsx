@@ -38,13 +38,13 @@ function PetApplicationFilled() {
     try {
       // Fetch application details
       const applicationResponse = await axios.get(
-        Endpoints.application,
+        Endpoints.application.replace(":pk", pk),
         {
           headers: {
             Authorization: "Bearer " + user.token,
           },
         },
-        { params: { pk: pk } }
+        // { params: { pk: pk } }
       );
 
       const foundApplication = applicationResponse.data.results.find(
@@ -100,7 +100,7 @@ function PetApplicationFilled() {
       setSearchResults(response.data.results);
       setNextPageUrl(response.data.next);
       setPreviousPageUrl(response.data.previous);
-      console.log("Fetched Comments Response", response);
+      // console.log("Fetched Comments Response", response);
     } catch (error) {
       console.error("Error fetching comments:", error);
       setErrorMessage("Failed to get comments.");
