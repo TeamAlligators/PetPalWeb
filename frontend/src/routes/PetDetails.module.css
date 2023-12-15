@@ -69,12 +69,23 @@
     margin-bottom: 5vh;
   }
 
+  .profile-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .pet-details-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
   .derpycat {
     border-radius: 30px;
-    width: 50%;
-    height: 50%;
-    margin-left: 25%;
-    margin-right: 25%;
+    width: 600px;
   }
   
   .grid-container {
@@ -283,6 +294,10 @@
   @media only screen and (max-width: 730px) {
     .sign-up-button {
       font-size: 16px;
+    }
+
+    .derpycat {
+      width: 80%;
     }
   }
   

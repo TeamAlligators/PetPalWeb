@@ -113,6 +113,17 @@ function PetApplication() {
     fetchPetDetails();
   }, [pk, user.token]);
 
+  useEffect(() => {
+    // set initial form data
+    if (user) {
+      setFormData(() => ({
+        first_name: user.first_name,
+        last_name: user.last_name,
+        email: user.email,
+      }));
+    }
+  }, [user]);
+
   return (
     <body className={classes["page-container"]}>
       <Alert

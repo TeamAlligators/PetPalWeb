@@ -71,16 +71,17 @@
 }
 
 .profile-container {
-	margin-left: 25%;
-	margin-right: 25%;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
 }
 
 .app-img {
     border-radius: 30px;
-    width: 50%;
-    height: 50%;
-    margin-left: 25%;
-    margin-right: 25%;
+    width: 600px;
+    /* margin-left: 25%;
+    margin-right: 25%; */
   }
   
 
@@ -152,16 +153,17 @@
 .adopt-button {
 	border: 0px;
 	background-color: #ffdfd3;
-	width: 50%;
+	width: 350px;
 	height: 60px;
-	border-radius: 15px;
+	border-radius: 30px;
 	box-shadow: -1px -1px 20px rgba(0, 0, 0, 0.25);
 	padding: 10px;
 	color: black;
-	font-weight: 500;
+	font-weight: 700;
 	margin-top: 15px;
-	font-size: 25px;
+	font-size: 22px;
 	text-decoration: none;
+	font-family: Nunito;
 }
 
 .adopt-button:hover {
@@ -209,123 +211,29 @@
 	height: 8px;
 }
 
-@media only screen and (max-width: 480px) {
-	.header {
-		font-weight: 600;
-		font-size: 48px;
-	}
-
-	.paragraph {
-		font-size: 14px;
-	}
-
-	.index-picture {
-		display: none;
-	}
-
-	.sign-up-button {
-		font-size: 12px;
-		padding: 6px;
-	}
-
-	.logo {
-		width: 100px;
-		padding: 5px;
-		padding-top: 0;
-	}
-
-	.nav-name {
-		font-size: 12px;
-	}
-}
-
 @media only screen and (max-width: 700px) {
-	.index-picture {
-		display: none;
+	.title {
+		padding: 0 20px;
 	}
-	.body-text {
-		width: 90vw;
+	.app-img {
+		width: 80%;
 	}
-
-	.body-item {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		text-align: left;
-		width: 90vw;
-	}
-
-	.nav-link {
-		display: none;
-	}
-
-	.nav-icon {
-		margin-left: 8px;
-		margin-right: 8px;
-		position: relative;
-	}
-
-	.notification-container {
-		margin-left: 0px;
-		margin-right: 0px;
-		position: relative;
-	}
-
-	.logo {
-		width: 150px;
-		padding: 10px;
-		padding-top: 0;
-	}
-
-	.sign-up-button {
-		font-size: 16px;
-	}
-}
-
-@media only screen and (max-width: 730px) {
-	.sign-up-button {
-		font-size: 16px;
-	}
-
 	.grid-container {
 		grid-template-columns: 1fr;
-	}
-}
-
-@media only screen and (max-width: 1200px) {
-	.index-picture {
-		width: 500px;
-	}
-
-	.logo {
-		width: 150px;
+		margin: 0;
+		align-items: center;
+		justify-content: center;
+		display: flex;
+		flex-direction: column;
 	}
 
-	.sign-up-button {
-		font-size: 16px;
+	.grid-item {
+		width: 80vw;
 	}
 
-	.nav-name {
-		font-size: 16px;
+	.adopt-button {
+		width: 100%;
+		margin: 0;
+		padding: 0;
 	}
-}
-
-.nav-icon {
-	color: black;
-}
-
-.nav-icon:hover {
-	color: #d0a1a1;
-}
-
-.nav-name {
-	color: black;
-	font-weight: 600;
-	font-size: 24px;
-	padding: 16px;
-	text-decoration: none;
-}
-
-.nav-name:hover {
-	color: #d0a1a1;
 }
