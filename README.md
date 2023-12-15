@@ -49,4 +49,4 @@ Great! Now you should be connected to both the frontend and backend locally.
 * **Frontend:** React, HTML/CSS
 * **Backend:** Django
 * **Database:** SQLite
-* **Hosting:** Vercel
+* **Hosting:** Vercel, Railway
